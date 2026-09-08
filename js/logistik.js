@@ -11,7 +11,7 @@
 
 const LogistikModule = {
   selectedYear: (new Date().getFullYear()).toString(),
-  selectedMonth: (["JAN", "FEB", "MAR", "APR", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"])[new Date().getMonth()] || "SEP",
+  selectedMonth: "JUNI",
   
   getAvailableYears: function() {
     const current = (new Date().getFullYear()).toString();
@@ -1181,19 +1181,37 @@ const LogistikModule = {
 },
 
   getFullData: function() {
-    const stored = localStorage.getItem("DANAMULYA_LOGISTIK_FULL_V10");
+    // Purge old versions that contained trial data for JULI, AGUSTUS, SEPTEMBER
+    try {
+      localStorage.removeItem("DANAMULYA_LOGISTIK_FULL_V10");
+      localStorage.removeItem("DANAMULYA_LOGISTIK_FULL_V9");
+    } catch (e) {}
+
+    const validMonths = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI"];
+    let data = null;
+    const stored = localStorage.getItem("DANAMULYA_LOGISTIK_FULL_V12");
     if (stored) {
       try {
-        return JSON.parse(stored);
+        data = JSON.parse(stored);
       } catch (e) {
         console.error("Failed to parse logistik full data from localStorage", e);
       }
     }
-    return JSON.parse(JSON.stringify(this.defaultFullData));
+    if (!data) {
+      data = JSON.parse(JSON.stringify(this.defaultFullData));
+    }
+    
+    // Strict sanitization: Delete any trial month keys not in Excel
+    Object.keys(data).forEach(k => {
+      if (!validMonths.includes(k)) {
+        delete data[k];
+      }
+    });
+    return data;
   },
 
   saveFullData: function(data) {
-    localStorage.setItem("DANAMULYA_LOGISTIK_FULL_V10", JSON.stringify(data));
+    localStorage.setItem("DANAMULYA_LOGISTIK_FULL_V12", JSON.stringify(data));
   },
 
   render: async function() {
@@ -1232,7 +1250,7 @@ const LogistikModule = {
     let totSec4StokAkhir = monthData.sec4.reduce((a, b) => a + (Number(b.stok_akhir) || 0), 0);
     let totSec4Rp = monthData.sec4.reduce((a, b) => a + (Number(b.jumlah_rp) || 0), 0);
 
-    const monthsList = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"];
+    const monthsList = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI"];
 
     const session = AuthManager.getSession();
     const peternakLabel = session ? session.namaLengkap : 'Petugas Logistik';
@@ -2253,60 +2271,38 @@ const LogistikModule = {
   },
 
   getActiveSaveMonth: function() {
-    if (this.selectedMonth && this.selectedMonth !== "ALL") return this.selectedMonth;
-    const monthNames = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"];
-    const currentMonthIdx = new Date().getMonth();
-    return monthNames[currentMonthIdx] || "SEP";
+    const validMonths = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI"];
+    if (this.selectedMonth && validMonths.includes(this.selectedMonth)) return this.selectedMonth;
+    return "JUNI";
   },
 
   ensureMonthData: function(allData, monthKey) {
-    if (!monthKey || monthKey === "ALL") monthKey = this.getActiveSaveMonth();
+    const validMonths = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI"];
+    if (!monthKey || monthKey === "ALL" || !validMonths.includes(monthKey)) {
+      monthKey = this.getActiveSaveMonth();
+    }
     if (!allData[monthKey]) {
-      allData[monthKey] = {
-        sec1: [
-          { no: 1, nama: "MILK CAN", stok_awal_unit: 6, stok_awal_harga: 650000, stok_awal_rp: 3900000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 6, stok_akhir_rp: 3900000 },
-          { no: 2, nama: "SARINGAN MILK CAN", stok_awal_unit: 24, stok_awal_harga: 130000, stok_awal_rp: 3120000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 24, stok_akhir_rp: 3120000 },
-          { no: 3, nama: "TIMBA PERAH", stok_awal_unit: 32, stok_awal_harga: 125000, stok_awal_rp: 4000000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 32, stok_akhir_rp: 4000000 },
-          { no: 4, nama: "BRANGUS SAPI", stok_awal_unit: 85, stok_awal_harga: 15000, stok_awal_rp: 1275000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 85, stok_akhir_rp: 1275000 },
-          { no: 5, nama: "ALAT CELUP", stok_awal_unit: 175, stok_awal_harga: 50000, stok_awal_rp: 8750000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 175, stok_akhir_rp: 8750000 }
-        ],
-        sec2: [
-          { no: 1, nama: "MF. A18 AGGT SUB", tunai_kg: 0, tunai_harga: 0, tunai_rp: 0, pot_kg: 0, pot_harga: 0, pot_rp: 0, piu_kg: 0, piu_harga: 0, piu_rp: 0, bunt_kg: 0, bunt_harga: 0, bunt_rp: 0, total_kg: 0, total_rp: 0 },
-          { no: 2, nama: "MAGNESIUM", tunai_kg: 0, tunai_harga: 35000, tunai_rp: 0, pot_kg: 0, pot_harga: 35000, pot_rp: 0, piu_kg: 0, piu_harga: 0, piu_rp: 0, bunt_kg: 0, bunt_harga: 0, bunt_rp: 0, total_kg: 0, total_rp: 0 },
-          { no: 3, nama: "DCP", tunai_kg: 0, tunai_harga: 25000, tunai_rp: 0, pot_kg: 0, pot_harga: 25000, pot_rp: 0, piu_kg: 0, piu_harga: 0, piu_rp: 0, bunt_kg: 0, bunt_harga: 0, bunt_rp: 0, total_kg: 0, total_rp: 0 },
-          { no: 4, nama: "MF A20 RATIO", tunai_kg: 0, tunai_harga: 4200, tunai_rp: 0, pot_kg: 0, pot_harga: 4200, pot_rp: 0, piu_kg: 0, piu_harga: 4200, piu_rp: 0, bunt_kg: 0, bunt_harga: 4200, bunt_rp: 0, total_kg: 0, total_rp: 0 },
-          { no: 5, nama: "MF A20 NON RATIO", tunai_kg: 0, tunai_harga: 4500, tunai_rp: 0, pot_kg: 0, pot_harga: 0, pot_rp: 0, piu_kg: 0, piu_harga: 0, piu_rp: 0, bunt_kg: 0, bunt_harga: 0, bunt_rp: 0, total_kg: 0, total_rp: 0 }
-        ],
-        sec3: [
-          { no: 1, nama: "MF. A18 AGGT SUB", kg: 0, harga: 0, rp: 0 },
-          { no: 2, nama: "MAGNESIUM", kg: 0, harga: 30000, rp: 0 },
-          { no: 3, nama: "DCP", kg: 0, harga: 22000, rp: 0 },
-          { no: 4, nama: "MIX FEED A20 TUNAI", kg: 0, harga: 4475, rp: 0 },
-          { no: 5, nama: "MIX FEED A20 NESTLE", kg: 0, harga: 4360, rp: 0 }
-        ],
-        sec4: [
-          { no: 1, nama: "MIX FEED A18", stok_awal: 0, pembelian: 0, siap_jual: 0, penjualan: 0, susut: 0, stok_akhir: 0, harga: 3900, jumlah_rp: 0 },
-          { no: 2, nama: "MAGNESIUM", stok_awal: 75, pembelian: 0, siap_jual: 75, penjualan: 6, susut: 0, stok_akhir: 69, harga: 30000, jumlah_rp: 2070000 },
-          { no: 3, nama: "DCP", stok_awal: 133, pembelian: 0, siap_jual: 133, penjualan: 18, susut: 0, stok_akhir: 115, harga: 25000, jumlah_rp: 2875000 },
-          { no: 4, nama: "MIX FEED A20", stok_awal: 30450, pembelian: 64000, siap_jual: 94450, penjualan: 66400, susut: 150, stok_akhir: 27900, harga: 4100, jumlah_rp: 114390000 }
-        ]
-      };
+      if (this.defaultFullData[monthKey]) {
+        allData[monthKey] = JSON.parse(JSON.stringify(this.defaultFullData[monthKey]));
+      } else {
+        allData[monthKey] = {
+          sec1: [],
+          sec2: [],
+          sec3: [],
+          sec4: []
+        };
+      }
     }
-    if (!allData[monthKey].sec1) {
-      allData[monthKey].sec1 = [
-        { no: 1, nama: "MILK CAN", stok_awal_unit: 6, stok_awal_harga: 650000, stok_awal_rp: 3900000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 6, stok_akhir_rp: 3900000 },
-        { no: 2, nama: "SARINGAN MILK CAN", stok_awal_unit: 24, stok_awal_harga: 130000, stok_awal_rp: 3120000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 24, stok_akhir_rp: 3120000 },
-        { no: 3, nama: "TIMBA PERAH", stok_awal_unit: 32, stok_awal_harga: 125000, stok_awal_rp: 4000000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 32, stok_akhir_rp: 4000000 },
-        { no: 4, nama: "BRANGUS SAPI", stok_awal_unit: 85, stok_awal_harga: 15000, stok_awal_rp: 1275000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 85, stok_akhir_rp: 1275000 },
-        { no: 5, nama: "ALAT CELUP", stok_awal_unit: 175, stok_awal_harga: 50000, stok_awal_rp: 8750000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 175, stok_akhir_rp: 8750000 }
-      ];
-    }
+    if (!allData[monthKey].sec1) allData[monthKey].sec1 = [];
+    if (!allData[monthKey].sec2) allData[monthKey].sec2 = [];
+    if (!allData[monthKey].sec3) allData[monthKey].sec3 = [];
+    if (!allData[monthKey].sec4) allData[monthKey].sec4 = [];
     return allData[monthKey];
   },
 
   syncMatrixFromTransactions: function(allData, monthKey) {
-    const monthsList = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"];
-    const monthMap = { JAN:1, FEB:2, MAR:3, APRIL:4, MEI:5, JUNI:6, JULI:7, AGU:8, SEP:9, OKT:10, NOV:11, DES:12 };
+    const monthsList = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI"];
+    const monthMap = { JAN:1, FEB:2, MAR:3, APRIL:4, MEI:5, JUNI:6 };
 
     const isFeedMatch = (a, b) => {
       if (!a || !b) return false;
@@ -2430,7 +2426,7 @@ const LogistikModule = {
 
   getTransactionsByMonth: function() {
     // Mapping nama bulan (same as selectedMonth) ke angka bulan (1-12)
-    const monthMap = { JAN:1, FEB:2, MAR:3, APRIL:4, MEI:5, JUNI:6, JULI:7, AGU:8, SEP:9, OKT:10, NOV:11, DES:12 };
+    const monthMap = { JAN:1, FEB:2, MAR:3, APRIL:4, MEI:5, JUNI:6 };
     const all = this.getTransactions();
     if (this.selectedMonth === 'ALL') return all;
     const targetMonth = monthMap[this.selectedMonth];

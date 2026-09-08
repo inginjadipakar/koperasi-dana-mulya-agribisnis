@@ -215,7 +215,7 @@ const ExcelViewerModule = {
 
   getDownloadFileName: function() {
     const fileBase = (this.activeFile || "LAPORAN_DANAMULYA.xlsx").replace(/\.[^/.]+$/, "");
-    const sheetName = (this.activeSheet || "AGUSTUS").toUpperCase();
+    const sheetName = (this.activeSheet || "JANUARI").toUpperCase();
     const ext = this.activeFile && this.activeFile.includes(".") ? this.activeFile.substring(this.activeFile.lastIndexOf(".")) : ".xlsx";
     return `${fileBase} - ${sheetName}${ext}`;
   },
@@ -223,7 +223,7 @@ const ExcelViewerModule = {
   triggerDownload: function(e, fileName, sheetName) {
     if (e && e.preventDefault) e.preventDefault();
     const fName = fileName || this.activeFile || "LAPORAN_DANAMULYA.xlsx";
-    const sName = (sheetName || this.activeSheet || "AGUSTUS").toUpperCase();
+    const sName = (sheetName || this.activeSheet || "JANUARI").toUpperCase();
     const fileBase = fName.replace(/\.[^/.]+$/, "");
     const ext = fName.includes(".") ? fName.substring(fName.lastIndexOf(".")) : ".xlsx";
     const targetFileName = `${fileBase} - ${sName}${ext}`;
