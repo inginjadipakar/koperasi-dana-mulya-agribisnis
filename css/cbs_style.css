@@ -1,0 +1,474 @@
+/* ============================================================
+   CBS CARDIATEC BIOSCIENCES — 4-LAYER VISUAL LANDING SYSTEM
+   ============================================================ */
+
+:root {
+  --primary-blue: #3b82f6;
+  --bg-sky-blue: #2563eb;
+  --card-dark: #0f172a;
+  --panel-purple: #7c3aed;
+  --panel-lavender: #8b5cf6;
+  --accent-green: #10b981;
+  --text-dark: #0f172a;
+  --text-muted: #64748b;
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-main);
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #1e3a8a;
+  user-select: none;
+}
+
+/* CONTAINER WIDESCREEN 16:9 CANVAS */
+.viewport-canvas {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* ============================================================
+   LAYER 1: BACKGROUND SLIDESHOW & GIANT TYPOGRAPHY
+   ============================================================ */
+.layer-1-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.bg-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center bottom;
+  opacity: 0;
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1.03);
+}
+
+.bg-slide.active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 6s ease-out;
+}
+
+/* GIANT BACKGROUND TYPOGRAPHY ("WORK") */
+.giant-bg-text {
+  position: absolute;
+  top: 8%;
+  right: 5%;
+  font-size: clamp(8rem, 18vw, 22rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 0.04em;
+  line-height: 0.8;
+  z-index: 2;
+  pointer-events: none;
+  text-transform: uppercase;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* TOP NAVBAR HEADER */
+.top-navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 50;
+  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.3) 0%, transparent 100%);
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+}
+
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  background: #000000;
+  color: #ffffff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.btn-talk {
+  background: #000000;
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-talk:hover {
+  background: #1e293b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+/* ============================================================
+   LAYER 3: CENTER FLOATING CARD (CBS / LOGIN & SHOWCASE)
+   ============================================================ */
+.stage-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 86vw;
+  max-width: 1200px;
+  height: 68vh;
+  max-height: 640px;
+  z-index: 10;
+  display: flex;
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+/* LEFT PANEL (CBS LOGO + CARD DETAILS / LOGIN FORM) */
+.left-card-panel {
+  width: 38%;
+  background: #8b5cf6; /* Vibrant purple matching ref design */
+  display: flex;
+  flex-direction: column;
+  color: #0f172a;
+  border-right: 2px solid #000000;
+  position: relative;
+  overflow: hidden;
+}
+
+.panel-header-black {
+  background: #000000;
+  color: #ffffff;
+  padding: 32px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cbs-title {
+  font-size: 4.2rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  text-transform: uppercase;
+  font-family: 'Impact', 'Arial Black', sans-serif;
+}
+
+.panel-body-content {
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.client-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.client-name {
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+/* TAB NAVIGATION (LOGIN VS OVERVIEW) */
+.card-mode-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.2);
+  padding-bottom: 10px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #475569;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* FORM STYLING FOR LOGIN MODE */
+.login-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 2px solid #0f172a;
+  background: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.login-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.btn-action-primary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border: 2px solid #0f172a;
+  background: transparent;
+  color: #0f172a;
+  font-weight: 900;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-action-primary:hover {
+  background: #0f172a;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.card-footer-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #334155;
+}
+
+/* RIGHT PANEL (SHOWCASE CAROUSEL SLIDES) */
+.right-card-panel {
+  width: 62%;
+  background: #e2e8f0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.showcase-slider-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.showcase-slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  position: relative;
+}
+
+.showcase-img {
+  max-width: 92%;
+  max-height: 88%;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  transition: transform 0.4s ease;
+}
+
+.showcase-slide:hover .showcase-img {
+  transform: scale(1.02);
+}
+
+/* SIDE SCREEN ARROWS (FLOATING ON LEFT/RIGHT EDGES) */
+.screen-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #000000;
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+  z-index: 35;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+}
+
+.screen-nav-arrow:hover {
+  background: #2563eb;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.screen-nav-arrow.left {
+  left: 30px;
+}
+
+.screen-nav-arrow.right {
+  right: 30px;
+}
+
+/* ============================================================
+   LAYER 4: FOREGROUND OVERLAY (ROAD + CYCLIST + LANDSCAPE)
+   ============================================================ */
+.layer-4-foreground {
+  position: absolute;
+  right: -5%;
+  bottom: -4%;
+  width: 58vw;
+  max-width: 950px;
+  z-index: 20; /* Overlaps Layer 3 floating card! */
+  pointer-events: none; /* Allows click-through to buttons underneath if needed */
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.25));
+  transition: transform 0.3s ease-out;
+}
+
+.road-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  clip-path: polygon(32% 0, 100% 0, 100% 100%, 32% 100%);
+}
+
+/* RESPONSIVE DESIGN FOR LAPTOP & SMALLER SCREEN */
+@media (max-width: 1024px) {
+  .stage-center {
+    width: 92vw;
+    height: 72vh;
+  }
+  .layer-4-foreground {
+    width: 65vw;
+    right: -8%;
+    bottom: -5%;
+  }
+  .cbs-title {
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .viewport-canvas {
+    overflow-y: auto;
+  }
+  .layer-1-background .bg-slide {
+    background-image: url('../images/mobile.png') !important;
+    background-size: cover;
+    background-position: center;
+  }
+  .stage-center {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    flex-direction: column;
+    width: 92%;
+    height: auto;
+    margin: 90px auto 40px;
+  }
+  .left-card-panel, .right-card-panel {
+    width: 100%;
+  }
+  .layer-4-foreground {
+    position: relative;
+    width: 100%;
+    right: 0;
+    bottom: 0;
+  }
+}

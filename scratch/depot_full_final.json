@@ -1,0 +1,1491 @@
+{
+  "JAN": {
+    "pembelian": [
+      {
+        "asal": "PROCESSING",
+        "kg": 36144.0,
+        "liter": 35262.44,
+        "harga_per_kg": 9000,
+        "total_rp": 325296000.0
+      }
+    ],
+    "penjualan": [
+      {
+        "nama": "HERU",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 9270.0,
+        "rp": 101970000.0
+      },
+      {
+        "nama": "JAINAL",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 3386.0,
+        "rp": 37246000.0
+      },
+      {
+        "nama": "YULI",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 830.0,
+        "rp": 9130000.0
+      },
+      {
+        "nama": "NINDRI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 1524.0,
+        "rp": 15240000.0
+      },
+      {
+        "nama": "ISA",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 455.0,
+        "rp": 4550000.0
+      },
+      {
+        "nama": "USMAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 2800.0,
+        "rp": 28000000.0
+      },
+      {
+        "nama": "GRESIK",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 1175.0,
+        "rp": 11750000.0
+      },
+      {
+        "nama": "KARYAWAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 343.9,
+        "rp": 3439000.0
+      },
+      {
+        "nama": "SUDAR",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 169.0,
+        "rp": 1859000.0
+      },
+      {
+        "nama": "FX. MUNIR",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 16.0,
+        "rp": 160000.0
+      },
+      {
+        "nama": "PURI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 1910.0,
+        "rp": 19100000.0
+      },
+      {
+        "nama": "PAK MUL SAMPURNA",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 75.0,
+        "rp": 900000.0
+      },
+      {
+        "nama": "UMUM",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 10106.0,
+        "rp": 82230000.0
+      },
+      {
+        "nama": "BOTOL",
+        "harga": 8000.0,
+        "qty": 2950.0,
+        "liter": 1075.0,
+        "rp": 23600000.0
+      },
+      {
+        "nama": "GELAS",
+        "harga": 6000.0,
+        "qty": 889.0,
+        "liter": 297.0,
+        "rp": 5334000.0
+      }
+    ],
+    "lain_lain": [
+      {
+        "keterangan": "sosial susu botol",
+        "qty": 20.0,
+        "liter": 7.0
+      },
+      {
+        "keterangan": "sosial susu liter koramil 503 bulan desember",
+        "qty": 0.0,
+        "liter": 120.0
+      },
+      {
+        "keterangan": "Susut",
+        "qty": 0.0,
+        "liter": 630.0
+      },
+      {
+        "keterangan": "susu rusak botol",
+        "qty": 160.0,
+        "liter": 54.0
+      },
+      {
+        "keterangan": "susu bonus agen",
+        "qty": 0.0,
+        "liter": 543.0
+      }
+    ],
+    "operasional": [
+      {
+        "no": 1,
+        "nama": "lemburan nataru",
+        "rp": 750000.0
+      },
+      {
+        "no": 2,
+        "nama": "stiker",
+        "rp": 1560000.0
+      },
+      {
+        "no": 3,
+        "nama": "kresek,esense",
+        "rp": 575000.0
+      },
+      {
+        "no": 4,
+        "nama": "galon",
+        "rp": 60000.0
+      },
+      {
+        "no": 5,
+        "nama": "sepatu isa yoga",
+        "rp": 200000.0
+      },
+      {
+        "no": 6,
+        "nama": "gula",
+        "rp": 2114000.0
+      },
+      {
+        "no": 7,
+        "nama": "sampah",
+        "rp": 50000.0
+      },
+      {
+        "no": 8,
+        "nama": "plastik",
+        "rp": 450000.0
+      },
+      {
+        "no": 9,
+        "nama": "belanja",
+        "rp": 530000.0
+      },
+      {
+        "no": 10,
+        "nama": "belanja kresek",
+        "rp": 1567000.0
+      },
+      {
+        "no": 11,
+        "nama": "botol",
+        "rp": 8900000.0
+      },
+      {
+        "no": 12,
+        "nama": "lpg",
+        "rp": 126000.0
+      },
+      {
+        "no": 13,
+        "nama": "wifi",
+        "rp": 150000.0
+      },
+      {
+        "no": 14,
+        "nama": "tatakan kompor",
+        "rp": 63000.0
+      },
+      {
+        "no": 15,
+        "nama": "service frezer",
+        "rp": 250000.0
+      }
+    ],
+    "stok": {
+      "stok_awal": 124.0,
+      "penerimaan": 35262.439024390245,
+      "persediaan": 35386.439024390245,
+      "pengeluaran": 34785.9,
+      "stok_akhir": 600.0,
+      "nb": "nb : 500liter, 270botol"
+    }
+  },
+  "FEB": {
+    "pembelian": [
+      {
+        "asal": "PROCESSING",
+        "kg": 24930.0,
+        "liter": 24321.95,
+        "harga_per_kg": 9000,
+        "total_rp": 224370000.0
+      }
+    ],
+    "penjualan": [
+      {
+        "nama": "HERU",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 6540.0,
+        "rp": 71940000.0
+      },
+      {
+        "nama": "JAINAL",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 2164.0,
+        "rp": 23804000.0
+      },
+      {
+        "nama": "YULI",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 590.0,
+        "rp": 6490000.0
+      },
+      {
+        "nama": "NINDRI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 843.0,
+        "rp": 8430000.0
+      },
+      {
+        "nama": "ISA",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 140.0,
+        "rp": 1400000.0
+      },
+      {
+        "nama": "USMAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 1775.0,
+        "rp": 17750000.0
+      },
+      {
+        "nama": "GRESIK",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 960.0,
+        "rp": 9600000.0
+      },
+      {
+        "nama": "KARYAWAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 375.9,
+        "rp": 3759000.0
+      },
+      {
+        "nama": "SUDAR",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 144.0,
+        "rp": 1584000.0
+      },
+      {
+        "nama": "FX. MUNIR",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 5.0,
+        "rp": 50000.0
+      },
+      {
+        "nama": "PURI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 1890.0,
+        "rp": 18900000.0
+      },
+      {
+        "nama": "PAK MUL SAMPURNA",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 102.0,
+        "rp": 1224000.0
+      },
+      {
+        "nama": "UMUM",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 7424.0,
+        "rp": 70205000.0
+      },
+      {
+        "nama": "BOTOL",
+        "harga": 8000.0,
+        "qty": 1954.0,
+        "liter": 605.0,
+        "rp": 15632000.0
+      },
+      {
+        "nama": "GELAS",
+        "harga": 6000.0,
+        "qty": 541.0,
+        "liter": 181.0,
+        "rp": 3246000.0
+      }
+    ],
+    "lain_lain": [
+      {
+        "keterangan": "sosial susu botol",
+        "qty": 15.0,
+        "liter": 5.0
+      },
+      {
+        "keterangan": "sosial susu liter",
+        "qty": 0.0,
+        "liter": 50.0
+      },
+      {
+        "keterangan": "Susut",
+        "qty": 0.0,
+        "liter": 528.0
+      },
+      {
+        "keterangan": "susu bonus agen",
+        "qty": 0.0,
+        "liter": 420.0
+      }
+    ],
+    "operasional": [
+      {
+        "no": 1,
+        "nama": "plastik",
+        "rp": 1300000.0
+      },
+      {
+        "no": 2,
+        "nama": "sampah",
+        "rp": 50000.0
+      },
+      {
+        "no": 3,
+        "nama": "lpg",
+        "rp": 205000.0
+      },
+      {
+        "no": 4,
+        "nama": "gula",
+        "rp": 975000.0
+      },
+      {
+        "no": 5,
+        "nama": "stiker",
+        "rp": 520000.0
+      },
+      {
+        "no": 6,
+        "nama": "thermal",
+        "rp": 525000.0
+      },
+      {
+        "no": 7,
+        "nama": "print",
+        "rp": 12000.0
+      },
+      {
+        "no": 8,
+        "nama": "lemburan",
+        "rp": 500000.0
+      },
+      {
+        "no": 9,
+        "nama": "wifi",
+        "rp": 150000.0
+      },
+      {
+        "no": 10,
+        "nama": "kresek",
+        "rp": 465000.0
+      }
+    ],
+    "stok": {
+      "stok_awal": 600.0,
+      "penerimaan": 24321.951219512197,
+      "persediaan": 24921.951219512197,
+      "pengeluaran": 24741.9,
+      "stok_akhir": 180.0,
+      "nb": "nb sisa 100liter,dan 256 botol"
+    }
+  },
+  "MAR": {
+    "pembelian": [
+      {
+        "asal": "PROCESSING",
+        "kg": 25952.0,
+        "liter": 25319.02,
+        "harga_per_kg": 9000,
+        "total_rp": 233568000.0
+      }
+    ],
+    "penjualan": [
+      {
+        "nama": "HERU",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 6180.0,
+        "rp": 67980000.0
+      },
+      {
+        "nama": "JAINAL",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 2560.0,
+        "rp": 28160000.0
+      },
+      {
+        "nama": "YULI",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 550.0,
+        "rp": 6050000.0
+      },
+      {
+        "nama": "NINDRI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 1055.0,
+        "rp": 10550000.0
+      },
+      {
+        "nama": "ISA",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 438.0,
+        "rp": 4380000.0
+      },
+      {
+        "nama": "USMAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 2100.0,
+        "rp": 21000000.0
+      },
+      {
+        "nama": "GRESIK",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 742.0,
+        "rp": 7420000.0
+      },
+      {
+        "nama": "KARYAWAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 416.2,
+        "rp": 4162000.0
+      },
+      {
+        "nama": "SUDAR",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 138.0,
+        "rp": 1518000.0
+      },
+      {
+        "nama": "FX. MUNIR",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 23.0,
+        "rp": 230000.0
+      },
+      {
+        "nama": "PURI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 830.0,
+        "rp": 8300000.0
+      },
+      {
+        "nama": "PAK MUL SAMPURNA",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 78.0,
+        "rp": 936000.0
+      },
+      {
+        "nama": "UMUM",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 8533.0,
+        "rp": 75210000.0
+      },
+      {
+        "nama": "BOTOL",
+        "harga": 8000.0,
+        "qty": 3092.0,
+        "liter": 1027.0,
+        "rp": 24736000.0
+      },
+      {
+        "nama": "GELAS",
+        "harga": 6000.0,
+        "qty": 408.0,
+        "liter": 182.0,
+        "rp": 2448000.0
+      }
+    ],
+    "lain_lain": [
+      {
+        "keterangan": "sosial susu botol",
+        "qty": 15.0,
+        "liter": 5.0
+      },
+      {
+        "keterangan": "sosial susu liter",
+        "qty": 0.0,
+        "liter": 10.0
+      },
+      {
+        "keterangan": "Susut",
+        "qty": 0.0,
+        "liter": 215.8
+      },
+      {
+        "keterangan": "susu rusak",
+        "qty": 20.0,
+        "liter": 10.0
+      },
+      {
+        "keterangan": "susu bonus agen",
+        "qty": 0.0,
+        "liter": 220.0
+      }
+    ],
+    "operasional": [
+      {
+        "no": 1,
+        "nama": "sampah",
+        "rp": 50000.0
+      },
+      {
+        "no": 2,
+        "nama": "stiker",
+        "rp": 1300000.0
+      },
+      {
+        "no": 3,
+        "nama": "lpg",
+        "rp": 189000.0
+      },
+      {
+        "no": 4,
+        "nama": "plastik susu",
+        "rp": 1720000.0
+      },
+      {
+        "no": 5,
+        "nama": "gula",
+        "rp": 1125000.0
+      },
+      {
+        "no": 6,
+        "nama": "kresek",
+        "rp": 1280000.0
+      },
+      {
+        "no": 7,
+        "nama": "wifi",
+        "rp": 150000.0
+      },
+      {
+        "no": 8,
+        "nama": "galon",
+        "rp": 20000.0
+      },
+      {
+        "no": 9,
+        "nama": "esense",
+        "rp": 480000.0
+      },
+      {
+        "no": 10,
+        "nama": "sabun",
+        "rp": 164000.0
+      },
+      {
+        "no": 11,
+        "nama": "lemburan hari raya 5orang",
+        "rp": 2500000.0
+      }
+    ],
+    "stok": {
+      "stok_awal": 180.0,
+      "penerimaan": 25319.024390243903,
+      "persediaan": 25499.024390243903,
+      "pengeluaran": 25313.0,
+      "stok_akhir": 186.0,
+      "nb": "nb : liter 160,botol 86"
+    }
+  },
+  "APRIL": {
+    "pembelian": [
+      {
+        "asal": "PROCESSING",
+        "kg": 35180.0,
+        "liter": 34321.95,
+        "harga_per_kg": 9000,
+        "total_rp": 316620000.0
+      }
+    ],
+    "penjualan": [
+      {
+        "nama": "HERU",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 9010.0,
+        "rp": 99110000.0
+      },
+      {
+        "nama": "JAINAL",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 3590.0,
+        "rp": 39490000.0
+      },
+      {
+        "nama": "YULI",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 934.0,
+        "rp": 10274000.0
+      },
+      {
+        "nama": "NINDRI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 1513.0,
+        "rp": 15130000.0
+      },
+      {
+        "nama": "ISA",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 550.0,
+        "rp": 5500000.0
+      },
+      {
+        "nama": "USMAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 3325.0,
+        "rp": 33250000.0
+      },
+      {
+        "nama": "GRESIK",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 1140.0,
+        "rp": 11400000.0
+      },
+      {
+        "nama": "KARYAWAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 323.8,
+        "rp": 3238000.0
+      },
+      {
+        "nama": "SUDAR",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 158.0,
+        "rp": 1738000.0
+      },
+      {
+        "nama": "FX. MUNIR",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 5.0,
+        "rp": 50000.0
+      },
+      {
+        "nama": "PURI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 2580.0,
+        "rp": 25800000.0
+      },
+      {
+        "nama": "PAK MUL SAMPURNA",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 135.0,
+        "rp": 1620000.0
+      },
+      {
+        "nama": "UMUM",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 8841.0,
+        "rp": 83991000.0
+      },
+      {
+        "nama": "BOTOL",
+        "harga": 8000.0,
+        "qty": 2301.0,
+        "liter": 715.0,
+        "rp": 18408000.0
+      },
+      {
+        "nama": "GELAS",
+        "harga": 6000.0,
+        "qty": 689.0,
+        "liter": 253.0,
+        "rp": 4134000.0
+      }
+    ],
+    "lain_lain": [
+      {
+        "keterangan": "sosial susu botol",
+        "qty": 20.0,
+        "liter": 6.0
+      },
+      {
+        "keterangan": "sosial susu liter",
+        "qty": 15.0,
+        "liter": 15.0
+      },
+      {
+        "keterangan": "Susut",
+        "qty": 0.0,
+        "liter": 525.0
+      },
+      {
+        "keterangan": "susu rusak botol",
+        "qty": 10.0,
+        "liter": 3.0
+      },
+      {
+        "keterangan": "susu bonus agen",
+        "qty": 0.0,
+        "liter": 530.2
+      }
+    ],
+    "operasional": [
+      {
+        "no": 1,
+        "nama": "stiker",
+        "rp": 1300000.0
+      },
+      {
+        "no": 2,
+        "nama": "sampah",
+        "rp": 50000.0
+      },
+      {
+        "no": 3,
+        "nama": "lpg",
+        "rp": 324000.0
+      },
+      {
+        "no": 4,
+        "nama": "gula",
+        "rp": 1950000.0
+      },
+      {
+        "no": 5,
+        "nama": "plastik,kasak,sedotan",
+        "rp": 1701000.0
+      },
+      {
+        "no": 6,
+        "nama": "kresek",
+        "rp": 270000.0
+      },
+      {
+        "no": 7,
+        "nama": "wifi",
+        "rp": 150000.0
+      },
+      {
+        "no": 8,
+        "nama": "galon",
+        "rp": 21000.0
+      },
+      {
+        "no": 9,
+        "nama": "lemburan",
+        "rp": 250000.0
+      }
+    ],
+    "stok": {
+      "stok_awal": 186.0,
+      "penerimaan": 34321.9512195122,
+      "persediaan": 34507.9512195122,
+      "pengeluaran": 34152.0,
+      "stok_akhir": 356.0,
+      "nb": "nb : sisa botol 320,sisa liter 260"
+    }
+  },
+  "MEI": {
+    "pembelian": [
+      {
+        "asal": "PROCESSING",
+        "kg": 41052.0,
+        "liter": 40050.73,
+        "harga_per_kg": 9000,
+        "total_rp": 369468000.0
+      }
+    ],
+    "penjualan": [
+      {
+        "nama": "HERU",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 10740.0,
+        "rp": 118140000.0
+      },
+      {
+        "nama": "JAINAL",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 4560.0,
+        "rp": 50160000.0
+      },
+      {
+        "nama": "YULI",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 1000.0,
+        "rp": 11000000.0
+      },
+      {
+        "nama": "NINDRI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 2042.0,
+        "rp": 20420000.0
+      },
+      {
+        "nama": "ISA",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 650.0,
+        "rp": 6500000.0
+      },
+      {
+        "nama": "USMAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 3640.0,
+        "rp": 36400000.0
+      },
+      {
+        "nama": "GRESIK",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 960.0,
+        "rp": 9600000.0
+      },
+      {
+        "nama": "KARYAWAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 252.6,
+        "rp": 2526000.0
+      },
+      {
+        "nama": "SUDAR",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 142.0,
+        "rp": 1562000.0
+      },
+      {
+        "nama": "PURI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 2545.0,
+        "rp": 25450000.0
+      },
+      {
+        "nama": "PAK MUL SAMPURNA",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 100.0,
+        "rp": 1200000.0
+      },
+      {
+        "nama": "UMUM",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 10713.0,
+        "rp": 96419000.0
+      },
+      {
+        "nama": "BOTOL",
+        "harga": 8000.0,
+        "qty": 3085.0,
+        "liter": 926.0,
+        "rp": 24680000.0
+      },
+      {
+        "nama": "GELAS",
+        "harga": 6000.0,
+        "qty": 973.0,
+        "liter": 295.0,
+        "rp": 5838000.0
+      }
+    ],
+    "lain_lain": [
+      {
+        "keterangan": "sosial susu botol",
+        "qty": 50.0,
+        "liter": 13.0
+      },
+      {
+        "keterangan": "sosial susu liter",
+        "qty": 0.0,
+        "liter": 15.0
+      },
+      {
+        "keterangan": "Susut",
+        "qty": 0.0,
+        "liter": 657.7
+      },
+      {
+        "keterangan": "susu rusak",
+        "qty": 30.0,
+        "liter": 8.0
+      },
+      {
+        "keterangan": "susu bonus agen",
+        "qty": 0.0,
+        "liter": 697.7
+      }
+    ],
+    "operasional": [
+      {
+        "no": 1,
+        "nama": "sampah",
+        "rp": 50000.0
+      },
+      {
+        "no": 2,
+        "nama": "wifi",
+        "rp": 150000.0
+      },
+      {
+        "no": 3,
+        "nama": "lpg",
+        "rp": 360000.0
+      },
+      {
+        "no": 4,
+        "nama": "gula",
+        "rp": 1650000.0
+      },
+      {
+        "no": 5,
+        "nama": "kresek",
+        "rp": 2320000.0
+      },
+      {
+        "no": 6,
+        "nama": "plastik",
+        "rp": 2265000.0
+      },
+      {
+        "no": 7,
+        "nama": "lemburan",
+        "rp": 1050000.0
+      },
+      {
+        "no": 8,
+        "nama": "galon",
+        "rp": 66000.0
+      },
+      {
+        "no": 9,
+        "nama": "stiker",
+        "rp": 1040000.0
+      },
+      {
+        "no": 10,
+        "nama": "esense",
+        "rp": 843000.0
+      },
+      {
+        "no": 11,
+        "nama": "slang regulator",
+        "rp": 205000.0
+      },
+      {
+        "no": 12,
+        "nama": "gelas",
+        "rp": 180000.0
+      }
+    ],
+    "stok": {
+      "stok_awal": 356.0,
+      "penerimaan": 40050.73170731708,
+      "persediaan": 40406.73170731708,
+      "pengeluaran": 39957.0,
+      "stok_akhir": 450.0,
+      "nb": "nb: sisa liter 420, botol 120"
+    }
+  },
+  "JUNI": {
+    "pembelian": [
+      {
+        "asal": "PROCESSING",
+        "kg": 39675.0,
+        "liter": 38708.0,
+        "harga_per_kg": 9000,
+        "total_rp": 357075000.0
+      }
+    ],
+    "penjualan": [
+      {
+        "nama": "HERU",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 9245.0,
+        "rp": 101695000.0
+      },
+      {
+        "nama": "JAINAL",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 4290.0,
+        "rp": 47190000.0
+      },
+      {
+        "nama": "USMAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 4455.0,
+        "rp": 44550000.0
+      },
+      {
+        "nama": "NINDRI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 2232.0,
+        "rp": 22320000.0
+      },
+      {
+        "nama": "ISA",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 720.0,
+        "rp": 7200000.0
+      },
+      {
+        "nama": "YULI",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 790.0,
+        "rp": 8690000.0
+      },
+      {
+        "nama": "PURI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 2256.0,
+        "rp": 22560000.0
+      },
+      {
+        "nama": "GRESIK",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 1650.0,
+        "rp": 16500000.0
+      },
+      {
+        "nama": "SUDAR",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 174.0,
+        "rp": 1914000.0
+      },
+      {
+        "nama": "PAK MUL SAMPORNA",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 100.0,
+        "rp": 1200000.0
+      },
+      {
+        "nama": "KARYAWAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 403.1,
+        "rp": 4031000.0
+      },
+      {
+        "nama": "UMUM",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 7510.5,
+        "rp": 90126000.0
+      },
+      {
+        "nama": "GELAS",
+        "harga": 6000.0,
+        "qty": 953.0,
+        "liter": 317.67,
+        "rp": 5718000.0
+      },
+      {
+        "nama": "BOTOL",
+        "harga": 8000.0,
+        "qty": 3257.0,
+        "liter": 814.25,
+        "rp": 26056000.0
+      }
+    ],
+    "lain_lain": [
+      {
+        "keterangan": "SUSUT MASAK",
+        "qty": 0.0,
+        "liter": 250.0
+      },
+      {
+        "keterangan": "SUSUT LITER",
+        "qty": 0.0,
+        "liter": 2768.0
+      },
+      {
+        "keterangan": "SUSU SOSIAL",
+        "qty": 0.0,
+        "liter": 20.0
+      },
+      {
+        "keterangan": "SUSU BONUS AGEN",
+        "qty": 0.0,
+        "liter": 1120.0
+      }
+    ],
+    "operasional": [
+      {
+        "no": 1,
+        "nama": "sampah",
+        "rp": 50000.0
+      },
+      {
+        "no": 2,
+        "nama": "wifi",
+        "rp": 150000.0
+      },
+      {
+        "no": 3,
+        "nama": "lpg",
+        "rp": 240000.0
+      },
+      {
+        "no": 4,
+        "nama": "gula",
+        "rp": 1465000.0
+      },
+      {
+        "no": 5,
+        "nama": "kresek",
+        "rp": 1926000.0
+      },
+      {
+        "no": 6,
+        "nama": "plastik",
+        "rp": 2235000.0
+      },
+      {
+        "no": 7,
+        "nama": "lemburan",
+        "rp": 500000.0
+      },
+      {
+        "no": 8,
+        "nama": "galon",
+        "rp": 66000.0
+      },
+      {
+        "no": 9,
+        "nama": "kopi",
+        "rp": 66000.0
+      },
+      {
+        "no": 10,
+        "nama": "botol",
+        "rp": 8170000.0
+      },
+      {
+        "no": 11,
+        "nama": "beli wd",
+        "rp": 60000.0
+      },
+      {
+        "no": 12,
+        "nama": "beli tang",
+        "rp": 30000.0
+      },
+      {
+        "no": 13,
+        "nama": "tabung lpg",
+        "rp": 195000.0
+      }
+    ],
+    "stok": {
+      "stok_awal": 450.0,
+      "penerimaan": 38708.0,
+      "persediaan": 39158.0,
+      "pengeluaran": 34957.51666666666,
+      "stok_akhir": 4200.48,
+      "nb": "Sisa botol: 120, sisa liter: 420"
+    }
+  },
+  "JULI": {
+    "pembelian": [
+      {
+        "asal": "PROCESSING",
+        "kg": 38030.0,
+        "liter": 37103.0,
+        "harga_per_kg": 9000,
+        "total_rp": 342270000.0
+      }
+    ],
+    "penjualan": [
+      {
+        "nama": "HERU",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 9080.0,
+        "rp": 99880000.0
+      },
+      {
+        "nama": "JAINAL",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 3690.0,
+        "rp": 40590000.0
+      },
+      {
+        "nama": "USMAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 4414.0,
+        "rp": 44140000.0
+      },
+      {
+        "nama": "NINDRI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 2790.0,
+        "rp": 27900000.0
+      },
+      {
+        "nama": "ISA",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 575.0,
+        "rp": 5750000.0
+      },
+      {
+        "nama": "YULI",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 700.0,
+        "rp": 7700000.0
+      },
+      {
+        "nama": "PURI",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 1320.0,
+        "rp": 13200000.0
+      },
+      {
+        "nama": "GRESIK",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 300.0,
+        "rp": 3000000.0
+      },
+      {
+        "nama": "SUDAR",
+        "harga": 11000.0,
+        "qty": 0.0,
+        "liter": 181.0,
+        "rp": 1991000.0
+      },
+      {
+        "nama": "PAK MUL SAMPORNA",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 128.0,
+        "rp": 1536000.0
+      },
+      {
+        "nama": "KARYAWAN",
+        "harga": 10000.0,
+        "qty": 0.0,
+        "liter": 357.8,
+        "rp": 3578000.0
+      },
+      {
+        "nama": "UMUM",
+        "harga": 12000.0,
+        "qty": 0.0,
+        "liter": 7164.81,
+        "rp": 85977720.0
+      },
+      {
+        "nama": "GELAS",
+        "harga": 7565.0,
+        "qty": 728.0,
+        "liter": 242.67,
+        "rp": 5507320.0
+      },
+      {
+        "nama": "BOTOL",
+        "harga": 8000.0,
+        "qty": 2814.0,
+        "liter": 703.5,
+        "rp": 22512000.0
+      }
+    ],
+    "lain_lain": [
+      {
+        "keterangan": "BOTOL RUSAK",
+        "qty": 80.0,
+        "liter": 20.0
+      },
+      {
+        "keterangan": "BOTOL SOSIAL POLSEK",
+        "qty": 25.0,
+        "liter": 6.25
+      },
+      {
+        "keterangan": "SUSUT MASAK",
+        "qty": 0.0,
+        "liter": 250.0
+      },
+      {
+        "keterangan": "SUSUT LITER",
+        "qty": 0.0,
+        "liter": 1629.64
+      },
+      {
+        "keterangan": "SUSU SOSIAL",
+        "qty": 0.0,
+        "liter": 80.0
+      },
+      {
+        "keterangan": "SUSU BONUS AGEN",
+        "qty": 0.0,
+        "liter": 1978.46
+      }
+    ],
+    "operasional": [
+      {
+        "no": 1,
+        "nama": "sampah",
+        "rp": 50000.0
+      },
+      {
+        "no": 2,
+        "nama": "service cooling",
+        "rp": 200000.0
+      },
+      {
+        "no": 3,
+        "nama": "kresek ,plastik",
+        "rp": 1517000.0
+      },
+      {
+        "no": 4,
+        "nama": "galon",
+        "rp": 44000.0
+      },
+      {
+        "no": 5,
+        "nama": "gula",
+        "rp": 1700000.0
+      },
+      {
+        "no": 6,
+        "nama": "print menu",
+        "rp": 38000.0
+      },
+      {
+        "no": 7,
+        "nama": "lpg",
+        "rp": 240000.0
+      },
+      {
+        "no": 8,
+        "nama": "gelas ukur",
+        "rp": 78000.0
+      },
+      {
+        "no": 9,
+        "nama": "tes pen",
+        "rp": 30000.0
+      },
+      {
+        "no": 10,
+        "nama": "kresek",
+        "rp": 375000.0
+      },
+      {
+        "no": 11,
+        "nama": "sabun",
+        "rp": 99000.0
+      },
+      {
+        "no": 12,
+        "nama": "garam",
+        "rp": 40000.0
+      },
+      {
+        "no": 13,
+        "nama": "esen,tisu",
+        "rp": 523000.0
+      },
+      {
+        "no": 14,
+        "nama": "plastik",
+        "rp": 1500000.0
+      },
+      {
+        "no": 15,
+        "nama": "karet",
+        "rp": 23000.0
+      },
+      {
+        "no": 16,
+        "nama": "wifi",
+        "rp": 150000.0
+      }
+    ],
+    "stok": {
+      "stok_awal": 42.0,
+      "penerimaan": 37103.0,
+      "persediaan": 37145.0,
+      "pengeluaran": 31646.77666666667,
+      "stok_akhir": 5498.22,
+      "nb": "Sisa botol: 128, sisa liter: 10"
+    }
+  }
+}

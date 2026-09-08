@@ -1,0 +1,1086 @@
+/* ============================================================
+   SISTEM DIGITAL KOPERASI DANAMULYA — NIOND EXECUTIVE AESTHETICS
+   ============================================================ */
+
+:root {
+  --primary: #0f172a;
+  --bg-main: #f3f4f6;
+  --bg-card: #ffffff;
+  --accent-lime: #c0f440;
+  --accent-lime-hover: #adfa22;
+  --pastel-purple: #e9e3ff;
+  --pastel-purple-text: #5b21b6;
+  --pastel-blue: #dbeafe;
+  --pastel-blue-text: #1e40af;
+  --pastel-green: #d1fae5;
+  --pastel-green-text: #065f46;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+  --radius-card: 20px;
+  --radius-pill: 30px;
+  --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.03);
+  --shadow-card: 0 12px 35px rgba(0, 0, 0, 0.04);
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Niond Top Header Navbar */
+#mainNavbar {
+  background: var(--bg-main) !important;
+  border-bottom: none !important;
+  padding: 16px 32px 0 32px !important;
+}
+
+.brand-title {
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+
+.brand-date {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Sidebar Niond Style */
+.sidebar {
+  background-color: #ffffff !important;
+  border-right: 1px solid var(--border-light);
+  padding: 24px 20px !important;
+  border-radius: 0 24px 24px 0;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar-logo {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar .nav-link {
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 12px 20px;
+  border-radius: 14px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+}
+
+.sidebar .nav-link:hover {
+  color: var(--text-main);
+  background-color: #f8fafc;
+}
+
+/* Active Menu Pill: Lime Green (#c0f440) with Dark Text */
+.sidebar .nav-link.active {
+  color: #000000 !important;
+  background-color: var(--accent-lime) !important;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(192, 244, 64, 0.4);
+}
+
+/* Sidebar Bottom Profile Widget */
+.sidebar-profile {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px;
+  margin-top: auto;
+}
+
+.sidebar-profile-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Floating Edge Sidebar Handle (Buka >) */
+#sidebarExpandBtn {
+  background: var(--accent-lime) !important;
+  color: #000000 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+  border-radius: 0 16px 16px 0 !important;
+  transition: all 0.25s ease;
+}
+
+#sidebarExpandBtn:hover {
+  background: var(--accent-lime-hover) !important;
+  transform: translateY(-50%) scale(1.08) !important;
+}
+
+/* Cards & Niond Style Metric Tiles */
+.card-custom {
+  background: var(--bg-card);
+  border: none;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+}
+
+.metric-tile {
+  border-radius: var(--radius-card);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 130px;
+  border: none;
+  transition: all 0.25s ease;
+}
+
+.metric-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+}
+
+.metric-tile.purple { background-color: var(--pastel-purple); color: var(--pastel-purple-text); }
+.metric-tile.blue { background-color: var(--pastel-blue); color: var(--pastel-blue-text); }
+.metric-tile.green { background-color: var(--pastel-green); color: var(--pastel-green-text); }
+.metric-tile.amber { background-color: #fef3c7; color: #92400e; }
+
+.metric-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-top: 6px;
+}
+
+.metric-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+/* Action Buttons (Lime Green Pill Buttons) */
+.btn-lime {
+  background-color: var(--accent-lime);
+  color: #000000;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  padding: 8px 20px;
+  border: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(192, 244, 64, 0.35);
+}
+
+.btn-lime:hover {
+  background-color: var(--accent-lime-hover);
+  color: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(192, 244, 64, 0.5);
+}
+
+/* Excel Grid Viewer Table Custom Styling */
+.table-bordered {
+  border-color: #e2e8f0 !important;
+}
+
+.table-bordered th, .table-bordered td {
+  border: 1px solid #e2e8f0 !important;
+}
+
+/* Soft Modern Table Header Themes across All Divisions */
+.table-success th, thead.table-success th {
+  background-color: #d1fae5 !important;
+  color: #065f46 !important;
+  border-color: #a7f3d0 !important;
+  font-weight: 700;
+}
+
+.table-primary th, thead.table-primary th {
+  background-color: #dbeafe !important;
+  color: #1e40af !important;
+  border-color: #bfdbfe !important;
+  font-weight: 700;
+}
+
+.table-warning th, thead.table-warning th {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+  border-color: #fde68a !important;
+  font-weight: 700;
+}
+
+.table-info th, thead.table-info th {
+  background-color: #cff4fc !important;
+  color: #055160 !important;
+  border-color: #b6effb !important;
+  font-weight: 700;
+}
+
+.table-light th, thead.table-light th, thead.bg-light th {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #e2e8f0 !important;
+  font-weight: 700;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Font Monospace for Currency & Numbers */
+.font-monospace {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+  font-size: 0.85rem;
+}
+
+/* Login Page Styling — 100% Fullscreen Background & Compact Right Card */
+.login-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: url('../images/desktop.png') no-repeat center center;
+  background-size: cover;
+  padding: 0 6vw 0 0;
+  margin: 0;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.login-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.35);
+  z-index: 1;
+}
+
+.login-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 350px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+}
+
+/* Custom Vibrant Blue Button */
+.btn-blue-primary {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+  transition: all 0.2s ease;
+  border-radius: 12px;
+}
+
+.btn-blue-primary:hover, .btn-blue-primary:focus {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+}
+
+/* Mobile Responsive Rules */
+@media (max-width: 768px) {
+  #mainSidebar, .sidebar, #sidebarExpandBtn, #navUserInfo {
+    display: none !important;
+  }
+
+  #mainNavbar {
+    padding: 12px 14px 0 14px !important;
+  }
+
+  .login-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    background: #eaf4fc url('../images/mobile.png') no-repeat top center;
+    background-size: 100% auto;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .login-wrapper::before {
+    display: none;
+  }
+
+  .mobile-top-spacer {
+    height: 48vh;
+    min-height: 330px;
+    flex-shrink: 0;
+    width: 100%;
+    pointer-events: none;
+  }
+
+  .login-card {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 100%;
+    background: #ffffff;
+    border-radius: 36px 36px 0 0;
+    border: none;
+    padding: 20px 22px 32px 22px;
+    box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.15);
+    margin: 0;
+    flex-grow: 1;
+  }
+}
+
+/* ============================================================
+   GLOBAL COMPACT TYPOGRAPHY & REFINED MOBILE SCALING
+   ============================================================ */
+h1, .h1 { font-size: 1.35rem !important; }
+h2, .h2 { font-size: 1.2rem !important; }
+h3, .h3 { font-size: 1.1rem !important; }
+h4, .h4 { font-size: 1.0rem !important; }
+h5, .h5 { font-size: 0.92rem !important; }
+h6, .h6 { font-size: 0.85rem !important; }
+
+/* Compact Tables */
+.table {
+  font-size: 0.78rem !important;
+}
+
+.table th, .table td {
+  padding: 7px 10px !important;
+  vertical-align: middle;
+}
+
+/* Modern Finance Segmented Pill Navigation Bar (Non-wrapping, smooth horizontal scroll) */
+.finance-segmented-nav-container {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 5px;
+  margin-bottom: 1.25rem;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.finance-segmented-nav {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  gap: 4px !important;
+  border: none !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  margin-bottom: 0 !important;
+}
+
+.finance-segmented-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.finance-segmented-nav .nav-item {
+  flex: 1 0 auto !important;
+  margin: 0 !important;
+}
+
+.finance-segmented-nav .nav-link {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 8px 16px !important;
+  font-size: 0.83rem !important;
+  font-weight: 600 !important;
+  color: #64748b !important;
+  background: transparent !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  text-decoration: none !important;
+}
+
+.finance-segmented-nav .nav-link:hover {
+  color: #0f172a !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+}
+
+.finance-segmented-nav .nav-link.active {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+.btn-xs {
+  font-size: 0.72rem !important;
+  padding: 4px 10px !important;
+  border-radius: 8px !important;
+}
+
+/* ============================================================
+   LOGISTIK EXECUTIVE UI/UX STYLES (MODERN, CLEAN, COMFORTABLE)
+   ============================================================ */
+
+/* Segmented Control Pill Bar */
+.category-segmented-control {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 5px;
+  display: flex;
+  gap: 6px;
+}
+
+.btn-segmented {
+  border: none;
+  border-radius: 12px !important;
+  padding: 10px 18px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #64748b;
+  background: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.btn-segmented:hover {
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.btn-segmented.active-rasio {
+  background: #ffffff !important;
+  color: #0d9488 !important; /* Emerald / Teal */
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.18), 0 2px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(13, 148, 136, 0.25);
+}
+
+.btn-segmented.active-non-rasio {
+  background: #ffffff !important;
+  color: #d97706 !important; /* Amber / Orange */
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.18), 0 2px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(217, 119, 6, 0.25);
+}
+
+/* Sub-Tab Navigation Switcher */
+.logistik-subnav-pills {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 6px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.logistik-subnav-pills::-webkit-scrollbar {
+  display: none;
+}
+
+.logistik-subnav-pills .nav-item {
+  flex: 1 0 auto !important;
+}
+
+.logistik-subnav-pills .nav-link {
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #64748b;
+  padding: 8px 16px;
+  border: none;
+  transition: all 0.2s ease;
+  white-space: nowrap !important;
+}
+
+.logistik-subnav-pills .nav-link:hover {
+  color: #0f172a;
+  background: #f8fafc;
+}
+
+.logistik-subnav-pills .nav-link.active {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
+}
+
+/* Form Card Container */
+.logistik-card-container {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+  padding: 28px;
+}
+
+/* Feed Table Card */
+.feed-table-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.feed-table-card table {
+  margin-bottom: 0;
+}
+
+.feed-table-card th {
+  background: #f8fafc;
+  color: #475569;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.feed-table-card td {
+  padding: 12px 16px;
+  vertical-align: middle;
+}
+
+.feed-qty-input {
+  max-width: 140px;
+  margin: 0 auto;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  transition: all 0.2s ease;
+}
+
+.feed-qty-input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+/* Status Cards & Option Grid */
+.option-box-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px;
+  background: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.option-box-card.piutang-box {
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+
+.option-box-card.bunting-box {
+  background: #f5f3ff;
+  border-color: #ddd6fe;
+}
+
+/* Executive Dark Summary Footer Bar */
+.logistik-dark-summary-bar {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.2);
+}
+
+.btn-emerald-gradient {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.02rem;
+  padding: 12px 28px;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-emerald-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.45);
+  color: #ffffff;
+}
+
+/* ============================================================
+   PLAYSTORE MOBILE BOTTOM NAVIGATION BAR & ACCESSIBILITY UX
+   ============================================================ */
+
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 1040;
+  padding: 4px 8px;
+}
+
+.mobile-bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-decoration: none;
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 6px 0;
+  border-radius: 14px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-bottom-nav-item i {
+  font-size: 1.25rem;
+  transition: transform 0.2s ease;
+}
+
+.mobile-bottom-nav-item:active {
+  transform: scale(0.92);
+}
+
+.mobile-bottom-nav-item.active {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.mobile-bottom-nav-item.active i {
+  color: #059669;
+  transform: translateY(-2px) scale(1.15);
+}
+
+.mobile-bottom-nav-item .nav-dot {
+  width: 5px;
+  height: 5px;
+  background-color: #10b981;
+  border-radius: 50%;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   MOBILE FINANCIAL APP UI SYSTEM (LIVIN' / DANA / MYBCA STYLE)
+   ============================================================ */
+
+/* 1. Hero Header Card */
+.finance-hero-card {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f766e 100%);
+  color: #ffffff;
+  border-radius: 24px;
+  padding: 24px 20px;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.finance-hero-card::after {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 180px;
+  height: 180px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.finance-hero-greeting {
+  font-size: 0.78rem;
+  opacity: 0.85;
+  font-weight: 500;
+}
+
+.finance-hero-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.finance-balance-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 12px 14px;
+  margin-top: 12px;
+}
+
+.finance-balance-label {
+  font-size: 0.73rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+
+.finance-balance-amount {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 2px 0 0 0;
+  color: #ffffff;
+}
+
+/* 2. Grid Shortcut Icons (Ala DANA / GoPay / Livin) */
+.finance-grid-menu {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.finance-grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  color: #334155;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  background: #ffffff;
+  padding: 10px 4px 8px 4px;
+  border-radius: 14px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.finance-grid-item:hover, .finance-grid-item:active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+  color: #0f172a;
+}
+
+.finance-icon-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+}
+
+.finance-icon-circle.emerald { background: #d1fae5; color: #059669; }
+.finance-icon-circle.blue { background: #dbeafe; color: #2563eb; }
+.finance-icon-circle.amber { background: #fef3c7; color: #d97706; }
+.finance-icon-circle.purple { background: #f3e8ff; color: #7c3aed; }
+.finance-icon-circle.teal { background: #ccfbf1; color: #0d9488; }
+.finance-icon-circle.rose { background: #ffe4e6; color: #e11d48; }
+
+/* 3. Transaction Item List Cards (Ala DANA / Livin Riwayat) */
+.finance-tx-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.finance-tx-item {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+  transition: all 0.2s ease;
+}
+
+.finance-tx-item:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+
+.finance-tx-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #0f172a;
+  flex-shrink: 0;
+}
+
+.finance-tx-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.finance-tx-sub {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.finance-tx-amount {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #0f172a;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  #mainContent {
+    padding: 14px 12px 85px 12px !important;
+  }
+
+  .finance-hero-card {
+    padding: 20px 16px;
+    border-radius: 20px;
+  }
+
+  .finance-balance-amount {
+    font-size: 1.55rem;
+  }
+
+  .finance-grid-menu {
+    gap: 8px;
+  }
+
+  .finance-grid-item {
+    padding: 10px 4px 8px 4px;
+    font-size: 0.7rem;
+    border-radius: 14px;
+  }
+
+  .finance-icon-circle {
+    width: 42px;
+    height: 42px;
+    font-size: 1.15rem;
+    border-radius: 12px;
+  }
+
+  .logistik-card-container, .card-custom {
+    padding: 16px 14px !important;
+    border-radius: 18px !important;
+  }
+
+  .category-segmented-control {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .btn-segmented {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+
+  .logistik-dark-summary-bar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+  }
+
+  .btn-emerald-gradient {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Extra Mobile Banking Badges & Micro-Interactions */
+.bg-purple {
+  background-color: #7c3aed !important;
+  color: #ffffff !important;
+}
+
+.extra-small {
+  font-size: 0.73rem !important;
+}
+
+.text-emerald {
+  color: #059669 !important;
+}
+
+.bg-emerald {
+  background-color: #059669 !important;
+}
+
+.bg-emerald-subtle {
+  background-color: #d1fae5 !important;
+}
+
+.text-amber {
+  color: #d97706 !important;
+}
+
+.bg-amber-subtle {
+  background-color: #fef3c7 !important;
+}
+
+.text-teal {
+  color: #0d9488 !important;
+}
+
+.bg-teal-subtle {
+  background-color: #ccfbf1 !important;
+}
+
+/* ============================================================
+   PLAYSTORE MOBILE APP SMARTPHONE SHELL & SIMULATOR
+   ============================================================ */
+
+/* Desktop view: Center smartphone shell canvas */
+@media (min-width: 769px) {
+  body.mobile-mode-active {
+    background: radial-gradient(circle at center, #1e293b 0%, #090d16 100%) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px 0;
+    overflow-x: hidden;
+  }
+
+  body.mobile-mode-active #appLayout {
+    width: 420px !important;
+    max-width: 420px !important;
+    height: 860px !important;
+    max-height: calc(100vh - 40px) !important;
+    background: #f8fafc !important;
+    border-radius: 44px !important;
+    box-shadow: 0 35px 90px rgba(0, 0, 0, 0.65), 0 0 0 12px #334155, 0 0 0 14px #0f172a !important;
+    overflow: hidden !important;
+    position: relative !important;
+    flex-direction: column !important;
+    margin: 0 auto;
+    display: flex !important;
+    align-items: stretch !important;
+  }
+
+  /* Status bar & App topbar: fixed at top inside shell, no flex-grow */
+  body.mobile-mode-active #mobileShellTopbar {
+    flex-shrink: 0 !important;
+    width: 100% !important;
+    z-index: 10 !important;
+  }
+
+  /* Main content: takes remaining space, scrollable */
+  body.mobile-mode-active #mainContent {
+    flex: 1 1 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 14px 14px 100px 14px !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body.mobile-mode-active #mainSidebar,
+  body.mobile-mode-active #sidebarExpandBtn,
+  body.mobile-mode-active #mainNavbar {
+    display: none !important;
+  }
+
+  body.mobile-mode-active #mobileBottomNav {
+    display: flex !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    border-radius: 0 0 44px 44px !important;
+    z-index: 1000 !important;
+  }
+}
+
+/* Smartphone Top Bezel / Status Bar */
+.phone-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px 6px 24px;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  user-select: none;
+  position: relative;
+}
+
+.phone-camera-notch {
+  width: 90px;
+  height: 18px;
+  background: #000000;
+  border-radius: 12px;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Smartphone Native App Top Header */
+.mobile-app-topbar {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 10px 16px 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+}
+
+

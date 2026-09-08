@@ -1,0 +1,2745 @@
+{
+  "JAN": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CEMBOR",
+        "kg": 14602,
+        "rp": 0
+      },
+      {
+        "kelompok": "CLAKET",
+        "kg": 17884,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 3244,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 2513,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 15352,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 8354,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 4056,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 19263,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 2952,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "TAWAR",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "PRAMBON",
+        "kg": 2443,
+        "rp": 17101000
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 3930,
+        "rp": 28296000
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 4184,
+        "rp": 29288000
+      }
+    ],
+    "j1_kg": 88220,
+    "j1_rp": 608718000,
+    "j2_kg": 10557,
+    "j2_rp": 74685000,
+    "tot_kg": 98777,
+    "tot_rp": 683403000,
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 53340,
+        "rp": 386362128
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 3255,
+        "harga": 12400,
+        "rp": 40362000
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000,
+        "rp": 0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 422,
+        "harga": 9500,
+        "rp": 4009000
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "HARI",
+        "kg": 335,
+        "harga": 9500,
+        "rp": 3182500
+      },
+      {
+        "nama": "WARDI",
+        "kg": 2559,
+        "harga": 9500,
+        "rp": 24310500
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 80,
+        "harga": 9500,
+        "rp": 760000
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 36134,
+        "harga": 9000,
+        "rp": 325206000
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 75,
+        "harga": 9500,
+        "rp": 712500
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 30
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 160
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 40
+      }
+    ],
+    "rekap_penerimaan": [
+      {
+        "sumber": "ANGGOTA DANA MULYA",
+        "kg": 88220,
+        "rp": 0
+      },
+      {
+        "sumber": "GONDANG",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "sumber": "BRANGKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "sumber": "TAWAR",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "sumber": "KRIAN",
+        "kg": 3920,
+        "rp": 0
+      },
+      {
+        "sumber": "WONOAYU",
+        "kg": 4194,
+        "rp": 0
+      },
+      {
+        "sumber": "PRAMBON",
+        "kg": 2443,
+        "rp": 0
+      }
+    ],
+    "rekap_pengeluaran": [
+      {
+        "untuk": "NESTLE",
+        "kg": 53340,
+        "rp": 0
+      },
+      {
+        "untuk": "AGEN",
+        "kg": 6726,
+        "rp": 0
+      },
+      {
+        "untuk": "LOKAL",
+        "kg": 36134,
+        "rp": 0
+      },
+      {
+        "untuk": "PECAH/RUSAK",
+        "kg": 30,
+        "rp": 0
+      },
+      {
+        "untuk": "KARYAWAN",
+        "kg": 40,
+        "rp": 0
+      },
+      {
+        "untuk": "SOSIAL/SUMBANGAN",
+        "kg": 160,
+        "rp": 0
+      }
+    ],
+    "stok_awal": 357,
+    "stok_rekap": {
+      "stok_awal": 357.0,
+      "penerimaan": 96368,
+      "persediaan": 96725,
+      "pengeluaran": 96430,
+      "stok_akhir": 295
+    },
+    "rekap_sheet3": {
+      "penerimaan": [
+        {
+          "no": 1,
+          "dari": "ANGGOTA DANA MULYA",
+          "kg": 88220.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "dari": "GONDANG",
+          "kg": 0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "dari": "BRANGKAL",
+          "kg": 0,
+          "rp": 0
+        },
+        {
+          "no": 4,
+          "dari": "TAWAR",
+          "kg": 0,
+          "rp": 0
+        },
+        {
+          "no": 5,
+          "dari": "KRIAN",
+          "kg": 3920.0,
+          "rp": 0
+        },
+        {
+          "no": 6,
+          "dari": "WONOAYU",
+          "kg": 4194.0,
+          "rp": 0
+        },
+        {
+          "no": 7,
+          "dari": "PRAMBON",
+          "kg": 2443.0,
+          "rp": 0
+        }
+      ],
+      "tot_pen_kg": 98777.0,
+      "penjualan": [
+        {
+          "no": 1,
+          "untuk": "NESTLE",
+          "liter": 53340.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "AGEN",
+          "liter": 6726.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "LOKAL",
+          "liter": 36134.0,
+          "rp": 0
+        }
+      ],
+      "tot_penjualan_ltr": 96200.0,
+      "lain_lain": [
+        {
+          "no": 1,
+          "untuk": "PECAH/RUSAK",
+          "liter": 30.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "KARYAWAN",
+          "liter": 40.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "SOSIAL/SUMBANGAN",
+          "liter": 160.0,
+          "rp": 0
+        }
+      ],
+      "tot_lain_ltr": 230.0,
+      "tot_out_ltr": 96430.0
+    }
+  },
+  "FEB": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CEMBOR",
+        "kg": 13529,
+        "rp": 0
+      },
+      {
+        "kelompok": "CLAKET",
+        "kg": 16087,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 2612,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 2051,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 13515,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 7489,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 3501,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 15693,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 2987,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "TAWAR",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "PRAMBON",
+        "kg": 2289,
+        "rp": 16023000
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 3275,
+        "rp": 23580000
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 3659,
+        "rp": 25613000
+      }
+    ],
+    "j1_kg": 77464,
+    "j1_rp": 565487200,
+    "j2_kg": 9223,
+    "j2_rp": 65216000,
+    "tot_kg": 86687,
+    "tot_rp": 630703200,
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 52460,
+        "rp": 400698074
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 2950,
+        "harga": 12400,
+        "rp": 36580000
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000,
+        "rp": 0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 246,
+        "harga": 9500,
+        "rp": 2337000
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "HARI",
+        "kg": 202,
+        "harga": 9500,
+        "rp": 1919000
+      },
+      {
+        "nama": "WARDI",
+        "kg": 1822,
+        "harga": 9500,
+        "rp": 17309000
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 24930,
+        "harga": 9000,
+        "rp": 224370000
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 280,
+        "harga": 9500,
+        "rp": 2660000
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 260
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 80
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 90
+      }
+    ],
+    "rekap_penerimaan": [
+      {
+        "sumber": "ANGGOTA DANA MULYA",
+        "kg": 77464,
+        "rp": 0
+      },
+      {
+        "sumber": "GONDANG",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "sumber": "BRANGKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "sumber": "TAWAR",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "sumber": "KRIAN",
+        "kg": 3275,
+        "rp": 0
+      },
+      {
+        "sumber": "WONOAYU",
+        "kg": 3659,
+        "rp": 0
+      },
+      {
+        "sumber": "PRAMBON",
+        "kg": 2289,
+        "rp": 0
+      }
+    ],
+    "rekap_pengeluaran": [
+      {
+        "untuk": "NESTLE",
+        "kg": 52460,
+        "rp": 0
+      },
+      {
+        "untuk": "AGEN",
+        "kg": 5500,
+        "rp": 0
+      },
+      {
+        "untuk": "LOKAL",
+        "kg": 24930,
+        "rp": 0
+      },
+      {
+        "untuk": "PECAH/RUSAK",
+        "kg": 260,
+        "rp": 0
+      },
+      {
+        "untuk": "KARYAWAN",
+        "kg": 90,
+        "rp": 0
+      },
+      {
+        "untuk": "SOSIAL/SUMBANGAN",
+        "kg": 80,
+        "rp": 0
+      }
+    ],
+    "stok_awal": 295,
+    "stok_rekap": {
+      "stok_awal": 295.0,
+      "penerimaan": 84573,
+      "persediaan": 84868,
+      "pengeluaran": 83320,
+      "stok_akhir": 1548
+    },
+    "rekap_sheet3": {
+      "penerimaan": [
+        {
+          "no": 1,
+          "dari": "ANGGOTA DANA MULYA",
+          "kg": 77464.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "dari": "GONDANG",
+          "kg": 0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "dari": "BRANGKAL",
+          "kg": 0,
+          "rp": 0
+        },
+        {
+          "no": 4,
+          "dari": "TAWAR",
+          "kg": 0,
+          "rp": 0
+        },
+        {
+          "no": 5,
+          "dari": "KRIAN",
+          "kg": 3275.0,
+          "rp": 0
+        },
+        {
+          "no": 6,
+          "dari": "WONOAYU",
+          "kg": 3659.0,
+          "rp": 0
+        },
+        {
+          "no": 7,
+          "dari": "PRAMBON",
+          "kg": 2289.0,
+          "rp": 0
+        }
+      ],
+      "tot_pen_kg": 86687.0,
+      "penjualan": [
+        {
+          "no": 1,
+          "untuk": "NESTLE",
+          "liter": 52460.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "AGEN",
+          "liter": 5500.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "LOKAL",
+          "liter": 24930.0,
+          "rp": 0
+        }
+      ],
+      "tot_penjualan_ltr": 82890.0,
+      "lain_lain": [
+        {
+          "no": 1,
+          "untuk": "PECAH/RUSAK",
+          "liter": 260.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "KARYAWAN",
+          "liter": 90.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "SOSIAL/SUMBANGAN",
+          "liter": 80.0,
+          "rp": 0
+        }
+      ],
+      "tot_lain_ltr": 430.0,
+      "tot_out_ltr": 83320.0
+    }
+  },
+  "MAR": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CEMBOR",
+        "kg": 14452,
+        "rp": 0
+      },
+      {
+        "kelompok": "CLAKET",
+        "kg": 18258,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 3327,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 2426,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 16417,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 9061,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 3651,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 17250,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 2299,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "TAWAR",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "PRAMBON",
+        "kg": 3455,
+        "rp": 24876000
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 3530,
+        "rp": 26475000
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 3916,
+        "rp": 29370000
+      }
+    ],
+    "j1_kg": 87141,
+    "j1_rp": 636129300,
+    "j2_kg": 10901,
+    "j2_rp": 80721000,
+    "tot_kg": 98042,
+    "tot_rp": 716850300,
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 65540,
+        "rp": 507466104
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 2970,
+        "harga": 12400,
+        "rp": 36828000
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000,
+        "rp": 0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "HARI",
+        "kg": 58,
+        "harga": 9500,
+        "rp": 551000
+      },
+      {
+        "nama": "WARDI",
+        "kg": 1520,
+        "harga": 9500,
+        "rp": 14440000
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 60,
+        "harga": 9500,
+        "rp": 570000
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 25952,
+        "harga": 9000,
+        "rp": 233568000
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 35,
+        "harga": 9500,
+        "rp": 332500
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 55
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 120
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 90
+      }
+    ],
+    "rekap_penerimaan": [
+      {
+        "sumber": "ANGGOTA DANA MULYA",
+        "kg": 87141,
+        "rp": 0
+      },
+      {
+        "sumber": "GONDANG",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "sumber": "BRANGKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "sumber": "TAWAR",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "sumber": "KRIAN",
+        "kg": 3530,
+        "rp": 0
+      },
+      {
+        "sumber": "WONOAYU",
+        "kg": 3916,
+        "rp": 0
+      },
+      {
+        "sumber": "PRAMBON",
+        "kg": 3455,
+        "rp": 0
+      }
+    ],
+    "rekap_pengeluaran": [
+      {
+        "untuk": "NESTLE",
+        "kg": 65540,
+        "rp": 0
+      },
+      {
+        "untuk": "AGEN",
+        "kg": 4643,
+        "rp": 0
+      },
+      {
+        "untuk": "LOKAL",
+        "kg": 25952,
+        "rp": 0
+      },
+      {
+        "untuk": "PECAH/RUSAK",
+        "kg": 55,
+        "rp": 0
+      },
+      {
+        "untuk": "KARYAWAN",
+        "kg": 90,
+        "rp": 0
+      },
+      {
+        "untuk": "SOSIAL/SUMBANGAN",
+        "kg": 120,
+        "rp": 0
+      }
+    ],
+    "stok_awal": 1548,
+    "stok_rekap": {
+      "stok_awal": 1548.0,
+      "penerimaan": 95651,
+      "persediaan": 97199,
+      "pengeluaran": 96400,
+      "stok_akhir": 799
+    },
+    "rekap_sheet3": {
+      "penerimaan": [
+        {
+          "no": 1,
+          "dari": "ANGGOTA DANA MULYA",
+          "kg": 87141.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "dari": "GONDANG",
+          "kg": 0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "dari": "BRANGKAL",
+          "kg": 0,
+          "rp": 0
+        },
+        {
+          "no": 4,
+          "dari": "TAWAR",
+          "kg": 0,
+          "rp": 0
+        },
+        {
+          "no": 5,
+          "dari": "KRIAN",
+          "kg": 3530.0,
+          "rp": 0
+        },
+        {
+          "no": 6,
+          "dari": "WONOAYU",
+          "kg": 3916.0,
+          "rp": 0
+        },
+        {
+          "no": 7,
+          "dari": "PRAMBON",
+          "kg": 3455.0,
+          "rp": 0
+        }
+      ],
+      "tot_pen_kg": 98042.0,
+      "penjualan": [
+        {
+          "no": 1,
+          "untuk": "NESTLE",
+          "liter": 65540.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "AGEN",
+          "liter": 4643.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "LOKAL",
+          "liter": 25952.0,
+          "rp": 0
+        }
+      ],
+      "tot_penjualan_ltr": 96135.0,
+      "lain_lain": [
+        {
+          "no": 1,
+          "untuk": "PECAH/RUSAK",
+          "liter": 55.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "KARYAWAN",
+          "liter": 90.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "SOSIAL/SUMBANGAN",
+          "liter": 120.0,
+          "rp": 0
+        }
+      ],
+      "tot_lain_ltr": 265.0,
+      "tot_out_ltr": 96400.0
+    }
+  },
+  "APRIL": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CEMBOR",
+        "kg": 13743,
+        "rp": 0
+      },
+      {
+        "kelompok": "CLAKET",
+        "kg": 17953,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 2633,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 3015,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 15677,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 8373,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 3856,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 16499,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 2487,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "MOJOSARI",
+        "kg": 1600,
+        "rp": 11520000
+      },
+      {
+        "wilayah": "PRAMBON",
+        "kg": 1800,
+        "rp": 12960000
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 2550,
+        "rp": 19125000
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "POJEJER",
+        "kg": 1753,
+        "rp": 14024000
+      },
+      {
+        "wilayah": "TANEN",
+        "kg": 560,
+        "rp": 4480000
+      }
+    ],
+    "j1_kg": 84236,
+    "j1_rp": 530686800,
+    "j2_kg": 8263,
+    "j2_rp": 62109000,
+    "tot_kg": 92499,
+    "tot_rp": 592795800,
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 48800,
+        "rp": 379319014
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 2920,
+        "harga": 12400,
+        "rp": 36208000
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000,
+        "rp": 0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 300,
+        "harga": 9500,
+        "rp": 2850000
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "HARI",
+        "kg": 320,
+        "harga": 9500,
+        "rp": 3040000
+      },
+      {
+        "nama": "WARDI",
+        "kg": 2438,
+        "harga": 9500,
+        "rp": 23161000
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 100,
+        "harga": 9500,
+        "rp": 950000
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 35180,
+        "harga": 9000,
+        "rp": 316620000
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 263,
+        "harga": 9500,
+        "rp": 2498500
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 40
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 180
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 90
+      }
+    ],
+    "rekap_penerimaan": [
+      {
+        "sumber": "ANGGOTA DANA MULYA",
+        "kg": 84236,
+        "rp": 0
+      },
+      {
+        "sumber": "MOJOSARI",
+        "kg": 1600,
+        "rp": 0
+      },
+      {
+        "sumber": "POJEJER",
+        "kg": 1753,
+        "rp": 0
+      },
+      {
+        "sumber": "TAWAR",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "sumber": "KRIAN",
+        "kg": 2550,
+        "rp": 0
+      },
+      {
+        "sumber": "TANEN",
+        "kg": 560,
+        "rp": 0
+      },
+      {
+        "sumber": "PRAMBON",
+        "kg": 1800,
+        "rp": 0
+      }
+    ],
+    "rekap_pengeluaran": [
+      {
+        "untuk": "NESTLE",
+        "kg": 48800,
+        "rp": 0
+      },
+      {
+        "untuk": "AGEN",
+        "kg": 6341,
+        "rp": 0
+      },
+      {
+        "untuk": "LOKAL",
+        "kg": 35180,
+        "rp": 0
+      },
+      {
+        "untuk": "PECAH/RUSAK",
+        "kg": 40,
+        "rp": 0
+      },
+      {
+        "untuk": "KARYAWAN",
+        "kg": 90,
+        "rp": 0
+      },
+      {
+        "untuk": "SOSIAL/SUMBANGAN",
+        "kg": 180,
+        "rp": 0
+      }
+    ],
+    "stok_awal": 799,
+    "stok_rekap": {
+      "stok_awal": 799.0,
+      "penerimaan": 90243,
+      "persediaan": 91042,
+      "pengeluaran": 90631,
+      "stok_akhir": 411
+    },
+    "rekap_sheet3": {
+      "penerimaan": [
+        {
+          "no": 1,
+          "dari": "ANGGOTA DANA MULYA",
+          "kg": 84236.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "dari": "MOJOSARI",
+          "kg": 1600.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "dari": "POJEJER",
+          "kg": 1753.0,
+          "rp": 0
+        },
+        {
+          "no": 4,
+          "dari": "TAWAR",
+          "kg": 0,
+          "rp": 0
+        },
+        {
+          "no": 5,
+          "dari": "KRIAN",
+          "kg": 2550.0,
+          "rp": 0
+        },
+        {
+          "no": 6,
+          "dari": "TANEN",
+          "kg": 560.0,
+          "rp": 0
+        },
+        {
+          "no": 7,
+          "dari": "PRAMBON",
+          "kg": 1800.0,
+          "rp": 0
+        }
+      ],
+      "tot_pen_kg": 92499.0,
+      "penjualan": [
+        {
+          "no": 1,
+          "untuk": "NESTLE",
+          "liter": 48800.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "AGEN",
+          "liter": 6341.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "LOKAL",
+          "liter": 35180.0,
+          "rp": 0
+        }
+      ],
+      "tot_penjualan_ltr": 90321.0,
+      "lain_lain": [
+        {
+          "no": 1,
+          "untuk": "PECAH/RUSAK",
+          "liter": 40.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "KARYAWAN",
+          "liter": 90.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "SOSIAL/SUMBANGAN",
+          "liter": 180.0,
+          "rp": 0
+        }
+      ],
+      "tot_lain_ltr": 310.0,
+      "tot_out_ltr": 90631.0
+    }
+  },
+  "MEI": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CEMBOR",
+        "kg": 13515,
+        "rp": 0
+      },
+      {
+        "kelompok": "CLAKET",
+        "kg": 18936,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 2064,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 3875,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 17543,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 9045,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 3423,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 18986,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 2311,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "MOJOSARI",
+        "kg": 1663,
+        "rp": 12306200
+      },
+      {
+        "wilayah": "PRAMBON",
+        "kg": 2150,
+        "rp": 15910000
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 2590,
+        "rp": 19425000
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "POJEJER",
+        "kg": 7779,
+        "rp": 62232000
+      },
+      {
+        "wilayah": "TANEN",
+        "kg": 1040,
+        "rp": 8320000
+      }
+    ],
+    "j1_kg": 89698,
+    "j1_rp": 654795400,
+    "j2_kg": 15222,
+    "j2_rp": 118193200,
+    "tot_kg": 104920,
+    "tot_rp": 772988600,
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 55490,
+        "rp": 432820064
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 3140,
+        "harga": 12400,
+        "rp": 38936000
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000,
+        "rp": 0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 429,
+        "harga": 9500,
+        "rp": 4075500
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "HARI",
+        "kg": 354,
+        "harga": 9500,
+        "rp": 3363000
+      },
+      {
+        "nama": "WARDI",
+        "kg": 2725,
+        "harga": 9500,
+        "rp": 25887500
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 20,
+        "harga": 9500,
+        "rp": 190000
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 41052,
+        "harga": 9000,
+        "rp": 369468000
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 280,
+        "harga": 9500,
+        "rp": 2660000
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 60
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 180
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 130
+      }
+    ],
+    "rekap_penerimaan": [
+      {
+        "sumber": "ANGGOTA DANA MULYA",
+        "kg": 89698,
+        "rp": 0
+      },
+      {
+        "sumber": "MOJOSARI",
+        "kg": 1663,
+        "rp": 0
+      },
+      {
+        "sumber": "POJEJER",
+        "kg": 7779,
+        "rp": 0
+      },
+      {
+        "sumber": "TAWAR",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "sumber": "KRIAN",
+        "kg": 2590,
+        "rp": 0
+      },
+      {
+        "sumber": "TANEN",
+        "kg": 1040,
+        "rp": 0
+      },
+      {
+        "sumber": "PRAMBON",
+        "kg": 2150,
+        "rp": 0
+      }
+    ],
+    "rekap_pengeluaran": [
+      {
+        "untuk": "NESTLE",
+        "kg": 55490,
+        "rp": 0
+      },
+      {
+        "untuk": "AGEN",
+        "kg": 6948,
+        "rp": 0
+      },
+      {
+        "untuk": "LOKAL",
+        "kg": 41052,
+        "rp": 0
+      },
+      {
+        "untuk": "PECAH/RUSAK",
+        "kg": 60,
+        "rp": 0
+      },
+      {
+        "untuk": "KARYAWAN",
+        "kg": 130,
+        "rp": 0
+      },
+      {
+        "untuk": "SOSIAL/SUMBANGAN",
+        "kg": 180,
+        "rp": 0
+      },
+      {
+        "untuk": "TOTAL",
+        "kg": 103860,
+        "rp": 0
+      }
+    ],
+    "stok_awal": 0,
+    "stok_rekap": {
+      "stok_awal": 411.0,
+      "penerimaan": 102361,
+      "persediaan": 102772,
+      "pengeluaran": 103860,
+      "stok_akhir": -1088
+    },
+    "rekap_sheet3": {
+      "penerimaan": [
+        {
+          "no": 1,
+          "dari": "ANGGOTA DANA MULYA",
+          "kg": 89698.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "dari": "MOJOSARI",
+          "kg": 1663.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "dari": "POJEJER",
+          "kg": 7779.0,
+          "rp": 0
+        },
+        {
+          "no": 4,
+          "dari": "TAWAR",
+          "kg": 0,
+          "rp": 0
+        },
+        {
+          "no": 5,
+          "dari": "KRIAN",
+          "kg": 2590.0,
+          "rp": 0
+        },
+        {
+          "no": 6,
+          "dari": "TANEN",
+          "kg": 1040.0,
+          "rp": 0
+        },
+        {
+          "no": 7,
+          "dari": "PRAMBON",
+          "kg": 2150.0,
+          "rp": 0
+        }
+      ],
+      "tot_pen_kg": 104920.0,
+      "penjualan": [
+        {
+          "no": 1,
+          "untuk": "NESTLE",
+          "liter": 55490.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "AGEN",
+          "liter": 6948.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "LOKAL",
+          "liter": 41052.0,
+          "rp": 0
+        }
+      ],
+      "tot_penjualan_ltr": 103490.0,
+      "lain_lain": [
+        {
+          "no": 1,
+          "untuk": "PECAH/RUSAK",
+          "liter": 60.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "KARYAWAN",
+          "liter": 130.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "SOSIAL/SUMBANGAN",
+          "liter": 180.0,
+          "rp": 0
+        }
+      ],
+      "tot_lain_ltr": 370.0,
+      "tot_out_ltr": 103860.0
+    }
+  },
+  "JUNI": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CEMBOR",
+        "kg": 12464,
+        "rp": 0
+      },
+      {
+        "kelompok": "CLAKET",
+        "kg": 17410,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 1372,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 3710,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 18266,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 9188,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 3201,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 19364,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 2901,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "MOJOSARI",
+        "kg": 1511,
+        "rp": 11181400
+      },
+      {
+        "wilayah": "PRAMBON",
+        "kg": 1830,
+        "rp": 13542000
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 2190,
+        "rp": 16425000
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "POJEJER",
+        "kg": 8606,
+        "rp": 68848000
+      },
+      {
+        "wilayah": "TANEN",
+        "kg": 1480,
+        "rp": 11840000
+      }
+    ],
+    "j1_kg": 87876,
+    "j1_rp": 641494800,
+    "j2_kg": 15617,
+    "j2_rp": 121836400,
+    "tot_kg": 103493,
+    "tot_rp": 763331200,
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 54590,
+        "rp": 445232836
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 3165,
+        "harga": 12400,
+        "rp": 39246000
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000,
+        "rp": 0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 459,
+        "harga": 9500,
+        "rp": 4360500
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "HARI",
+        "kg": 352,
+        "harga": 9500,
+        "rp": 3344000
+      },
+      {
+        "nama": "WARDI",
+        "kg": 3352,
+        "harga": 9500,
+        "rp": 31844000
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 60,
+        "harga": 9500,
+        "rp": 570000
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 39675,
+        "harga": 9000,
+        "rp": 357075000
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 140,
+        "harga": 9500,
+        "rp": 1330000
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 9500,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 30
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 180
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 80
+      }
+    ],
+    "rekap_penerimaan": [
+      {
+        "sumber": "ANGGOTA DANA MULYA",
+        "kg": 87876,
+        "rp": 0
+      },
+      {
+        "sumber": "MOJOSARI",
+        "kg": 1511,
+        "rp": 0
+      },
+      {
+        "sumber": "POJEJER",
+        "kg": 8606,
+        "rp": 0
+      },
+      {
+        "sumber": "TAWAR",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "sumber": "KRIAN",
+        "kg": 2190,
+        "rp": 0
+      },
+      {
+        "sumber": "TANEN",
+        "kg": 1480,
+        "rp": 0
+      },
+      {
+        "sumber": "PRAMBON",
+        "kg": 1830,
+        "rp": 0
+      }
+    ],
+    "rekap_pengeluaran": [
+      {
+        "untuk": "NESTLE",
+        "kg": 54590,
+        "rp": 0
+      },
+      {
+        "untuk": "AGEN",
+        "kg": 7528,
+        "rp": 0
+      },
+      {
+        "untuk": "LOKAL",
+        "kg": 39675,
+        "rp": 0
+      },
+      {
+        "untuk": "PECAH/RUSAK",
+        "kg": 30,
+        "rp": 0
+      },
+      {
+        "untuk": "KARYAWAN",
+        "kg": 80,
+        "rp": 0
+      },
+      {
+        "untuk": "SOSIAL/SUMBANGAN",
+        "kg": 180,
+        "rp": 0
+      },
+      {
+        "untuk": "TOTAL",
+        "kg": 102083,
+        "rp": 0
+      }
+    ],
+    "stok_awal": 0,
+    "stok_rekap": {
+      "stok_awal": 1445.0,
+      "penerimaan": 100969,
+      "persediaan": 102414,
+      "pengeluaran": 102083,
+      "stok_akhir": 331
+    },
+    "rekap_sheet3": {
+      "penerimaan": [
+        {
+          "no": 1,
+          "dari": "ANGGOTA DANA MULYA",
+          "kg": 87876.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "dari": "MOJOSARI",
+          "kg": 1511.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "dari": "POJEJER",
+          "kg": 8606.0,
+          "rp": 0
+        },
+        {
+          "no": 4,
+          "dari": "TAWAR",
+          "kg": 0,
+          "rp": 0
+        },
+        {
+          "no": 5,
+          "dari": "KRIAN",
+          "kg": 2190.0,
+          "rp": 0
+        },
+        {
+          "no": 6,
+          "dari": "TANEN",
+          "kg": 1480.0,
+          "rp": 0
+        },
+        {
+          "no": 7,
+          "dari": "PRAMBON",
+          "kg": 1830.0,
+          "rp": 0
+        }
+      ],
+      "tot_pen_kg": 103493.0,
+      "penjualan": [
+        {
+          "no": 1,
+          "untuk": "NESTLE",
+          "liter": 54590.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "AGEN",
+          "liter": 7528.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "LOKAL",
+          "liter": 39675.0,
+          "rp": 0
+        }
+      ],
+      "tot_penjualan_ltr": 101793.0,
+      "lain_lain": [
+        {
+          "no": 1,
+          "untuk": "PECAH/RUSAK",
+          "liter": 30.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "KARYAWAN",
+          "liter": 80.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "SOSIAL/SUMBANGAN",
+          "liter": 180.0,
+          "rp": 0
+        }
+      ],
+      "tot_lain_ltr": 290.0,
+      "tot_out_ltr": 102083.0
+    }
+  },
+  "JULI": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CEMBOR",
+        "kg": 13700,
+        "rp": 0
+      },
+      {
+        "kelompok": "CLAKET",
+        "kg": 18131,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 1386,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 3824,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 20693,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 9680,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 3778,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 21210,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 3880,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "MOJOSARI",
+        "kg": 1752,
+        "rp": 12964800
+      },
+      {
+        "wilayah": "PRAMBON",
+        "kg": 1785,
+        "rp": 13209000
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 2390,
+        "rp": 17925000
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "wilayah": "POJEJER",
+        "kg": 8155,
+        "rp": 65240000
+      },
+      {
+        "wilayah": "TANEN",
+        "kg": 2800,
+        "rp": 22400000
+      }
+    ],
+    "j1_kg": 96282,
+    "j1_rp": 722115000,
+    "j2_kg": 16882,
+    "j2_rp": 131738800,
+    "tot_kg": 113164,
+    "tot_rp": 853853800,
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 66140,
+        "rp": 549287784
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 3245,
+        "harga": 12400,
+        "rp": 40238000
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000,
+        "rp": 0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 473,
+        "harga": 10000,
+        "rp": 4730000
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 10000,
+        "rp": 0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 10000,
+        "rp": 0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 10000,
+        "rp": 0
+      },
+      {
+        "nama": "HARI",
+        "kg": 318,
+        "harga": 10000,
+        "rp": 3180000
+      },
+      {
+        "nama": "WARDI",
+        "kg": 3417,
+        "harga": 10000,
+        "rp": 34170000
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 40,
+        "harga": 10000,
+        "rp": 400000
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 10000,
+        "rp": 0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 38030,
+        "harga": 10000,
+        "rp": 380300000
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 190,
+        "harga": 10000,
+        "rp": 1900000
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 10000,
+        "rp": 0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 10000,
+        "rp": 0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 10000,
+        "rp": 0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 10000,
+        "rp": 0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 10000,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 80
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 186
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 140
+      }
+    ],
+    "rekap_penerimaan": [
+      {
+        "sumber": "ANGGOTA DANA MULYA",
+        "kg": 96282,
+        "rp": 0
+      },
+      {
+        "sumber": "MOJOSARI",
+        "kg": 1752,
+        "rp": 0
+      },
+      {
+        "sumber": "POJEJER",
+        "kg": 8155,
+        "rp": 0
+      },
+      {
+        "sumber": "TAWAR",
+        "kg": 0,
+        "rp": 0
+      },
+      {
+        "sumber": "KRIAN",
+        "kg": 2390,
+        "rp": 0
+      },
+      {
+        "sumber": "TANEN",
+        "kg": 2800,
+        "rp": 0
+      },
+      {
+        "sumber": "PRAMBON",
+        "kg": 1785,
+        "rp": 0
+      }
+    ],
+    "rekap_pengeluaran": [
+      {
+        "untuk": "NESTLE",
+        "kg": 66140,
+        "rp": 0
+      },
+      {
+        "untuk": "AGEN",
+        "kg": 7683,
+        "rp": 0
+      },
+      {
+        "untuk": "LOKAL",
+        "kg": 38030,
+        "rp": 0
+      },
+      {
+        "untuk": "PECAH/RUSAK",
+        "kg": 80,
+        "rp": 0
+      },
+      {
+        "untuk": "KARYAWAN",
+        "kg": 140,
+        "rp": 0
+      },
+      {
+        "untuk": "SOSIAL/SUMBANGAN",
+        "kg": 186,
+        "rp": 0
+      },
+      {
+        "untuk": "TOTAL",
+        "kg": 112259,
+        "rp": 0
+      }
+    ],
+    "stok_awal": 0,
+    "stok_rekap": {
+      "stok_awal": 331.0,
+      "penerimaan": 110404,
+      "persediaan": 110735,
+      "pengeluaran": 112259,
+      "stok_akhir": -1524
+    },
+    "rekap_sheet3": {
+      "penerimaan": [
+        {
+          "no": 1,
+          "dari": "ANGGOTA DANA MULYA",
+          "kg": 96282.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "dari": "MOJOSARI",
+          "kg": 1752.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "dari": "POJEJER",
+          "kg": 8155.0,
+          "rp": 0
+        },
+        {
+          "no": 4,
+          "dari": "TAWAR",
+          "kg": 0,
+          "rp": 0
+        },
+        {
+          "no": 5,
+          "dari": "KRIAN",
+          "kg": 2390.0,
+          "rp": 0
+        },
+        {
+          "no": 6,
+          "dari": "TANEN",
+          "kg": 2800.0,
+          "rp": 0
+        },
+        {
+          "no": 7,
+          "dari": "PRAMBON",
+          "kg": 1785.0,
+          "rp": 0
+        }
+      ],
+      "tot_pen_kg": 113164.0,
+      "penjualan": [
+        {
+          "no": 1,
+          "untuk": "NESTLE",
+          "liter": 66140.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "AGEN",
+          "liter": 7683.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "LOKAL",
+          "liter": 38030.0,
+          "rp": 0
+        }
+      ],
+      "tot_penjualan_ltr": 111853.0,
+      "lain_lain": [
+        {
+          "no": 1,
+          "untuk": "PECAH/RUSAK",
+          "liter": 80.0,
+          "rp": 0
+        },
+        {
+          "no": 2,
+          "untuk": "KARYAWAN",
+          "liter": 140.0,
+          "rp": 0
+        },
+        {
+          "no": 3,
+          "untuk": "SOSIAL/SUMBANGAN",
+          "liter": 186.0,
+          "rp": 0
+        }
+      ],
+      "tot_lain_ltr": 406.0,
+      "tot_out_ltr": 112259.0
+    }
+  }
+}

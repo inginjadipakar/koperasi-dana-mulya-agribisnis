@@ -1,0 +1,1519 @@
+{
+  "JAN": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CLAKET",
+        "kg": 17884.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 3244.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 2513.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 15352.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 8354.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 4056.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 19263.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 2952.0,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "PRAMBON",
+        "kg": 2443.0,
+        "rp": 17101000.0
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 3930.0,
+        "rp": 28296000.0
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 4184.0,
+        "rp": 29288000.0
+      }
+    ],
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 53340.0,
+        "rp": 386362127.5
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 3255.0,
+        "harga": 12400.0,
+        "rp": 40362000.0
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 422.0,
+        "harga": 9500.0,
+        "rp": 4009000.0
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARI",
+        "kg": 335.0,
+        "harga": 9500.0,
+        "rp": 3182500.0
+      },
+      {
+        "nama": "WARDI",
+        "kg": 2559.0,
+        "harga": 9500.0,
+        "rp": 24310500.0
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 80.0,
+        "harga": 9500.0,
+        "rp": 760000.0
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 36134.0,
+        "harga": 9000.0,
+        "rp": 325206000.0
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 75.0,
+        "harga": 9500.0,
+        "rp": 712500.0
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 30.0,
+        "keterangan": "PECAH / RUSAK"
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 160.0,
+        "keterangan": "SOSIAL / SUMBANGAN"
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 40.0,
+        "keterangan": "KARYAWAN"
+      }
+    ],
+    "stok_rekap": {
+      "stok_awal": 0,
+      "penerimaan": 82121.95,
+      "persediaan": 82121.95,
+      "pengeluaran": 94078.05,
+      "stok_akhir": -11956.1
+    }
+  },
+  "FEB": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CLAKET",
+        "kg": 16087.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 2612.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 2051.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 13515.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 7489.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 3501.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 15693.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 2987.0,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "PRAMBON",
+        "kg": 2289.0,
+        "rp": 16023000.0
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 3275.0,
+        "rp": 23580000.0
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 3659.0,
+        "rp": 25613000.0
+      }
+    ],
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 52460.0,
+        "rp": 400698074.0
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 2950.0,
+        "harga": 12400.0,
+        "rp": 36580000.0
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 246.0,
+        "harga": 9500.0,
+        "rp": 2337000.0
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARI",
+        "kg": 202.0,
+        "harga": 9500.0,
+        "rp": 1919000.0
+      },
+      {
+        "nama": "WARDI",
+        "kg": 1822.0,
+        "harga": 9500.0,
+        "rp": 17309000.0
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 24930.0,
+        "harga": 9000.0,
+        "rp": 224370000.0
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 280.0,
+        "harga": 9500.0,
+        "rp": 2660000.0
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 260.0,
+        "keterangan": "PECAH / RUSAK"
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 80.0,
+        "keterangan": "SOSIAL / SUMBANGAN"
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 90.0,
+        "keterangan": "KARYAWAN"
+      }
+    ],
+    "stok_rekap": {
+      "stok_awal": 0,
+      "penerimaan": 71373.66,
+      "persediaan": 71373.66,
+      "pengeluaran": 81287.8,
+      "stok_akhir": -9914.15
+    }
+  },
+  "MAR": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CLAKET",
+        "kg": 18258.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 3327.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 2426.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 16417.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 9061.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 3651.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 17250.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 2299.0,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "PRAMBON",
+        "kg": 3455.0,
+        "rp": 24876000.0
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 3530.0,
+        "rp": 26475000.0
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 3916.0,
+        "rp": 29370000.0
+      }
+    ],
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 65540.0,
+        "rp": 507466103.7
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 2970.0,
+        "harga": 12400.0,
+        "rp": 36828000.0
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARI",
+        "kg": 58.0,
+        "harga": 9500.0,
+        "rp": 551000.0
+      },
+      {
+        "nama": "WARDI",
+        "kg": 1520.0,
+        "harga": 9500.0,
+        "rp": 14440000.0
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 60.0,
+        "harga": 9500.0,
+        "rp": 570000.0
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 25952.0,
+        "harga": 9000.0,
+        "rp": 233568000.0
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 35.0,
+        "harga": 9500.0,
+        "rp": 332500.0
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 55.0,
+        "keterangan": "PECAH / RUSAK"
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 120.0,
+        "keterangan": "SOSIAL / SUMBANGAN"
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 90.0,
+        "keterangan": "KARYAWAN"
+      }
+    ],
+    "stok_rekap": {
+      "stok_awal": 0,
+      "penerimaan": 81551.22,
+      "persediaan": 81551.22,
+      "pengeluaran": 94048.78,
+      "stok_akhir": -12497.56
+    }
+  },
+  "APRIL": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CLAKET",
+        "kg": 17953.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 2633.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 3015.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 15677.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 8373.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 3856.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 16499.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 2487.0,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "PRAMBON",
+        "kg": 1800.0,
+        "rp": 12960000.0
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 2550.0,
+        "rp": 19125000.0
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "wilayah": "POJEJER",
+        "kg": 1753.0,
+        "rp": 14024000.0
+      },
+      {
+        "wilayah": "TANEN",
+        "kg": 560.0,
+        "rp": 4480000.0
+      }
+    ],
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 48800.0,
+        "rp": 379319013.5
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 2920.0,
+        "harga": 12400.0,
+        "rp": 36208000.0
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 300.0,
+        "harga": 9500.0,
+        "rp": 2850000.0
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARI",
+        "kg": 320.0,
+        "harga": 9500.0,
+        "rp": 3040000.0
+      },
+      {
+        "nama": "WARDI",
+        "kg": 2438.0,
+        "harga": 9500.0,
+        "rp": 23161000.0
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 100.0,
+        "harga": 9500.0,
+        "rp": 950000.0
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 35180.0,
+        "harga": 9000.0,
+        "rp": 316620000.0
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 263.0,
+        "harga": 9500.0,
+        "rp": 2498500.0
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 40.0,
+        "keterangan": "PECAH / RUSAK"
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 180.0,
+        "keterangan": "SOSIAL / SUMBANGAN"
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 90.0,
+        "keterangan": "KARYAWAN"
+      }
+    ],
+    "stok_rekap": {
+      "stok_awal": 0,
+      "penerimaan": 75274.15,
+      "persediaan": 75274.15,
+      "pengeluaran": 88420.49,
+      "stok_akhir": -13146.34
+    }
+  },
+  "MEI": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CLAKET",
+        "kg": 18936.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 2064.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 3875.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 17543.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 9045.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 3423.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 18986.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 2311.0,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "PRAMBON",
+        "kg": 2150.0,
+        "rp": 15910000.0
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 2590.0,
+        "rp": 19425000.0
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "wilayah": "POJEJER",
+        "kg": 7779.0,
+        "rp": 62232000.0
+      },
+      {
+        "wilayah": "TANEN",
+        "kg": 1040.0,
+        "rp": 8320000.0
+      }
+    ],
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 55490.0,
+        "rp": 432820064.1
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 3140.0,
+        "harga": 12400.0,
+        "rp": 38936000.0
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 429.0,
+        "harga": 9500.0,
+        "rp": 4075500.0
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARI",
+        "kg": 354.0,
+        "harga": 9500.0,
+        "rp": 3363000.0
+      },
+      {
+        "nama": "WARDI",
+        "kg": 2725.0,
+        "harga": 9500.0,
+        "rp": 25887500.0
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 20.0,
+        "harga": 9500.0,
+        "rp": 190000.0
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 41052.0,
+        "harga": 9000.0,
+        "rp": 369468000.0
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 280.0,
+        "harga": 9500.0,
+        "rp": 2660000.0
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 60.0,
+        "keterangan": "PECAH / RUSAK"
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 180.0,
+        "keterangan": "SOSIAL / SUMBANGAN"
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 130.0,
+        "keterangan": "KARYAWAN"
+      }
+    ],
+    "stok_rekap": {
+      "stok_awal": 0,
+      "penerimaan": 87553.17,
+      "persediaan": 87553.17,
+      "pengeluaran": 101326.83,
+      "stok_akhir": -13773.66
+    }
+  },
+  "JUNI": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CLAKET",
+        "kg": 17410.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 1372.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 3710.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 18266.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 9188.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 3201.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 19364.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 2901.0,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "PRAMBON",
+        "kg": 1830.0,
+        "rp": 13542000.0
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 2190.0,
+        "rp": 16425000.0
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "wilayah": "POJEJER",
+        "kg": 8606.0,
+        "rp": 68848000.0
+      },
+      {
+        "wilayah": "TANEN",
+        "kg": 1480.0,
+        "rp": 11840000.0
+      }
+    ],
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 54590.0,
+        "rp": 445232836.2
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 3165.0,
+        "harga": 12400.0,
+        "rp": 39246000.0
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 459.0,
+        "harga": 9500.0,
+        "rp": 4360500.0
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARI",
+        "kg": 352.0,
+        "harga": 9500.0,
+        "rp": 3344000.0
+      },
+      {
+        "nama": "WARDI",
+        "kg": 3352.0,
+        "harga": 9500.0,
+        "rp": 31844000.0
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 60.0,
+        "harga": 9500.0,
+        "rp": 570000.0
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 39675.0,
+        "harga": 9000.0,
+        "rp": 357075000.0
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 140.0,
+        "harga": 9500.0,
+        "rp": 1330000.0
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 9500.0,
+        "rp": 0.0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 30.0,
+        "keterangan": "PECAH / RUSAK"
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 180.0,
+        "keterangan": "SOSIAL / SUMBANGAN"
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 80.0,
+        "keterangan": "KARYAWAN"
+      }
+    ],
+    "stok_rekap": {
+      "stok_awal": 0,
+      "penerimaan": 87334.63,
+      "persediaan": 87334.63,
+      "pengeluaran": 99593.17,
+      "stok_akhir": -12258.54
+    }
+  },
+  "JULI": {
+    "penerimaan_anggota": [
+      {
+        "kelompok": "CLAKET",
+        "kg": 18131.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "MLIGI",
+        "kg": 1386.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KAMBENGAN",
+        "kg": 3824.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "SOSO",
+        "kg": 20693.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "BARAAN",
+        "kg": 9680.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PASINAN",
+        "kg": 3778.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "PACET / WARU GUNUNG",
+        "kg": 21210.0,
+        "rp": 0
+      },
+      {
+        "kelompok": "KEMIRI / TRECEH",
+        "kg": 3880.0,
+        "rp": 0
+      }
+    ],
+    "penerimaan_non_anggota": [
+      {
+        "wilayah": "PRAMBON",
+        "kg": 1785.0,
+        "rp": 13209000.0
+      },
+      {
+        "wilayah": "BRANGKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "wilayah": "KRIAN",
+        "kg": 2390.0,
+        "rp": 17925000.0
+      },
+      {
+        "wilayah": "WONOAYU",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "wilayah": "POJEJER",
+        "kg": 8155.0,
+        "rp": 65240000.0
+      },
+      {
+        "wilayah": "TANEN",
+        "kg": 2800.0,
+        "rp": 22400000.0
+      }
+    ],
+    "pengeluaran_perusahaan": [
+      {
+        "nama": "NESTLE",
+        "kg": 66140.0,
+        "rp": 549287783.9
+      },
+      {
+        "nama": "LOKAL",
+        "kg": 0,
+        "rp": 0.0
+      },
+      {
+        "nama": "AGEN",
+        "kg": 0,
+        "rp": 0
+      }
+    ],
+    "pengeluaran_perorangan": [
+      {
+        "nama": "RS.DR SOETOMO",
+        "kg": 3245.0,
+        "harga": 12400.0,
+        "rp": 40238000.0
+      },
+      {
+        "nama": "SAMPURNA",
+        "kg": 0,
+        "harga": 12000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "ALFAN",
+        "kg": 473.0,
+        "harga": 10000.0,
+        "rp": 4730000.0
+      },
+      {
+        "nama": "DIDIK",
+        "kg": 0,
+        "harga": 10000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "KEJU",
+        "kg": 0,
+        "harga": 10000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "MAMA",
+        "kg": 0,
+        "harga": 10000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARI",
+        "kg": 318.0,
+        "harga": 10000.0,
+        "rp": 3180000.0
+      },
+      {
+        "nama": "WARDI",
+        "kg": 3417.0,
+        "harga": 10000.0,
+        "rp": 34170000.0
+      },
+      {
+        "nama": "SUZANA",
+        "kg": 40.0,
+        "harga": 10000.0,
+        "rp": 400000.0
+      },
+      {
+        "nama": "KRISTIN",
+        "kg": 0,
+        "harga": 10000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "DEPOT",
+        "kg": 38030.0,
+        "harga": 10000.0,
+        "rp": 380300000.0
+      },
+      {
+        "nama": "PONDOK",
+        "kg": 190.0,
+        "harga": 10000.0,
+        "rp": 1900000.0
+      },
+      {
+        "nama": "HENDRO",
+        "kg": 0,
+        "harga": 10000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YAYAK",
+        "kg": 0,
+        "harga": 10000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "WIDODO",
+        "kg": 0,
+        "harga": 10000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "YUSUF",
+        "kg": 0,
+        "harga": 10000.0,
+        "rp": 0.0
+      },
+      {
+        "nama": "HARTATIK",
+        "kg": 0,
+        "harga": 10000.0,
+        "rp": 0.0
+      }
+    ],
+    "pengeluaran_lain_lain": [
+      {
+        "karena": "PECAH / RUSAK",
+        "kg": 80.0,
+        "keterangan": "PECAH / RUSAK"
+      },
+      {
+        "karena": "SOSIAL / SUMBANGAN",
+        "kg": 186.0,
+        "keterangan": "SOSIAL / SUMBANGAN"
+      },
+      {
+        "karena": "KARYAWAN",
+        "kg": 140.0,
+        "keterangan": "KARYAWAN"
+      }
+    ],
+    "stok_rekap": {
+      "stok_awal": 0,
+      "penerimaan": 95328.78,
+      "persediaan": 95328.78,
+      "pengeluaran": 109520.98,
+      "stok_akhir": -14192.2
+    }
+  }
+}

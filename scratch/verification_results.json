@@ -1,0 +1,128 @@
+[
+  {
+    "num": 1,
+    "name": "initializeSpreadsheet() All 10 Sheets & Safe Re-run",
+    "expected": "10 Sheets initialized, 4 rows in USERS",
+    "actual": "10 Sheets initialized, 4 rows in USERS",
+    "status": "PASS"
+  },
+  {
+    "num": 2,
+    "name": "Authentication: Login Admin, Koperasi, Depot & Reject Wrong Pass",
+    "expected": "3 Logins PASS, Wrong Pass REJECTED",
+    "actual": "Admin:true, Kop:true, Dep:true, Wrong:INVALID_CREDENTIALS",
+    "status": "PASS"
+  },
+  {
+    "num": 3,
+    "name": "Authorization: Matrix Verification (Koperasi, Depot, Admin)",
+    "expected": "KopToKop:ALLOW, KopToDep:DENY, DepToKop:DENY, AdmToAll:ALLOW",
+    "actual": "KopToKop:true, KopToDep:false, DepToKop:false, AdmToAll:true",
+    "status": "PASS"
+  },
+  {
+    "num": 4,
+    "name": "Data Isolation: Direct Backend Call Cross-Division Rejection",
+    "expected": "FORBIDDEN_DIVISION",
+    "actual": "FORBIDDEN_DIVISION",
+    "status": "PASS"
+  },
+  {
+    "num": 5,
+    "name": "Koperasi Input & Validation (-50 KG & Valid Transaction)",
+    "expected": "Invalid:REJECTED, Valid:CREATED with TRX-KOP-REC",
+    "actual": "Invalid:VALIDATION_ERROR, Valid:CREATED",
+    "status": "PASS"
+  },
+  {
+    "num": 6,
+    "name": "Depot Calculation: Densitas 1.025 (1025 KG -> 1000 Liter)",
+    "expected": "Liter:1000, TotalRp:9225000",
+    "actual": "Liter:1000, TotalRp:9225000",
+    "status": "PASS"
+  },
+  {
+    "num": 7,
+    "name": "Duplicate Submission Protection (LockService Verification)",
+    "expected": "Unique Transaction IDs generated",
+    "actual": "Trx1:TRX-DEP-SAL-20260901-953398, Trx2:TRX-DEP-SAL-20260901-575428",
+    "status": "PASS"
+  },
+  {
+    "num": 8,
+    "name": "Concurrency Check: LockService Wait & Unique ID Timestamping",
+    "expected": "5 Unique IDs generated",
+    "actual": "5 Unique IDs",
+    "status": "PASS"
+  },
+  {
+    "num": 9,
+    "name": "Audit Log Recording & Password Safety Check",
+    "expected": "Logs recorded (>1 row), NO passwords in log",
+    "actual": "Log Rows: 12, Has Password: false",
+    "status": "PASS"
+  },
+  {
+    "num": 10,
+    "name": "Rekap Filtering & Aggregation Test (Juli 2026)",
+    "expected": "Jan Total:500 KG, Jul Total:300 KG",
+    "actual": "Jan:500 KG, Jul:300 KG",
+    "status": "PASS"
+  },
+  {
+    "num": 11,
+    "name": "Data Corruption Safety: Sheet structure untouched on append",
+    "expected": "Header row intact",
+    "actual": "Header col0: user_id, col2: password_hash",
+    "status": "PASS"
+  },
+  {
+    "num": 12,
+    "name": "Error Handling: No stack traces or raw exceptions leaked in errors",
+    "expected": "Generic friendly error message, NO raw SyntaxError leaked",
+    "actual": "Code: SERVER_ERROR, Message: Terjadi kesalahan pada server. Silakan coba lagi.",
+    "status": "PASS"
+  },
+  {
+    "num": 13,
+    "name": "Quota & Performance: Batch Read Function Test",
+    "expected": "Array of records returned via 1 batch call",
+    "actual": "1 records returned",
+    "status": "PASS"
+  },
+  {
+    "num": 14,
+    "name": "Security Review: Parameter Spoofing (divisi=admin payload ignored)",
+    "expected": "Created_by in sheet is USR-KOP01 (Session User)",
+    "actual": "Created_by: USR-KOP01",
+    "status": "PASS"
+  },
+  {
+    "num": 15,
+    "name": "Logistik Pending Module Verification",
+    "expected": "LOGISTIK_MODULE_PENDING",
+    "actual": "LOGISTIK_MODULE_PENDING",
+    "status": "PASS"
+  },
+  {
+    "num": 16,
+    "name": "Depot Stok Opname Calculation: Teoretis vs Riil Selisih",
+    "expected": "Teoretis: 500, Selisih: -900",
+    "actual": "Teoretis: 500, Selisih: -900",
+    "status": "PASS"
+  },
+  {
+    "num": 17,
+    "name": "Production Deployment Security: Private Auth Required",
+    "expected": "UNAUTHENTICATED for invalid token",
+    "actual": "UNAUTHENTICATED",
+    "status": "PASS"
+  },
+  {
+    "num": 18,
+    "name": "Production Password Hardening: Change Password Endpoint",
+    "expected": "Password changed successfully, old pass rejected, new pass accepted",
+    "actual": "Change:PASSWORD_CHANGED, OldLogin:INVALID_CREDENTIALS, NewLogin:LOGIN_SUCCESS",
+    "status": "PASS"
+  }
+]

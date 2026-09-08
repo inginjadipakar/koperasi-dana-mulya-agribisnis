@@ -1,0 +1,109 @@
+import openpyxl, json
+
+wb = openpyxl.load_workbook('LAPORAN BULANAN 2026 DEPOT SUSU.xlsx', data_only=True)
+
+depot_db = {}
+
+# Parse APRIL
+ws_apr = wb['april']
+pembelian_apr = [{
+    'transaction_id': 'TRX-DEP-PUR-2026-04',
+    'tanggal': '2026-04-30',
+    'harga_per_kg': 9000,
+    'jumlah_kg': 35180,
+    'faktor_densitas': 1.025,
+    'jumlah_liter': 34322,
+    'total_rupiah': 316620000,
+    'created_by': 'USR-DEP01'
+}]
+penjualan_apr = [
+    {'transaction_id': 'TRX-DEP-SAL-04-01', 'tanggal': '2026-04-30', 'nama_agen': 'HERU', 'harga_per_liter': 11000, 'jumlah_liter': 9010, 'total_rupiah': 99110000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-04-02', 'tanggal': '2026-04-30', 'nama_agen': 'JAINAL', 'harga_per_liter': 11000, 'jumlah_liter': 3590, 'total_rupiah': 39490000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-04-03', 'tanggal': '2026-04-30', 'nama_agen': 'YULI', 'harga_per_liter': 11000, 'jumlah_liter': 934, 'total_rupiah': 10274000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-04-04', 'tanggal': '2026-04-30', 'nama_agen': 'NINDRI', 'harga_per_liter': 10000, 'jumlah_liter': 1513, 'total_rupiah': 15130000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-04-05', 'tanggal': '2026-04-30', 'nama_agen': 'ISA', 'harga_per_liter': 10000, 'jumlah_liter': 550, 'total_rupiah': 5500000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-04-06', 'tanggal': '2026-04-30', 'nama_agen': 'USMAN', 'harga_per_liter': 10000, 'jumlah_liter': 3325, 'total_rupiah': 33250000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-04-07', 'tanggal': '2026-04-30', 'nama_agen': 'GRESIK', 'harga_per_liter': 10000, 'jumlah_liter': 1140, 'total_rupiah': 11400000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-04-08', 'tanggal': '2026-04-30', 'nama_agen': 'PURI', 'harga_per_liter': 10000, 'jumlah_liter': 2580, 'total_rupiah': 25800000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-04-09', 'tanggal': '2026-04-30', 'nama_agen': 'SUDAR', 'harga_per_liter': 11000, 'jumlah_liter': 158, 'total_rupiah': 1738000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-04-10', 'tanggal': '2026-04-30', 'nama_agen': 'UMUM', 'harga_per_liter': 12000, 'jumlah_liter': 8841, 'total_rupiah': 83991000, 'created_by': 'USR-DEP01'}
+]
+
+# Parse MEI
+pembelian_mei = [{
+    'transaction_id': 'TRX-DEP-PUR-2026-05',
+    'tanggal': '2026-05-31',
+    'harga_per_kg': 9000,
+    'jumlah_kg': 41052,
+    'faktor_densitas': 1.025,
+    'jumlah_liter': 40051,
+    'total_rupiah': 369468000,
+    'created_by': 'USR-DEP01'
+}]
+penjualan_mei = [
+    {'transaction_id': 'TRX-DEP-SAL-05-01', 'tanggal': '2026-05-31', 'nama_agen': 'HERU', 'harga_per_liter': 11000, 'jumlah_liter': 10740, 'total_rupiah': 118140000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-05-02', 'tanggal': '2026-05-31', 'nama_agen': 'JAINAL', 'harga_per_liter': 11000, 'jumlah_liter': 4560, 'total_rupiah': 50160000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-05-03', 'tanggal': '2026-05-31', 'nama_agen': 'YULI', 'harga_per_liter': 11000, 'jumlah_liter': 1000, 'total_rupiah': 11000000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-05-04', 'tanggal': '2026-05-31', 'nama_agen': 'NINDRI', 'harga_per_liter': 10000, 'jumlah_liter': 2042, 'total_rupiah': 20420000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-05-05', 'tanggal': '2026-05-31', 'nama_agen': 'ISA', 'harga_per_liter': 10000, 'jumlah_liter': 650, 'total_rupiah': 6500000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-05-06', 'tanggal': '2026-05-31', 'nama_agen': 'USMAN', 'harga_per_liter': 10000, 'jumlah_liter': 3640, 'total_rupiah': 36400000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-05-07', 'tanggal': '2026-05-31', 'nama_agen': 'GRESIK', 'harga_per_liter': 10000, 'jumlah_liter': 960, 'total_rupiah': 9600000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-05-08', 'tanggal': '2026-05-31', 'nama_agen': 'PURI', 'harga_per_liter': 10000, 'jumlah_liter': 2545, 'total_rupiah': 25450000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-05-09', 'tanggal': '2026-05-31', 'nama_agen': 'SUDAR', 'harga_per_liter': 11000, 'jumlah_liter': 142, 'total_rupiah': 1562000, 'created_by': 'USR-DEP01'}
+]
+
+# Parse JUNI
+pembelian_juni = [{
+    'transaction_id': 'TRX-DEP-PUR-2026-06',
+    'tanggal': '2026-06-30',
+    'harga_per_kg': 9000,
+    'jumlah_kg': 39675,
+    'faktor_densitas': 1.025,
+    'jumlah_liter': 38708,
+    'total_rupiah': 357075000,
+    'created_by': 'USR-DEP01'
+}]
+penjualan_juni = [
+    {'transaction_id': 'TRX-DEP-SAL-06-01', 'tanggal': '2026-06-30', 'nama_agen': 'HERU', 'harga_per_liter': 11000, 'jumlah_liter': 9245, 'total_rupiah': 101695000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-06-02', 'tanggal': '2026-06-30', 'nama_agen': 'JAINAL', 'harga_per_liter': 11000, 'jumlah_liter': 4290, 'total_rupiah': 47190000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-06-03', 'tanggal': '2026-06-30', 'nama_agen': 'USMAN', 'harga_per_liter': 10000, 'jumlah_liter': 4455, 'total_rupiah': 44550000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-06-04', 'tanggal': '2026-06-30', 'nama_agen': 'NINDRI', 'harga_per_liter': 10000, 'jumlah_liter': 2232, 'total_rupiah': 22320000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-06-05', 'tanggal': '2026-06-30', 'nama_agen': 'ISA', 'harga_per_liter': 10000, 'jumlah_liter': 720, 'total_rupiah': 7200000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-06-06', 'tanggal': '2026-06-30', 'nama_agen': 'YULI', 'harga_per_liter': 11000, 'jumlah_liter': 790, 'total_rupiah': 8690000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-06-07', 'tanggal': '2026-06-30', 'nama_agen': 'PURI', 'harga_per_liter': 10000, 'jumlah_liter': 2256, 'total_rupiah': 22560000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-06-08', 'tanggal': '2026-06-30', 'nama_agen': 'GRESIK', 'harga_per_liter': 10000, 'jumlah_liter': 1650, 'total_rupiah': 16500000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-06-09', 'tanggal': '2026-06-30', 'nama_agen': 'SUDAR', 'harga_per_liter': 11000, 'jumlah_liter': 174, 'total_rupiah': 1914000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-06-10', 'tanggal': '2026-06-30', 'nama_agen': 'UMUM', 'harga_per_liter': 12000, 'jumlah_liter': 7511, 'total_rupiah': 90126000, 'created_by': 'USR-DEP01'}
+]
+
+# Parse JULI
+pembelian_juli = [{
+    'transaction_id': 'TRX-DEP-PUR-2026-07',
+    'tanggal': '2026-07-31',
+    'harga_per_kg': 9000,
+    'jumlah_kg': 38030,
+    'faktor_densitas': 1.025,
+    'jumlah_liter': 37103,
+    'total_rupiah': 342270000,
+    'created_by': 'USR-DEP01'
+}]
+penjualan_juli = [
+    {'transaction_id': 'TRX-DEP-SAL-07-01', 'tanggal': '2026-07-31', 'nama_agen': 'HERU', 'harga_per_liter': 11000, 'jumlah_liter': 9080, 'total_rupiah': 99880000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-07-02', 'tanggal': '2026-07-31', 'nama_agen': 'JAINAL', 'harga_per_liter': 11000, 'jumlah_liter': 3690, 'total_rupiah': 40590000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-07-03', 'tanggal': '2026-07-31', 'nama_agen': 'USMAN', 'harga_per_liter': 10000, 'jumlah_liter': 4414, 'total_rupiah': 44140000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-07-04', 'tanggal': '2026-07-31', 'nama_agen': 'NINDRI', 'harga_per_liter': 10000, 'jumlah_liter': 2790, 'total_rupiah': 27900000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-07-05', 'tanggal': '2026-07-31', 'nama_agen': 'ISA', 'harga_per_liter': 10000, 'jumlah_liter': 575, 'total_rupiah': 5750000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-07-06', 'tanggal': '2026-07-31', 'nama_agen': 'YULI', 'harga_per_liter': 11000, 'jumlah_liter': 700, 'total_rupiah': 7700000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-07-07', 'tanggal': '2026-07-31', 'nama_agen': 'PURI', 'harga_per_liter': 10000, 'jumlah_liter': 1320, 'total_rupiah': 13200000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-07-08', 'tanggal': '2026-07-31', 'nama_agen': 'GRESIK', 'harga_per_liter': 10000, 'jumlah_liter': 300, 'total_rupiah': 3000000, 'created_by': 'USR-DEP01'},
+    {'transaction_id': 'TRX-DEP-SAL-07-09', 'tanggal': '2026-07-31', 'nama_agen': 'SUDAR', 'harga_per_liter': 11000, 'jumlah_liter': 181, 'total_rupiah': 1991000, 'created_by': 'USR-DEP01'}
+]
+
+all_pembelian = pembelian_apr + pembelian_mei + pembelian_juni + pembelian_juli
+all_penjualan = penjualan_apr + penjualan_mei + penjualan_juni + penjualan_juli
+
+print('TOTAL PEMBELIAN RECORDS:', len(all_pembelian))
+print('TOTAL PENJUALAN RECORDS:', len(all_penjualan))
+
+with open('scratch/depot_parsed_db.json', 'w', encoding='utf-8') as f:
+    json.dump({'pembelian': all_pembelian, 'penjualan': all_penjualan}, f, indent=2)

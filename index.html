@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Digital Koperasi Danamulya</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- App Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css?v=20260907_v17">
+  <!-- Mobile App Design System -->
+  <link rel="stylesheet" href="css/mobile-app.css?v=20260907_v17">
+</head>
+<body>
+
+  <!-- NAVBAR HEADER -->
+  <nav class="navbar navbar-expand-lg px-4 pt-3 pb-0" id="mainNavbar" style="display: none;">
+    <div class="container-fluid px-0 d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-3">
+        <img src="images/logo.jpg" alt="Logo Koperasi Danamulya" class="rounded-circle shadow-sm" style="width: 40px; height: 40px; object-fit: cover;">
+        <div>
+          <h3 class="brand-title mb-0">Koperasi Danamulya</h3>
+          <span class="brand-date" id="currentDateDisplay">Laporan Sistem Informasi Digital 2026</span>
+        </div>
+      </div>
+      <div id="navUserInfo" class="d-flex align-items-center gap-2"></div>
+    </div>
+  </nav>
+
+  <!-- FLOATING SIDEBAR EXPAND HANDLE (BARIS KIRI FOR BUKA >) -->
+  <button id="sidebarExpandBtn" class="btn btn-success btn-sm position-fixed start-0 shadow-lg border-0" 
+          style="top: 50%; transform: translateY(-50%); z-index: 1050; border-radius: 0 10px 10px 0; padding: 14px 8px; display: none;" 
+          onclick="App.toggleSidebar()" 
+          title="Buka Sidebar Navigasi (>)">
+    <i class="bi bi-chevron-right fs-5 fw-bold text-white"></i>
+  </button>
+
+  <!-- MAIN LAYOUT WRAPPER -->
+  <div class="d-flex w-100" id="appLayout">
+    <!-- SIDEBAR NAV -->
+    <aside class="sidebar p-3" id="mainSidebar" style="display: none; width: 240px; min-width: 240px; flex-shrink: 0;">
+      <div class="d-flex justify-content-between align-items-center mb-3 px-2">
+        <span class="text-uppercase text-muted fw-bold small">Menu Divisi</span>
+        <button class="btn btn-sm btn-light border text-muted shadow-sm py-1 px-2 rounded-2" onclick="App.toggleSidebar()" title="Sembunyikan Sidebar (<)">
+          <i class="bi bi-chevron-left fw-bold"></i>
+        </button>
+      </div>
+      <nav class="nav flex-column" id="sidebarNav"></nav>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-grow-1 p-0" id="mainContent" style="min-width: 0;">
+      <!-- Rendered Dynamically by App.render() -->
+    </main>
+  </div>
+
+  <!-- MOBILE PLAYSTORE-STYLE BOTTOM NAVIGATION BAR -->
+  <div id="mobileBottomNav" class="mobile-bottom-nav d-md-none" style="display: none;"></div>
+
+  <!-- Bootstrap 5 Bundle JS, SheetJS XLSX, & SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Application JS Modules with Cache Busting -->
+  <script src="js/api.js?v=20260907_v16"></script>
+  <script src="js/auth.js?v=20260907_v16"></script>
+  <script src="js/koperasi.js?v=20260907_v16"></script>
+  <script src="js/depot.js?v=20260907_v16"></script>
+  <script src="js/peternak_master.js?v=20260907_v16"></script>
+  <script src="js/logistik.js?v=20260907_v16"></script>
+  <script src="js/recap.js?v=20260907_v16"></script>
+  <script src="js/app.js?v=20260907_v16"></script>
+</body>
+</html>

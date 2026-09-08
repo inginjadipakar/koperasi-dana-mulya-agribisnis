@@ -1,0 +1,2381 @@
+{
+  "USERS": [
+    {
+      "user_id": "USR-ADMIN",
+      "username": "admin",
+      "password_hash": "admin123",
+      "role": "admin",
+      "divisi": "ALL",
+      "nama_lengkap": "Administrator Utama",
+      "status": "ACTIVE"
+    },
+    {
+      "user_id": "USR-KOP01",
+      "username": "koperasi01",
+      "password_hash": "koperasi123",
+      "role": "koperasi",
+      "divisi": "KOPERASI",
+      "nama_lengkap": "Petugas Koperasi",
+      "status": "ACTIVE"
+    },
+    {
+      "user_id": "USR-DEP01",
+      "username": "depot01",
+      "password_hash": "depot123",
+      "role": "depot",
+      "divisi": "DEPOT",
+      "nama_lengkap": "Petugas Depot Susu",
+      "status": "ACTIVE"
+    }
+  ],
+  "KOPERASI_PENERIMAAN": [
+    {
+      "transaction_id": "TRX-KOP-REC-0001",
+      "tanggal": "2026-01-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CEMBOR",
+      "jumlah_kg": 14602.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0002",
+      "tanggal": "2026-01-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CLAKET",
+      "jumlah_kg": 17884.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0003",
+      "tanggal": "2026-01-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "PRAMBON",
+      "jumlah_kg": 2443.0,
+      "harga_per_kg": 7000,
+      "total_rupiah": 17101000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0004",
+      "tanggal": "2026-01-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "MLIGI",
+      "jumlah_kg": 3244.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0005",
+      "tanggal": "2026-01-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KAMBENGAN",
+      "jumlah_kg": 2513.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0006",
+      "tanggal": "2026-01-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "KRIAN",
+      "jumlah_kg": 3930.0,
+      "harga_per_kg": 7200,
+      "total_rupiah": 28296000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0007",
+      "tanggal": "2026-01-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "SOSO",
+      "jumlah_kg": 15352.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0008",
+      "tanggal": "2026-01-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "WONOAYU",
+      "jumlah_kg": 4184.0,
+      "harga_per_kg": 7000,
+      "total_rupiah": 29288000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0009",
+      "tanggal": "2026-01-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "BARAAN",
+      "jumlah_kg": 8354.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0010",
+      "tanggal": "2026-01-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PASINAN",
+      "jumlah_kg": 4056.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0011",
+      "tanggal": "2026-01-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PACET / WARU GUNUNG",
+      "jumlah_kg": 19263.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0012",
+      "tanggal": "2026-01-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KEMIRI / TRECEH",
+      "jumlah_kg": 2952.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0013",
+      "tanggal": "2026-02-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CEMBOR",
+      "jumlah_kg": 13529.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0014",
+      "tanggal": "2026-02-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CLAKET",
+      "jumlah_kg": 16087.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0015",
+      "tanggal": "2026-02-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "PRAMBON",
+      "jumlah_kg": 2289.0,
+      "harga_per_kg": 7000,
+      "total_rupiah": 16023000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0016",
+      "tanggal": "2026-02-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "MLIGI",
+      "jumlah_kg": 2612.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0017",
+      "tanggal": "2026-02-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KAMBENGAN",
+      "jumlah_kg": 2051.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0018",
+      "tanggal": "2026-02-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "KRIAN",
+      "jumlah_kg": 3275.0,
+      "harga_per_kg": 7200,
+      "total_rupiah": 23580000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0019",
+      "tanggal": "2026-02-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "SOSO",
+      "jumlah_kg": 13515.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0020",
+      "tanggal": "2026-02-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "WONOAYU",
+      "jumlah_kg": 3659.0,
+      "harga_per_kg": 7000,
+      "total_rupiah": 25613000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0021",
+      "tanggal": "2026-02-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "BARAAN",
+      "jumlah_kg": 7489.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0022",
+      "tanggal": "2026-02-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PASINAN",
+      "jumlah_kg": 3501.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0023",
+      "tanggal": "2026-02-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PACET / WARU GUNUNG",
+      "jumlah_kg": 15693.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0024",
+      "tanggal": "2026-02-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KEMIRI / TRECEH",
+      "jumlah_kg": 2987.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0025",
+      "tanggal": "2026-03-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CEMBOR",
+      "jumlah_kg": 14452.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0026",
+      "tanggal": "2026-03-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CLAKET",
+      "jumlah_kg": 18258.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0027",
+      "tanggal": "2026-03-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "PRAMBON",
+      "jumlah_kg": 3455.0,
+      "harga_per_kg": 7200,
+      "total_rupiah": 24876000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0028",
+      "tanggal": "2026-03-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "MLIGI",
+      "jumlah_kg": 3327.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0029",
+      "tanggal": "2026-03-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KAMBENGAN",
+      "jumlah_kg": 2426.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0030",
+      "tanggal": "2026-03-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "KRIAN",
+      "jumlah_kg": 3530.0,
+      "harga_per_kg": 7500,
+      "total_rupiah": 26475000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0031",
+      "tanggal": "2026-03-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "SOSO",
+      "jumlah_kg": 16417.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0032",
+      "tanggal": "2026-03-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "WONOAYU",
+      "jumlah_kg": 3916.0,
+      "harga_per_kg": 7500,
+      "total_rupiah": 29370000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0033",
+      "tanggal": "2026-03-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "BARAAN",
+      "jumlah_kg": 9061.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0034",
+      "tanggal": "2026-03-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PASINAN",
+      "jumlah_kg": 3651.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0035",
+      "tanggal": "2026-03-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PACET / WARU GUNUNG",
+      "jumlah_kg": 17250.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0036",
+      "tanggal": "2026-03-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KEMIRI / TRECEH",
+      "jumlah_kg": 2299.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0037",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CEMBOR",
+      "jumlah_kg": 13743.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0038",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "MOJOSARI",
+      "jumlah_kg": 1600.0,
+      "harga_per_kg": 7200,
+      "total_rupiah": 11520000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0039",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CLAKET",
+      "jumlah_kg": 17953.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0040",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "PRAMBON",
+      "jumlah_kg": 1800.0,
+      "harga_per_kg": 7200,
+      "total_rupiah": 12960000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0041",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "MLIGI",
+      "jumlah_kg": 2633.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0042",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KAMBENGAN",
+      "jumlah_kg": 3015.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0043",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "KRIAN",
+      "jumlah_kg": 2550.0,
+      "harga_per_kg": 7500,
+      "total_rupiah": 19125000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0044",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "SOSO",
+      "jumlah_kg": 15677.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0045",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "BARAAN",
+      "jumlah_kg": 8373.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0046",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "POJEJER",
+      "jumlah_kg": 1753.0,
+      "harga_per_kg": 8000,
+      "total_rupiah": 14024000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0047",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PASINAN",
+      "jumlah_kg": 3856.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0048",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "TANEN",
+      "jumlah_kg": 560.0,
+      "harga_per_kg": 8000,
+      "total_rupiah": 4480000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0049",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PACET / WARU GUNUNG",
+      "jumlah_kg": 16499.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0050",
+      "tanggal": "2026-04-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KEMIRI / TRECEH",
+      "jumlah_kg": 2487.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0051",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CEMBOR",
+      "jumlah_kg": 13515.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0052",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "MOJOSARI",
+      "jumlah_kg": 1663.0,
+      "harga_per_kg": 7400,
+      "total_rupiah": 12306200,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0053",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CLAKET",
+      "jumlah_kg": 18936.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0054",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "PRAMBON",
+      "jumlah_kg": 2150.0,
+      "harga_per_kg": 7400,
+      "total_rupiah": 15910000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0055",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "MLIGI",
+      "jumlah_kg": 2064.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0056",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KAMBENGAN",
+      "jumlah_kg": 3875.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0057",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "KRIAN",
+      "jumlah_kg": 2590.0,
+      "harga_per_kg": 7500,
+      "total_rupiah": 19425000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0058",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "SOSO",
+      "jumlah_kg": 17543.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0059",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "BARAAN",
+      "jumlah_kg": 9045.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0060",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "POJEJER",
+      "jumlah_kg": 7779.0,
+      "harga_per_kg": 8000,
+      "total_rupiah": 62232000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0061",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PASINAN",
+      "jumlah_kg": 3423.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0062",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "TANEN",
+      "jumlah_kg": 1040.0,
+      "harga_per_kg": 8000,
+      "total_rupiah": 8320000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0063",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PACET / WARU GUNUNG",
+      "jumlah_kg": 18986.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0064",
+      "tanggal": "2026-05-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KEMIRI / TRECEH",
+      "jumlah_kg": 2311.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0065",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CEMBOR",
+      "jumlah_kg": 12464.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0066",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "MOJOSARI",
+      "jumlah_kg": 1511.0,
+      "harga_per_kg": 7400,
+      "total_rupiah": 11181400,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0067",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CLAKET",
+      "jumlah_kg": 17410.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0068",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "PRAMBON",
+      "jumlah_kg": 1830.0,
+      "harga_per_kg": 7400,
+      "total_rupiah": 13542000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0069",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "MLIGI",
+      "jumlah_kg": 1372.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0070",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KAMBENGAN",
+      "jumlah_kg": 3710.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0071",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "KRIAN",
+      "jumlah_kg": 2190.0,
+      "harga_per_kg": 7500,
+      "total_rupiah": 16425000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0072",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "SOSO",
+      "jumlah_kg": 18266.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0073",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "BARAAN",
+      "jumlah_kg": 9188.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0074",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "POJEJER",
+      "jumlah_kg": 8606.0,
+      "harga_per_kg": 8000,
+      "total_rupiah": 68848000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0075",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PASINAN",
+      "jumlah_kg": 3201.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0076",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "TANEN",
+      "jumlah_kg": 1480.0,
+      "harga_per_kg": 8000,
+      "total_rupiah": 11840000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0077",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PACET / WARU GUNUNG",
+      "jumlah_kg": 19364.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0078",
+      "tanggal": "2026-06-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KEMIRI / TRECEH",
+      "jumlah_kg": 2901.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0079",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CEMBOR",
+      "jumlah_kg": 13700.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0080",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "MOJOSARI",
+      "jumlah_kg": 1752.0,
+      "harga_per_kg": 7400,
+      "total_rupiah": 12964800,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0081",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "CLAKET",
+      "jumlah_kg": 18131.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0082",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "PRAMBON",
+      "jumlah_kg": 1785.0,
+      "harga_per_kg": 7400,
+      "total_rupiah": 13209000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0083",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "MLIGI",
+      "jumlah_kg": 1386.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0084",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KAMBENGAN",
+      "jumlah_kg": 3824.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0085",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "KRIAN",
+      "jumlah_kg": 2390.0,
+      "harga_per_kg": 7500,
+      "total_rupiah": 17925000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0086",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "SOSO",
+      "jumlah_kg": 20693.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0087",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "BARAAN",
+      "jumlah_kg": 9680.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0088",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "POJEJER",
+      "jumlah_kg": 8155.0,
+      "harga_per_kg": 8000,
+      "total_rupiah": 65240000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0089",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PASINAN",
+      "jumlah_kg": 3778.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0090",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "NON_ANGGOTA",
+      "nama_sumber": "TANEN",
+      "jumlah_kg": 2800.0,
+      "harga_per_kg": 8000,
+      "total_rupiah": 22400000,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0091",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "PACET / WARU GUNUNG",
+      "jumlah_kg": 21210.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-REC-0092",
+      "tanggal": "2026-07-15",
+      "kategori_sumber": "ANGGOTA",
+      "nama_sumber": "KEMIRI / TRECEH",
+      "jumlah_kg": 3880.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 0,
+      "created_by": "USR-KOP01"
+    }
+  ],
+  "KOPERASI_PENGELUARAN": [
+    {
+      "transaction_id": "TRX-KOP-OUT-0001",
+      "tanggal": "2026-01-15",
+      "kategori_tujuan": "PENJUALAN",
+      "nama_tujuan": "NESTLE",
+      "jumlah_kg": 53340.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 386362127,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-OUT-0002",
+      "tanggal": "2026-04-15",
+      "kategori_tujuan": "PENJUALAN",
+      "nama_tujuan": "NESTLE",
+      "jumlah_kg": 48800.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 379319013,
+      "created_by": "USR-KOP01"
+    },
+    {
+      "transaction_id": "TRX-KOP-OUT-0003",
+      "tanggal": "2026-07-15",
+      "kategori_tujuan": "PENJUALAN",
+      "nama_tujuan": "NESTLE",
+      "jumlah_kg": 66140.0,
+      "harga_per_kg": 0,
+      "total_rupiah": 549287783,
+      "created_by": "USR-KOP01"
+    }
+  ],
+  "DEPOT_PEMBELIAN": [
+    {
+      "transaction_id": "TRX-DEP-PUR-0001",
+      "tanggal": "2026-01-15",
+      "harga_per_kg": 9000,
+      "jumlah_kg": 36144.0,
+      "faktor_densitas": 1.025,
+      "jumlah_liter": 35262.439024390245,
+      "total_rupiah": 325296000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-PUR-0002",
+      "tanggal": "2026-02-15",
+      "harga_per_kg": 9000,
+      "jumlah_kg": 24930.0,
+      "faktor_densitas": 1.025,
+      "jumlah_liter": 24321.951219512197,
+      "total_rupiah": 224370000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-PUR-0003",
+      "tanggal": "2026-03-15",
+      "harga_per_kg": 9000,
+      "jumlah_kg": 25952.0,
+      "faktor_densitas": 1.025,
+      "jumlah_liter": 25319.024390243903,
+      "total_rupiah": 233568000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-PUR-0004",
+      "tanggal": "2026-04-15",
+      "harga_per_kg": 9000,
+      "jumlah_kg": 35180.0,
+      "faktor_densitas": 1.025,
+      "jumlah_liter": 34321.9512195122,
+      "total_rupiah": 316620000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-PUR-0005",
+      "tanggal": "2026-05-15",
+      "harga_per_kg": 9000,
+      "jumlah_kg": 41052.0,
+      "faktor_densitas": 1.025,
+      "jumlah_liter": 40050.73170731708,
+      "total_rupiah": 369468000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-PUR-0006",
+      "tanggal": "2026-06-15",
+      "harga_per_kg": 9000,
+      "jumlah_kg": 39675.0,
+      "faktor_densitas": 1.025,
+      "jumlah_liter": 38708.0,
+      "total_rupiah": 357075000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-PUR-0007",
+      "tanggal": "2026-07-15",
+      "harga_per_kg": 9000,
+      "jumlah_kg": 38030.0,
+      "faktor_densitas": 1.025,
+      "jumlah_liter": 37103.0,
+      "total_rupiah": 342270000,
+      "created_by": "USR-DEP01"
+    }
+  ],
+  "DEPOT_PENJUALAN": [
+    {
+      "transaction_id": "TRX-DEP-SAL-0001",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Heru",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 9270.0,
+      "total_rupiah": 101970000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0002",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Jainal",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 3386.0,
+      "total_rupiah": 37246000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0003",
+      "tanggal": "2026-01-15",
+      "nama_agen": "yuli",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 830.0,
+      "total_rupiah": 9130000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0004",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Nindri",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 1524.0,
+      "total_rupiah": 15240000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0005",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Isa",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 455.0,
+      "total_rupiah": 4550000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0006",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Usman",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 2800.0,
+      "total_rupiah": 28000000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0007",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Gresik",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 1175.0,
+      "total_rupiah": 11750000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0008",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Karyawan",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 343.9,
+      "total_rupiah": 3439000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0009",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Sudar",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 169.0,
+      "total_rupiah": 1859000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0010",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Fx. Munir",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 16.0,
+      "total_rupiah": 160000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0011",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Puri",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 1910.0,
+      "total_rupiah": 19100000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0012",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Pak Mul Sampurna",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 75.0,
+      "total_rupiah": 900000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0013",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Umum",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 10106.0,
+      "total_rupiah": 82230000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0014",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Botol",
+      "harga_per_liter": 8000,
+      "jumlah_liter": 1075.0,
+      "total_rupiah": 23600000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0015",
+      "tanggal": "2026-01-15",
+      "nama_agen": "Gelas",
+      "harga_per_liter": 6000,
+      "jumlah_liter": 297.0,
+      "total_rupiah": 5334000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0016",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Heru",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 6540.0,
+      "total_rupiah": 71940000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0017",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Jainal",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 2164.0,
+      "total_rupiah": 23804000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0018",
+      "tanggal": "2026-02-15",
+      "nama_agen": "yuli",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 590.0,
+      "total_rupiah": 6490000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0019",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Nindri",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 843.0,
+      "total_rupiah": 8430000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0020",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Isa",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 140.0,
+      "total_rupiah": 1400000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0021",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Usman",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 1775.0,
+      "total_rupiah": 17750000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0022",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Gresik",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 960.0,
+      "total_rupiah": 9600000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0023",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Karyawan",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 375.9,
+      "total_rupiah": 3759000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0024",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Sudar",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 144.0,
+      "total_rupiah": 1584000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0025",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Fx. Munir",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 5.0,
+      "total_rupiah": 50000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0026",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Puri",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 1890.0,
+      "total_rupiah": 18900000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0027",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Pak Mul Sampurna",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 102.0,
+      "total_rupiah": 1224000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0028",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Umum",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 7424.0,
+      "total_rupiah": 70205000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0029",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Botol",
+      "harga_per_liter": 8000,
+      "jumlah_liter": 605.0,
+      "total_rupiah": 15632000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0030",
+      "tanggal": "2026-02-15",
+      "nama_agen": "Gelas",
+      "harga_per_liter": 6000,
+      "jumlah_liter": 181.0,
+      "total_rupiah": 3246000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0031",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Heru",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 6180.0,
+      "total_rupiah": 67980000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0032",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Jainal",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 2560.0,
+      "total_rupiah": 28160000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0033",
+      "tanggal": "2026-03-15",
+      "nama_agen": "yuli",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 550.0,
+      "total_rupiah": 6050000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0034",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Nindri",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 1055.0,
+      "total_rupiah": 10550000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0035",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Isa",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 438.0,
+      "total_rupiah": 4380000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0036",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Usman",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 2100.0,
+      "total_rupiah": 21000000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0037",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Gresik",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 742.0,
+      "total_rupiah": 7420000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0038",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Karyawan",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 416.2,
+      "total_rupiah": 4162000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0039",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Sudar",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 138.0,
+      "total_rupiah": 1518000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0040",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Fx. Munir",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 23.0,
+      "total_rupiah": 230000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0041",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Puri",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 830.0,
+      "total_rupiah": 8300000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0042",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Pak Mul Sampurna",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 78.0,
+      "total_rupiah": 936000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0043",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Umum",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 8533.0,
+      "total_rupiah": 75210000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0044",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Botol",
+      "harga_per_liter": 8000,
+      "jumlah_liter": 1027.0,
+      "total_rupiah": 24736000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0045",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Gelas",
+      "harga_per_liter": 6000,
+      "jumlah_liter": 182.0,
+      "total_rupiah": 2448000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0046",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Heru",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 9010.0,
+      "total_rupiah": 99110000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0047",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Jainal",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 3590.0,
+      "total_rupiah": 39490000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0048",
+      "tanggal": "2026-04-15",
+      "nama_agen": "yuli",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 934.0,
+      "total_rupiah": 10274000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0049",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Nindri",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 1513.0,
+      "total_rupiah": 15130000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0050",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Isa",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 550.0,
+      "total_rupiah": 5500000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0051",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Usman",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 3325.0,
+      "total_rupiah": 33250000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0052",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Gresik",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 1140.0,
+      "total_rupiah": 11400000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0053",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Karyawan",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 323.8,
+      "total_rupiah": 3238000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0054",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Sudar",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 158.0,
+      "total_rupiah": 1738000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0055",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Fx. Munir",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 5.0,
+      "total_rupiah": 50000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0056",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Puri",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 2580.0,
+      "total_rupiah": 25800000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0057",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Pak Mul Sampurna",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 135.0,
+      "total_rupiah": 1620000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0058",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Umum",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 8841.0,
+      "total_rupiah": 83991000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0059",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Botol",
+      "harga_per_liter": 8000,
+      "jumlah_liter": 715.0,
+      "total_rupiah": 18408000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0060",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Gelas",
+      "harga_per_liter": 6000,
+      "jumlah_liter": 253.0,
+      "total_rupiah": 4134000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0061",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Heru",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 10740.0,
+      "total_rupiah": 118140000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0062",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Jainal",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 4560.0,
+      "total_rupiah": 50160000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0063",
+      "tanggal": "2026-05-15",
+      "nama_agen": "yuli",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 1000.0,
+      "total_rupiah": 11000000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0064",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Nindri",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 2042.0,
+      "total_rupiah": 20420000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0065",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Isa",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 650.0,
+      "total_rupiah": 6500000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0066",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Usman",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 3640.0,
+      "total_rupiah": 36400000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0067",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Gresik",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 960.0,
+      "total_rupiah": 9600000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0068",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Karyawan",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 252.6,
+      "total_rupiah": 2526000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0069",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Sudar",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 142.0,
+      "total_rupiah": 1562000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0070",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Puri",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 2545.0,
+      "total_rupiah": 25450000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0071",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Pak Mul Sampurna",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 100.0,
+      "total_rupiah": 1200000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0072",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Umum",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 10713.0,
+      "total_rupiah": 96419000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0073",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Botol",
+      "harga_per_liter": 8000,
+      "jumlah_liter": 926.0,
+      "total_rupiah": 24680000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0074",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Gelas",
+      "harga_per_liter": 6000,
+      "jumlah_liter": 295.0,
+      "total_rupiah": 5838000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0075",
+      "tanggal": "2026-06-15",
+      "nama_agen": "HERU",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 9245.0,
+      "total_rupiah": 101695000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0076",
+      "tanggal": "2026-06-15",
+      "nama_agen": "JAINAL",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 4290.0,
+      "total_rupiah": 47190000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0077",
+      "tanggal": "2026-06-15",
+      "nama_agen": "USMAN",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 4455.0,
+      "total_rupiah": 44550000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0078",
+      "tanggal": "2026-06-15",
+      "nama_agen": "NINDRI",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 2232.0,
+      "total_rupiah": 22320000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0079",
+      "tanggal": "2026-06-15",
+      "nama_agen": "ISA",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 720.0,
+      "total_rupiah": 7200000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0080",
+      "tanggal": "2026-06-15",
+      "nama_agen": "YULI",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 790.0,
+      "total_rupiah": 8690000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0081",
+      "tanggal": "2026-06-15",
+      "nama_agen": "PURI",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 2256.0,
+      "total_rupiah": 22560000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0082",
+      "tanggal": "2026-06-15",
+      "nama_agen": "GRESIK",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 1650.0,
+      "total_rupiah": 16500000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0083",
+      "tanggal": "2026-06-15",
+      "nama_agen": "SUDAR",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 174.0,
+      "total_rupiah": 1914000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0084",
+      "tanggal": "2026-06-15",
+      "nama_agen": "PAK MUL SAMPORNA",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 100.0,
+      "total_rupiah": 1200000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0085",
+      "tanggal": "2026-06-15",
+      "nama_agen": "KARYAWAN",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 403.1,
+      "total_rupiah": 4031000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0086",
+      "tanggal": "2026-06-15",
+      "nama_agen": "UMUM",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 7510.5,
+      "total_rupiah": 90126000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0087",
+      "tanggal": "2026-06-15",
+      "nama_agen": "JUMLAH SUSU SEGAR",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 367976000.0,
+      "total_rupiah": 3679760000000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0088",
+      "tanggal": "2026-06-15",
+      "nama_agen": "BOTOL",
+      "harga_per_liter": 8000,
+      "jumlah_liter": 26056000.0,
+      "total_rupiah": 208448000000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0089",
+      "tanggal": "2026-07-15",
+      "nama_agen": "HERU",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 9080.0,
+      "total_rupiah": 99880000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0090",
+      "tanggal": "2026-07-15",
+      "nama_agen": "JAINAL",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 3690.0,
+      "total_rupiah": 40590000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0091",
+      "tanggal": "2026-07-15",
+      "nama_agen": "USMAN",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 4414.0,
+      "total_rupiah": 44140000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0092",
+      "tanggal": "2026-07-15",
+      "nama_agen": "NINDRI",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 2790.0,
+      "total_rupiah": 27900000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0093",
+      "tanggal": "2026-07-15",
+      "nama_agen": "ISA",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 575.0,
+      "total_rupiah": 5750000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0094",
+      "tanggal": "2026-07-15",
+      "nama_agen": "YULI",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 700.0,
+      "total_rupiah": 7700000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0095",
+      "tanggal": "2026-07-15",
+      "nama_agen": "PURI",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 1320.0,
+      "total_rupiah": 13200000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0096",
+      "tanggal": "2026-07-15",
+      "nama_agen": "GRESIK",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 300.0,
+      "total_rupiah": 3000000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0097",
+      "tanggal": "2026-07-15",
+      "nama_agen": "SUDAR",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 181.0,
+      "total_rupiah": 1991000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0098",
+      "tanggal": "2026-07-15",
+      "nama_agen": "PAK MUL SAMPORNA",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 128.0,
+      "total_rupiah": 1536000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0099",
+      "tanggal": "2026-07-15",
+      "nama_agen": "KARYAWAN",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 357.8,
+      "total_rupiah": 3578000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0100",
+      "tanggal": "2026-07-15",
+      "nama_agen": "UMUM",
+      "harga_per_liter": 12000,
+      "jumlah_liter": 7164.81,
+      "total_rupiah": 85977720,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0101",
+      "tanggal": "2026-07-15",
+      "nama_agen": "JUMLAH SUSU SEGAR",
+      "harga_per_liter": 10000,
+      "jumlah_liter": 335242720.0,
+      "total_rupiah": 3352427200000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-0102",
+      "tanggal": "2026-07-15",
+      "nama_agen": "BOTOL",
+      "harga_per_liter": 8000,
+      "jumlah_liter": 22512000.0,
+      "total_rupiah": 180096000000,
+      "created_by": "USR-DEP01"
+    }
+  ],
+  "DEPOT_LAIN_LAIN": [],
+  "DEPOT_OPERASIONAL": [
+    {
+      "transaction_id": "TRX-DEP-OPS-0001",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "lemburan nataru",
+      "nominal_biaya": 750000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0002",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "stiker",
+      "nominal_biaya": 1560000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0003",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "kresek,esense",
+      "nominal_biaya": 575000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0004",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "galon",
+      "nominal_biaya": 60000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0005",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "sepatu isa yoga",
+      "nominal_biaya": 200000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0006",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "gula",
+      "nominal_biaya": 2114000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0007",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "sampah",
+      "nominal_biaya": 50000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0008",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "plastik",
+      "nominal_biaya": 450000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0009",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "belanja",
+      "nominal_biaya": 530000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0010",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "belanja kresek",
+      "nominal_biaya": 1567000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0011",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "botol",
+      "nominal_biaya": 8900000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0012",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "lpg",
+      "nominal_biaya": 126000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0013",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "wifi",
+      "nominal_biaya": 150000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0014",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "tatakan kompor",
+      "nominal_biaya": 63000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0015",
+      "tanggal": "2026-01-15",
+      "nama_barang_jenis": "service frezer",
+      "nominal_biaya": 250000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0016",
+      "tanggal": "2026-02-15",
+      "nama_barang_jenis": "plastik",
+      "nominal_biaya": 1300000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0017",
+      "tanggal": "2026-02-15",
+      "nama_barang_jenis": "sampah",
+      "nominal_biaya": 50000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0018",
+      "tanggal": "2026-02-15",
+      "nama_barang_jenis": "lpg",
+      "nominal_biaya": 205000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0019",
+      "tanggal": "2026-02-15",
+      "nama_barang_jenis": "gula",
+      "nominal_biaya": 975000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0020",
+      "tanggal": "2026-02-15",
+      "nama_barang_jenis": "stiker",
+      "nominal_biaya": 520000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0021",
+      "tanggal": "2026-02-15",
+      "nama_barang_jenis": "thermal",
+      "nominal_biaya": 525000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0022",
+      "tanggal": "2026-02-15",
+      "nama_barang_jenis": "print",
+      "nominal_biaya": 12000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0023",
+      "tanggal": "2026-02-15",
+      "nama_barang_jenis": "lemburan",
+      "nominal_biaya": 500000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0024",
+      "tanggal": "2026-02-15",
+      "nama_barang_jenis": "wifi",
+      "nominal_biaya": 150000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0025",
+      "tanggal": "2026-02-15",
+      "nama_barang_jenis": "kresek",
+      "nominal_biaya": 465000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0026",
+      "tanggal": "2026-03-15",
+      "nama_barang_jenis": "sampah",
+      "nominal_biaya": 50000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0027",
+      "tanggal": "2026-03-15",
+      "nama_barang_jenis": "stiker",
+      "nominal_biaya": 1300000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0028",
+      "tanggal": "2026-03-15",
+      "nama_barang_jenis": "lpg",
+      "nominal_biaya": 189000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0029",
+      "tanggal": "2026-03-15",
+      "nama_barang_jenis": "plastik susu",
+      "nominal_biaya": 1720000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0030",
+      "tanggal": "2026-03-15",
+      "nama_barang_jenis": "gula",
+      "nominal_biaya": 1125000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0031",
+      "tanggal": "2026-03-15",
+      "nama_barang_jenis": "kresek",
+      "nominal_biaya": 1280000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0032",
+      "tanggal": "2026-03-15",
+      "nama_barang_jenis": "wifi",
+      "nominal_biaya": 150000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0033",
+      "tanggal": "2026-03-15",
+      "nama_barang_jenis": "galon",
+      "nominal_biaya": 20000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0034",
+      "tanggal": "2026-03-15",
+      "nama_barang_jenis": "esense",
+      "nominal_biaya": 480000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0035",
+      "tanggal": "2026-03-15",
+      "nama_barang_jenis": "sabun",
+      "nominal_biaya": 164000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0036",
+      "tanggal": "2026-03-15",
+      "nama_barang_jenis": "lemburan hari raya 5orang",
+      "nominal_biaya": 2500000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0037",
+      "tanggal": "2026-04-15",
+      "nama_barang_jenis": "stiker",
+      "nominal_biaya": 1300000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0038",
+      "tanggal": "2026-04-15",
+      "nama_barang_jenis": "sampah",
+      "nominal_biaya": 50000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0039",
+      "tanggal": "2026-04-15",
+      "nama_barang_jenis": "lpg",
+      "nominal_biaya": 324000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0040",
+      "tanggal": "2026-04-15",
+      "nama_barang_jenis": "gula",
+      "nominal_biaya": 1950000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0041",
+      "tanggal": "2026-04-15",
+      "nama_barang_jenis": "plastik,kasak,sedotan",
+      "nominal_biaya": 1701000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0042",
+      "tanggal": "2026-04-15",
+      "nama_barang_jenis": "kresek",
+      "nominal_biaya": 270000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0043",
+      "tanggal": "2026-04-15",
+      "nama_barang_jenis": "wifi",
+      "nominal_biaya": 150000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0044",
+      "tanggal": "2026-04-15",
+      "nama_barang_jenis": "galon",
+      "nominal_biaya": 21000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0045",
+      "tanggal": "2026-04-15",
+      "nama_barang_jenis": "lemburan",
+      "nominal_biaya": 250000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0046",
+      "tanggal": "2026-05-15",
+      "nama_barang_jenis": "sampah",
+      "nominal_biaya": 50000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0047",
+      "tanggal": "2026-05-15",
+      "nama_barang_jenis": "wifi",
+      "nominal_biaya": 150000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0048",
+      "tanggal": "2026-05-15",
+      "nama_barang_jenis": "lpg",
+      "nominal_biaya": 360000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0049",
+      "tanggal": "2026-05-15",
+      "nama_barang_jenis": "gula",
+      "nominal_biaya": 1650000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0050",
+      "tanggal": "2026-05-15",
+      "nama_barang_jenis": "kresek",
+      "nominal_biaya": 2320000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0051",
+      "tanggal": "2026-05-15",
+      "nama_barang_jenis": "plastik",
+      "nominal_biaya": 2265000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0052",
+      "tanggal": "2026-05-15",
+      "nama_barang_jenis": "lemburan",
+      "nominal_biaya": 1050000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0053",
+      "tanggal": "2026-05-15",
+      "nama_barang_jenis": "galon",
+      "nominal_biaya": 66000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0054",
+      "tanggal": "2026-05-15",
+      "nama_barang_jenis": "stiker",
+      "nominal_biaya": 1040000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0055",
+      "tanggal": "2026-05-15",
+      "nama_barang_jenis": "esense",
+      "nominal_biaya": 843000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0056",
+      "tanggal": "2026-05-15",
+      "nama_barang_jenis": "slang regulator",
+      "nominal_biaya": 205000,
+      "created_by": "USR-DEP01"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-0057",
+      "tanggal": "2026-05-15",
+      "nama_barang_jenis": "gelas",
+      "nominal_biaya": 180000,
+      "created_by": "USR-DEP01"
+    }
+  ],
+  "DEPOT_STOK_OPNAME": [],
+  "AUDIT_LOG": []
+}

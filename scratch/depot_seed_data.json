@@ -1,0 +1,175 @@
+{
+  "DEPOT_PEMBELIAN": [
+    {
+      "transaction_id": "TRX-DEP-PUR-001",
+      "tanggal": "2026-03-15",
+      "harga_per_kg": 9000,
+      "jumlah_kg": 25952.0,
+      "faktor_densitas": 1.025,
+      "jumlah_liter": 25319.02,
+      "total_rupiah": 233568000,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-03-15T08:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-PUR-002",
+      "tanggal": "2026-04-15",
+      "harga_per_kg": 9000,
+      "jumlah_kg": 35180.0,
+      "faktor_densitas": 1.025,
+      "jumlah_liter": 34321.95,
+      "total_rupiah": 316620000,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-04-15T08:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-PUR-003",
+      "tanggal": "2026-05-15",
+      "harga_per_kg": 9000,
+      "jumlah_kg": 41052.0,
+      "faktor_densitas": 1.025,
+      "jumlah_liter": 40050.73,
+      "total_rupiah": 369468000,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-05-15T08:00:00.000Z"
+    }
+  ],
+  "DEPOT_PENJUALAN": [
+    {
+      "transaction_id": "TRX-DEP-SAL-001",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Botol",
+      "harga_per_liter": 8000,
+      "jumlah_liter": 3092.0,
+      "total_rupiah": 3,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-03-15T09:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-002",
+      "tanggal": "2026-03-15",
+      "nama_agen": "Gelas",
+      "harga_per_liter": 6000,
+      "jumlah_liter": 408.0,
+      "total_rupiah": 3,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-03-15T09:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-003",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Botol",
+      "harga_per_liter": 8000,
+      "jumlah_liter": 2301.0,
+      "total_rupiah": 3,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-04-15T09:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-004",
+      "tanggal": "2026-04-15",
+      "nama_agen": "Gelas",
+      "harga_per_liter": 6000,
+      "jumlah_liter": 689.0,
+      "total_rupiah": 3,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-04-15T09:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-005",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Botol",
+      "harga_per_liter": 8000,
+      "jumlah_liter": 3085.0,
+      "total_rupiah": 3,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-05-15T09:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-006",
+      "tanggal": "2026-05-15",
+      "nama_agen": "Gelas",
+      "harga_per_liter": 6000,
+      "jumlah_liter": 973.0,
+      "total_rupiah": 3,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-05-15T09:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-007",
+      "tanggal": "2026-06-15",
+      "nama_agen": "357075000",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 11000.0,
+      "total_rupiah": 121000000,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-06-15T09:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-SAL-008",
+      "tanggal": "2026-07-15",
+      "nama_agen": "342270000",
+      "harga_per_liter": 11000,
+      "jumlah_liter": 11000.0,
+      "total_rupiah": 121000000,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-07-15T09:00:00.000Z"
+    }
+  ],
+  "DEPOT_OPERASIONAL": [
+    {
+      "transaction_id": "TRX-DEP-OPS-001",
+      "tanggal": "2026-01-30",
+      "nama_biaya": "Biaya Kemasan Botol & Kemasan Gelas (Januari)",
+      "kategori_biaya": "KEMASAN",
+      "nominal_biaya": 4500000,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-01-30T10:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-002",
+      "tanggal": "2026-02-28",
+      "nama_biaya": "Listrik & Kebersihan Peralatan Depot (Februari)",
+      "kategori_biaya": "UTILITAS",
+      "nominal_biaya": 3200000,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-02-28T10:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-003",
+      "tanggal": "2026-03-31",
+      "nama_biaya": "Perawatan Mesin Cooling Tank & Pasteurilasi (Maret)",
+      "kategori_biaya": "MAINTENANCE",
+      "nominal_biaya": 5800000,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-03-31T10:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-004",
+      "tanggal": "2026-04-30",
+      "nama_biaya": "Biaya Listrik & Operasional Kebersihan Depot (April)",
+      "kategori_biaya": "UTILITAS",
+      "nominal_biaya": 3400000,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-04-30T10:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-005",
+      "tanggal": "2026-05-31",
+      "nama_biaya": "Biaya Kemasan Plastik & Botol Agen (Mei)",
+      "kategori_biaya": "KEMASAN",
+      "nominal_biaya": 6200000,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-05-31T10:00:00.000Z"
+    },
+    {
+      "transaction_id": "TRX-DEP-OPS-006",
+      "tanggal": "2026-06-30",
+      "nama_biaya": "Operasional Kebersihan & Perawatan Depot (Juni)",
+      "kategori_biaya": "MAINTENANCE",
+      "nominal_biaya": 4100000,
+      "created_by": "USR-DEP01",
+      "created_at": "2026-06-30T10:00:00.000Z"
+    }
+  ]
+}
