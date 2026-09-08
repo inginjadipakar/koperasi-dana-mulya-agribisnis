@@ -60,13 +60,23 @@ function findRowIndexByValue(sheet, colIndexOneBased, searchVal) {
   return -1;
 }
 
-// Efficient Sheet Data Reader (Batch Read to Objects)
-function readSheetAsObjects(sheet, headerKeys) {
+// Efficient Sheet Data Reader (Batch Read to Objects with Optional Limit)
+// MITIGASI TIMEOUT (6 MENIT): Jika data sangat besar, baca N baris terbaru dari bawah
+function readSheetAsObjects(sheet, headerKeys, limit) {
   var lastRow = sheet.getLastRow();
   var lastCol = headerKeys.length;
   if (lastRow < 2) return [];
   
-  var dataValues = sheet.getRange(2, 1, lastRow - 1, lastCol).getValues();
+  var startRow = 2;
+  var numRows = lastRow - 1;
+  
+  // Jika limit ditentukan dan data lebih banyak dari limit, baca data terbaru
+  if (limit && limit > 0 && numRows > limit) {
+    startRow = lastRow - limit + 1;
+    numRows = limit;
+  }
+  
+  var dataValues = sheet.getRange(startRow, 1, numRows, lastCol).getValues();
   var results = [];
   
   for (var r = 0; r < dataValues.length; r++) {
@@ -84,3 +94,4 @@ function readSheetAsObjects(sheet, headerKeys) {
   }
   return results;
 }
+

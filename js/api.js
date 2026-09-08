@@ -36,17 +36,32 @@ const ApiClient = {
 
     // Mode REMOTE: panggil endpoint Google Apps Script
     if (API_CONFIG.MODE === "REMOTE" && API_CONFIG.SCRIPT_URL) {
+      // MITIGASI TIMEOUT (15 Detik): Gunakan AbortController agar tidak hang tanpa batas
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000);
+
       try {
         const res = await fetch(API_CONFIG.SCRIPT_URL, {
           method: "POST",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify(requestBody)
+          body: JSON.stringify(requestBody),
+          signal: controller.signal
         });
-        const data = await res.json();
-        return data;
+        clearTimeout(timeoutId);
+
+        // MITIGASI SYNTAX ERROR: Cek teks respon sebelum JSON.parse
+        const text = await res.text();
+        if (text && text.trim().startsWith("{")) {
+          const data = JSON.parse(text);
+          return data;
+        } else {
+          console.warn("Respon server bukan format JSON (kemungkinan halaman HTML error Google):", text.substring(0, 150));
+          throw new Error("Respon server bukan format JSON yang valid.");
+        }
       } catch (err) {
-        console.warn("Gagal terhubung ke Apps Script Backend Remote, alihkan ke Local Bridge Engine:", err);
-        // Automatic Fallback to Local Bridge Engine so login is never blocked
+        clearTimeout(timeoutId);
+        console.warn("Gagal terhubung ke Apps Script Backend Remote (" + (err.name === 'AbortError' ? 'Koneksi Timeout 15s' : err.message) + "), alihkan ke Local Bridge Engine.");
+        // Automatic Fallback to Local Bridge Engine so application is never blocked
         const fallbackRes = await ApiClient.executeLocalBridge(action, sessionId, payload);
         return fallbackRes;
       }

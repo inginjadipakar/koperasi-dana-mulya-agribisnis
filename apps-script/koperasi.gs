@@ -68,7 +68,7 @@ function getKoperasiPenerimaan(sessionId, startDate, endDate) {
   var auth = authorize(sessionId, null, DIVISIONS.KOPERASI);
   if (!auth.authorized) return auth;
   
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = getStorageSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_NAMES.KOPERASI_PENERIMAAN);
   var records = readSheetAsObjects(sheet, TABLE_HEADERS.KOPERASI_PENERIMAAN);
   
@@ -148,7 +148,7 @@ function getKoperasiPengeluaran(sessionId, startDate, endDate) {
   var auth = authorize(sessionId, null, DIVISIONS.KOPERASI);
   if (!auth.authorized) return auth;
   
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = getStorageSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_NAMES.KOPERASI_PENGELUARAN);
   var records = readSheetAsObjects(sheet, TABLE_HEADERS.KOPERASI_PENGELUARAN);
   
