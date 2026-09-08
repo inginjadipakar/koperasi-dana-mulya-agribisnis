@@ -1181,13 +1181,12 @@ const LogistikModule = {
 },
 
   getFullData: function() {
-    // Purge old versions that contained trial data for JULI, AGUSTUS, SEPTEMBER
+    // Purge old versions that contained trial dummy data for JULI, AGUSTUS, SEPTEMBER
     try {
       localStorage.removeItem("DANAMULYA_LOGISTIK_FULL_V10");
       localStorage.removeItem("DANAMULYA_LOGISTIK_FULL_V9");
     } catch (e) {}
 
-    const validMonths = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI"];
     let data = null;
     const stored = localStorage.getItem("DANAMULYA_LOGISTIK_FULL_V12");
     if (stored) {
@@ -1200,13 +1199,6 @@ const LogistikModule = {
     if (!data) {
       data = JSON.parse(JSON.stringify(this.defaultFullData));
     }
-    
-    // Strict sanitization: Delete any trial month keys not in Excel
-    Object.keys(data).forEach(k => {
-      if (!validMonths.includes(k)) {
-        delete data[k];
-      }
-    });
     return data;
   },
 
@@ -1250,7 +1242,7 @@ const LogistikModule = {
     let totSec4StokAkhir = monthData.sec4.reduce((a, b) => a + (Number(b.stok_akhir) || 0), 0);
     let totSec4Rp = monthData.sec4.reduce((a, b) => a + (Number(b.jumlah_rp) || 0), 0);
 
-    const monthsList = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI"];
+    const monthsList = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"];
 
     const session = AuthManager.getSession();
     const peternakLabel = session ? session.namaLengkap : 'Petugas Logistik';
@@ -2271,14 +2263,12 @@ const LogistikModule = {
   },
 
   getActiveSaveMonth: function() {
-    const validMonths = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI"];
-    if (this.selectedMonth && validMonths.includes(this.selectedMonth)) return this.selectedMonth;
+    if (this.selectedMonth && this.selectedMonth !== "ALL") return this.selectedMonth;
     return "JUNI";
   },
 
   ensureMonthData: function(allData, monthKey) {
-    const validMonths = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI"];
-    if (!monthKey || monthKey === "ALL" || !validMonths.includes(monthKey)) {
+    if (!monthKey || monthKey === "ALL") {
       monthKey = this.getActiveSaveMonth();
     }
     if (!allData[monthKey]) {
@@ -2301,8 +2291,8 @@ const LogistikModule = {
   },
 
   syncMatrixFromTransactions: function(allData, monthKey) {
-    const monthsList = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI"];
-    const monthMap = { JAN:1, FEB:2, MAR:3, APRIL:4, MEI:5, JUNI:6 };
+    const monthsList = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"];
+    const monthMap = { JAN:1, FEB:2, MAR:3, APRIL:4, MEI:5, JUNI:6, JULI:7, AGU:8, SEP:9, OKT:10, NOV:11, DES:12 };
 
     const isFeedMatch = (a, b) => {
       if (!a || !b) return false;
@@ -2426,7 +2416,7 @@ const LogistikModule = {
 
   getTransactionsByMonth: function() {
     // Mapping nama bulan (same as selectedMonth) ke angka bulan (1-12)
-    const monthMap = { JAN:1, FEB:2, MAR:3, APRIL:4, MEI:5, JUNI:6 };
+    const monthMap = { JAN:1, FEB:2, MAR:3, APRIL:4, MEI:5, JUNI:6, JULI:7, AGU:8, SEP:9, OKT:10, NOV:11, DES:12 };
     const all = this.getTransactions();
     if (this.selectedMonth === 'ALL') return all;
     const targetMonth = monthMap[this.selectedMonth];
