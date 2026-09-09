@@ -8,7 +8,8 @@
 
 const RecapModule = {
   selectedYear: (new Date().getFullYear()).toString(),
-  selectedMonth: (["JAN", "FEB", "MAR", "APR", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"])[new Date().getMonth()] || "SEP",
+  // FIX Bug L40: Gunakan "APRIL" (bukan "APR") agar konsisten dengan monthsList di seluruh modul
+  selectedMonth: (["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"])[new Date().getMonth()] || "SEP",
   
   getAvailableYears: function() {
     const current = (new Date().getFullYear()).toString();
@@ -26,16 +27,58 @@ const RecapModule = {
     App.render();
   },
 
+  // FIX Bug 6: Sebelumnya hardcoded statis. Sekarang agregasi dari KoperasiModule.defaultFullData.
+  // Fallback ke nilai hardcoded jika KoperasiModule tidak tersedia.
   getKoperasiData: function() {
-    return {
-      "JAN": { penerimaan_kg: 14602, penerimaan_ltr: 14246, penerimaan_rp: 0, pengeluaran_kg: 14602, pengeluaran_ltr: 14246, pengeluaran_rp: 131418000, selisih_ltr: 0 },
-      "FEB": { penerimaan_kg: 25319, penerimaan_ltr: 24701, penerimaan_rp: 0, pengeluaran_kg: 25319, pengeluaran_ltr: 24701, pengeluaran_rp: 227871000, selisih_ltr: 0 },
-      "MAR": { penerimaan_kg: 25313, penerimaan_ltr: 24696, penerimaan_rp: 0, pengeluaran_kg: 25313, pengeluaran_ltr: 24696, pengeluaran_rp: 227817000, selisih_ltr: 0 },
-      "APRIL": { penerimaan_kg: 35180, penerimaan_ltr: 34322, penerimaan_rp: 0, pengeluaran_kg: 35180, pengeluaran_ltr: 34322, pengeluaran_rp: 316620000, selisih_ltr: 0 },
-      "MEI": { penerimaan_kg: 41052, penerimaan_ltr: 40051, penerimaan_rp: 0, pengeluaran_kg: 41052, pengeluaran_ltr: 40051, pengeluaran_rp: 369468000, selisih_ltr: 0 },
-      "JUNI": { penerimaan_kg: 36144, penerimaan_ltr: 35262, penerimaan_rp: 325296000, pengeluaran_kg: 36144, pengeluaran_ltr: 35262, pengeluaran_rp: 357075000, selisih_ltr: 0 },
-      "JULI": { penerimaan_kg: 38030, penerimaan_ltr: 37103, penerimaan_rp: 342270000, pengeluaran_kg: 38030, pengeluaran_ltr: 37103, pengeluaran_rp: 342270000, selisih_ltr: 0 }
-    };
+    const src = (typeof KoperasiModule !== 'undefined' && KoperasiModule.defaultFullData)
+      ? KoperasiModule.defaultFullData : null;
+
+    if (!src) {
+      // Fallback hardcoded (data Excel lama)
+      return {
+        "JAN":   { penerimaan_kg: 14602, penerimaan_ltr: 14246, penerimaan_rp: 0,       pengeluaran_kg: 14602, pengeluaran_ltr: 14246, pengeluaran_rp: 131418000,  selisih_ltr: 0 },
+        "FEB":   { penerimaan_kg: 25319, penerimaan_ltr: 24701, penerimaan_rp: 0,       pengeluaran_kg: 25319, pengeluaran_ltr: 24701, pengeluaran_rp: 227871000,  selisih_ltr: 0 },
+        "MAR":   { penerimaan_kg: 25313, penerimaan_ltr: 24696, penerimaan_rp: 0,       pengeluaran_kg: 25313, pengeluaran_ltr: 24696, pengeluaran_rp: 227817000,  selisih_ltr: 0 },
+        "APRIL": { penerimaan_kg: 35180, penerimaan_ltr: 34322, penerimaan_rp: 0,       pengeluaran_kg: 35180, pengeluaran_ltr: 34322, pengeluaran_rp: 316620000,  selisih_ltr: 0 },
+        "MEI":   { penerimaan_kg: 41052, penerimaan_ltr: 40051, penerimaan_rp: 0,       pengeluaran_kg: 41052, pengeluaran_ltr: 40051, pengeluaran_rp: 369468000,  selisih_ltr: 0 },
+        "JUNI":  { penerimaan_kg: 36144, penerimaan_ltr: 35262, penerimaan_rp: 325296000, pengeluaran_kg: 36144, pengeluaran_ltr: 35262, pengeluaran_rp: 357075000, selisih_ltr: 0 },
+        "JULI":  { penerimaan_kg: 38030, penerimaan_ltr: 37103, penerimaan_rp: 342270000, pengeluaran_kg: 38030, pengeluaran_ltr: 37103, pengeluaran_rp: 342270000, selisih_ltr: 0 }
+      };
+    }
+
+    // Agregasi dari KoperasiModule.defaultFullData
+    const result = {};
+    Object.keys(src).forEach(bulan => {
+      const d = src[bulan];
+      const recAngg  = d.penerimaan_anggota     || [];
+      const recNon   = d.penerimaan_non_anggota || [];
+      const outPerus = d.pengeluaran_perusahaan || [];
+      const outPer   = d.pengeluaran_perorangan || [];
+
+      const recKg = recAngg.reduce((a, x) => a + Number(x.kg || 0), 0)
+                  + recNon.reduce( (a, x) => a + Number(x.kg || 0), 0);
+      const recRp = recAngg.reduce((a, x) => a + Number(x.rp || 0), 0)
+                  + recNon.reduce( (a, x) => a + Number(x.rp || 0), 0);
+      const outKg  = outPerus.reduce((a, x) => a + Number(x.kg || 0), 0)
+                   + outPer.reduce(  (a, x) => a + Number(x.kg || 0), 0);
+      const outRp  = outPerus.reduce((a, x) => a + Number(x.rp || 0), 0)
+                   + outPer.reduce(  (a, x) => a + Number(x.rp || 0), 0);
+
+      // Gunakan tot_kg/tot_rp jika tersedia (lebih akurat)
+      const finalRecKg = d.tot_kg || recKg;
+      const finalRecRp = d.tot_rp || recRp;
+
+      result[bulan] = {
+        penerimaan_kg:  finalRecKg,
+        penerimaan_ltr: Math.round(finalRecKg / 1.025),
+        penerimaan_rp:  finalRecRp,
+        pengeluaran_kg:  outKg,
+        pengeluaran_ltr: Math.round(outKg / 1.025),
+        pengeluaran_rp:  outRp,
+        selisih_ltr: Math.round(finalRecKg / 1.025) - Math.round(outKg / 1.025)
+      };
+    });
+    return result;
   },
 
   render: async function() {
@@ -62,50 +105,93 @@ const RecapModule = {
     }
 
     // 2. DATA DIVISI DEPOT
-    const allDepPur = (typeof DepotModule !== 'undefined' && DepotModule.defaultPembelian) ? DepotModule.defaultPembelian : [];
-    const allDepSal = (typeof DepotModule !== 'undefined' && DepotModule.defaultPenjualan) ? DepotModule.defaultPenjualan : [];
+    // FIX Bug 5: DepotModule.defaultPembelian/defaultPenjualan tidak ada.
+    // Data benar ada di DepotModule.defaultFullData[bulan].pembelian / .penjualan
+    const _depFull = (typeof DepotModule !== 'undefined' && DepotModule.defaultFullData)
+      ? DepotModule.defaultFullData : {};
 
-    const monthMap = { "JAN": 0, "FEB": 1, "MAR": 2, "APRIL": 3, "MEI": 4, "JUNI": 5, "JULI": 6, "AGU": 7, "SEP": 8, "OKT": 9, "NOV": 10, "DES": 11 };
-    const filterDep = (r) => {
-      if (!r.tanggal) return true;
-      const d = new Date(r.tanggal);
-      const yearMatch = d.getFullYear().toString() === this.selectedYear;
-      if (this.selectedMonth === "ALL") return yearMatch;
-      return yearMatch && d.getMonth() === monthMap[this.selectedMonth];
-    };
+    const depMonthKeys = this.selectedMonth === 'ALL'
+      ? Object.keys(_depFull)
+      : (_depFull[this.selectedMonth] ? [this.selectedMonth] : []);
 
-    const depPurList = allDepPur.filter(filterDep);
-    const depSalList = allDepSal.filter(filterDep);
-
-    const depPurKg = depPurList.reduce((a, b) => a + Number(b.jumlah_kg || 0), 0);
-    const depPurLtr = depPurList.reduce((a, b) => a + Number(b.jumlah_liter || 0), 0);
-    const depPurRp = depPurList.reduce((a, b) => a + Number(b.total_rupiah || 0), 0);
-
-    const depSalLtr = depSalList.reduce((a, b) => a + Number(b.jumlah_liter || 0), 0);
-    const depSalRp = depSalList.reduce((a, b) => a + Number(b.total_rupiah || 0), 0);
+    let depPurKg = 0, depPurLtr = 0, depPurRp = 0, depSalLtr = 0, depSalRp = 0;
+    depMonthKeys.forEach(mk => {
+      if (!_depFull[mk]) return;
+      (_depFull[mk].pembelian || []).forEach(p => {
+        depPurKg  += Number(p.kg       || 0);
+        depPurLtr += Number(p.liter    || 0);
+        depPurRp  += Number(p.total_rp || 0);
+      });
+      (_depFull[mk].penjualan || []).forEach(s => {
+        depSalLtr += Number(s.liter || 0);
+        depSalRp  += Number(s.rp    || 0);
+      });
+    });
 
     // 3. DATA DIVISI LOGISTIK
+    // FIX LOG-B10: Sinkronkan matriks logistik dari transaksi terkini agar tidak menampilkan data stale
     const allLogData = (typeof LogistikModule !== 'undefined' && LogistikModule.getFullData) ? LogistikModule.getFullData() : {};
-    let logSec2Kg = 0, logSec2Rp = 0, logSec3Kg = 0, logSec3Rp = 0, logSec4Stok = 0, logSec4Rp = 0;
+    if (typeof LogistikModule !== 'undefined' && LogistikModule.syncMatrixFromTransactions) {
+      LogistikModule.syncMatrixFromTransactions(allLogData, null);
+    }
+    let logSec1Unit = 0, logSec1Rp = 0, logSec2Kg = 0, logSec2Rp = 0, logSec3Kg = 0, logSec3Rp = 0, logSec4Stok = 0, logSec4Rp = 0;
 
     if (this.selectedMonth === "ALL") {
-      Object.keys(allLogData).forEach(m => {
-        const md = allLogData[m];
-        if (md.sec2) {
-          logSec2Kg += md.sec2.reduce((a, b) => a + Number(b.total_kg || 0), 0);
-          logSec2Rp += md.sec2.reduce((a, b) => a + Number(b.total_rp || 0), 0);
+      const lm = (typeof window !== 'undefined' && window.LogistikModule) || (typeof LogistikModule !== 'undefined' ? LogistikModule : null);
+      if (lm && typeof lm.getMonthDataForView === 'function') {
+        const viewAll = lm.getMonthDataForView(allLogData, "ALL");
+        if (viewAll.sec1) {
+          logSec1Unit = viewAll.sec1.reduce((a, b) => a + Number(b.stok_akhir_unit || 0), 0);
+          logSec1Rp = viewAll.sec1.reduce((a, b) => a + Number(b.stok_akhir_rp || 0), 0);
         }
-        if (md.sec3) {
-          logSec3Kg += md.sec3.reduce((a, b) => a + Number(b.kg || 0), 0);
-          logSec3Rp += md.sec3.reduce((a, b) => a + Number(b.rp || 0), 0);
+        if (viewAll.sec2) {
+          logSec2Kg = viewAll.sec2.reduce((a, b) => a + Number(b.total_kg || 0), 0);
+          logSec2Rp = viewAll.sec2.reduce((a, b) => a + Number(b.total_rp || 0), 0);
         }
-        if (md.sec4) {
-          logSec4Stok += md.sec4.reduce((a, b) => a + Number(b.stok_akhir || 0), 0);
-          logSec4Rp += md.sec4.reduce((a, b) => a + Number(b.jumlah_rp || 0), 0);
+        if (viewAll.sec3) {
+          logSec3Kg = viewAll.sec3.reduce((a, b) => a + Number(b.kg || 0), 0);
+          logSec3Rp = viewAll.sec3.reduce((a, b) => a + Number(b.rp || 0), 0);
         }
-      });
+        if (viewAll.sec4) {
+          logSec4Stok = viewAll.sec4.reduce((a, b) => a + Number(b.stok_akhir || 0), 0);
+          logSec4Rp = viewAll.sec4.reduce((a, b) => a + Number(b.jumlah_rp || 0), 0);
+        }
+      } else {
+        Object.keys(allLogData).forEach(m => {
+          const md = allLogData[m];
+          if (md.sec2) {
+            logSec2Kg += md.sec2.reduce((a, b) => a + Number(b.total_kg || 0), 0);
+            logSec2Rp += md.sec2.reduce((a, b) => a + Number(b.total_rp || 0), 0);
+          }
+          if (md.sec3) {
+            logSec3Kg += md.sec3.reduce((a, b) => a + Number(b.kg || 0), 0);
+            logSec3Rp += md.sec3.reduce((a, b) => a + Number(b.rp || 0), 0);
+          }
+        });
+        const monthOrder = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"];
+        let latestMonth = null;
+        for (let i = monthOrder.length - 1; i >= 0; i--) {
+          const mk = monthOrder[i];
+          if (allLogData[mk] && allLogData[mk].sec4 && allLogData[mk].sec4.length > 0) {
+            latestMonth = mk;
+            break;
+          }
+        }
+        if (latestMonth && allLogData[latestMonth].sec4) {
+          logSec4Stok = allLogData[latestMonth].sec4.reduce((a, b) => a + Number(b.stok_akhir || 0), 0);
+          logSec4Rp = allLogData[latestMonth].sec4.reduce((a, b) => a + Number(b.jumlah_rp || 0), 0);
+        }
+        if (latestMonth && allLogData[latestMonth].sec1) {
+          logSec1Unit = allLogData[latestMonth].sec1.reduce((a, b) => a + Number(b.stok_akhir_unit || 0), 0);
+          logSec1Rp = allLogData[latestMonth].sec1.reduce((a, b) => a + Number(b.stok_akhir_rp || 0), 0);
+        }
+      }
     } else if (allLogData[this.selectedMonth]) {
       const md = allLogData[this.selectedMonth];
+      if (md.sec1) {
+        logSec1Unit = md.sec1.reduce((a, b) => a + Number(b.stok_akhir_unit || 0), 0);
+        logSec1Rp = md.sec1.reduce((a, b) => a + Number(b.stok_akhir_rp || 0), 0);
+      }
       if (md.sec2) {
         logSec2Kg = md.sec2.reduce((a, b) => a + Number(b.total_kg || 0), 0);
         logSec2Rp = md.sec2.reduce((a, b) => a + Number(b.total_rp || 0), 0);
@@ -266,8 +352,8 @@ const RecapModule = {
           <div class="col-md-3">
             <div class="p-3 bg-light rounded-3">
               <div class="small text-muted fw-bold mb-1">ASET PERALATAN TERNAK</div>
-              <div class="fs-5 fw-bold text-dark">Rp 21.045.000</div>
-              <div class="small text-muted">322 Unit (Milk Can, Timba, dll)</div>
+              <div class="fs-5 fw-bold text-dark">Rp ${logSec1Rp.toLocaleString('id-ID')}</div>
+              <div class="small text-muted">${logSec1Unit} Unit (Milk Can, Timba, dll)</div>
             </div>
           </div>
           <div class="col-md-3">
@@ -332,39 +418,92 @@ const RecapModule = {
     const kopData = this.getKoperasiData();
     const dKop = (bulan === "ALL" ? null : kopData[bulan]) || { penerimaan_kg: 36144, penerimaan_ltr: 35262, penerimaan_rp: 325296000, pengeluaran_kg: 36144, pengeluaran_ltr: 35262, pengeluaran_rp: 357075000, selisih_ltr: 0 };
 
-    const allDepPur = (typeof DepotModule !== 'undefined' && DepotModule.defaultPembelian) ? DepotModule.defaultPembelian : [];
-    const allDepSal = (typeof DepotModule !== 'undefined' && DepotModule.defaultPenjualan) ? DepotModule.defaultPenjualan : [];
+    // FIX Bug 5 (export): Sama seperti di render(), gunakan defaultFullData bukan defaultPembelian
+    const _depFull2 = (typeof DepotModule !== 'undefined' && DepotModule.defaultFullData)
+      ? DepotModule.defaultFullData : {};
 
-    const monthMap = { "JAN": 0, "FEB": 1, "MAR": 2, "APRIL": 3, "MEI": 4, "JUNI": 5, "JULI": 6, "AGU": 7, "SEP": 8, "OKT": 9, "NOV": 10, "DES": 11 };
-    const filterDep = (r) => {
-      if (!r.tanggal) return true;
-      const d = new Date(r.tanggal);
-      const yearMatch = d.getFullYear().toString() === tahun;
-      if (bulan === "ALL") return yearMatch;
-      return yearMatch && d.getMonth() === monthMap[bulan];
-    };
+    const expDepMonthKeys = (bulan === 'ALL')
+      ? Object.keys(_depFull2)
+      : (_depFull2[bulan] ? [bulan] : []);
 
-    const depPurList = allDepPur.filter(filterDep);
-    const depSalList = allDepSal.filter(filterDep);
+    let depPurKg = 0, depPurLtr = 0, depPurRp = 0;
+    let depSalLtr = 0, depSalRp = 0;
+    const depSalList = [];
+    expDepMonthKeys.forEach(mk => {
+      if (!_depFull2[mk]) return;
+      (_depFull2[mk].pembelian || []).forEach(p => {
+        depPurKg  += Number(p.kg       || 0);
+        depPurLtr += Number(p.liter    || 0);
+        depPurRp  += Number(p.total_rp || 0);
+      });
+      (_depFull2[mk].penjualan || []).forEach(s => {
+        depSalLtr += Number(s.liter || 0);
+        depSalRp  += Number(s.rp   || 0);
+        depSalList.push({
+          transaction_id: mk + '_' + (s.nama || '-'),
+          tanggal: mk + ' ' + tahun,
+          nama_agen: s.nama || '-',
+          harga_per_liter: s.harga || 0,
+          jumlah_liter: s.liter || 0,
+          total_rupiah: s.rp || 0
+        });
+      });
+    });
 
-    const depPurKg = depPurList.reduce((a, b) => a + Number(b.jumlah_kg || 0), 0);
-    const depPurLtr = depPurList.reduce((a, b) => a + Number(b.jumlah_liter || 0), 0);
-    const depPurRp = depPurList.reduce((a, b) => a + Number(b.total_rupiah || 0), 0);
-    const depSalLtr = depSalList.reduce((a, b) => a + Number(b.jumlah_liter || 0), 0);
-    const depSalRp = depSalList.reduce((a, b) => a + Number(b.total_rupiah || 0), 0);
-
+    // FIX LOG-B10: Sinkronkan matriks logistik dari transaksi terkini sebelum ekspor
     const allLogData = (typeof LogistikModule !== 'undefined' && LogistikModule.getFullData) ? LogistikModule.getFullData() : {};
-    let logSec2Kg = 0, logSec2Rp = 0, logSec3Kg = 0, logSec3Rp = 0, logSec4Stok = 0, logSec4Rp = 0;
+    if (typeof LogistikModule !== 'undefined' && LogistikModule.syncMatrixFromTransactions) {
+      LogistikModule.syncMatrixFromTransactions(allLogData, null);
+    }
+    let logSec1Unit = 0, logSec1Rp = 0, logSec2Kg = 0, logSec2Rp = 0, logSec3Kg = 0, logSec3Rp = 0, logSec4Stok = 0, logSec4Rp = 0;
 
     if (bulan === "ALL") {
-      Object.keys(allLogData).forEach(m => {
-        const md = allLogData[m];
-        if (md.sec2) { logSec2Kg += md.sec2.reduce((a, b) => a + Number(b.total_kg || 0), 0); logSec2Rp += md.sec2.reduce((a, b) => a + Number(b.total_rp || 0), 0); }
-        if (md.sec3) { logSec3Kg += md.sec3.reduce((a, b) => a + Number(b.kg || 0), 0); logSec3Rp += md.sec3.reduce((a, b) => a + Number(b.rp || 0), 0); }
-        if (md.sec4) { logSec4Stok += md.sec4.reduce((a, b) => a + Number(b.stok_akhir || 0), 0); logSec4Rp += md.sec4.reduce((a, b) => a + Number(b.jumlah_rp || 0), 0); }
-      });
+      const lm = (typeof window !== 'undefined' && window.LogistikModule) || (typeof LogistikModule !== 'undefined' ? LogistikModule : null);
+      if (lm && typeof lm.getMonthDataForView === 'function') {
+        const viewAll = lm.getMonthDataForView(allLogData, "ALL");
+        if (viewAll.sec1) {
+          logSec1Unit = viewAll.sec1.reduce((a, b) => a + Number(b.stok_akhir_unit || 0), 0);
+          logSec1Rp = viewAll.sec1.reduce((a, b) => a + Number(b.stok_akhir_rp || 0), 0);
+        }
+        if (viewAll.sec2) {
+          logSec2Kg = viewAll.sec2.reduce((a, b) => a + Number(b.total_kg || 0), 0);
+          logSec2Rp = viewAll.sec2.reduce((a, b) => a + Number(b.total_rp || 0), 0);
+        }
+        if (viewAll.sec3) {
+          logSec3Kg = viewAll.sec3.reduce((a, b) => a + Number(b.kg || 0), 0);
+          logSec3Rp = viewAll.sec3.reduce((a, b) => a + Number(b.rp || 0), 0);
+        }
+        if (viewAll.sec4) {
+          logSec4Stok = viewAll.sec4.reduce((a, b) => a + Number(b.stok_akhir || 0), 0);
+          logSec4Rp = viewAll.sec4.reduce((a, b) => a + Number(b.jumlah_rp || 0), 0);
+        }
+      } else {
+        Object.keys(allLogData).forEach(m => {
+          const md = allLogData[m];
+          if (md.sec2) { logSec2Kg += md.sec2.reduce((a, b) => a + Number(b.total_kg || 0), 0); logSec2Rp += md.sec2.reduce((a, b) => a + Number(b.total_rp || 0), 0); }
+          if (md.sec3) { logSec3Kg += md.sec3.reduce((a, b) => a + Number(b.kg || 0), 0); logSec3Rp += md.sec3.reduce((a, b) => a + Number(b.rp || 0), 0); }
+        });
+        const monthOrder = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"];
+        let latestMonth = null;
+        for (let i = monthOrder.length - 1; i >= 0; i--) {
+          const mk = monthOrder[i];
+          if (allLogData[mk] && allLogData[mk].sec4 && allLogData[mk].sec4.length > 0) {
+            latestMonth = mk;
+            break;
+          }
+        }
+        if (latestMonth && allLogData[latestMonth].sec4) {
+          logSec4Stok = allLogData[latestMonth].sec4.reduce((a, b) => a + Number(b.stok_akhir || 0), 0);
+          logSec4Rp = allLogData[latestMonth].sec4.reduce((a, b) => a + Number(b.jumlah_rp || 0), 0);
+        }
+        if (latestMonth && allLogData[latestMonth].sec1) {
+          logSec1Unit = allLogData[latestMonth].sec1.reduce((a, b) => a + Number(b.stok_akhir_unit || 0), 0);
+          logSec1Rp = allLogData[latestMonth].sec1.reduce((a, b) => a + Number(b.stok_akhir_rp || 0), 0);
+        }
+      }
     } else if (allLogData[bulan]) {
       const md = allLogData[bulan];
+      if (md.sec1) { logSec1Unit = md.sec1.reduce((a, b) => a + Number(b.stok_akhir_unit || 0), 0); logSec1Rp = md.sec1.reduce((a, b) => a + Number(b.stok_akhir_rp || 0), 0); }
       if (md.sec2) { logSec2Kg = md.sec2.reduce((a, b) => a + Number(b.total_kg || 0), 0); logSec2Rp = md.sec2.reduce((a, b) => a + Number(b.total_rp || 0), 0); }
       if (md.sec3) { logSec3Kg = md.sec3.reduce((a, b) => a + Number(b.kg || 0), 0); logSec3Rp = md.sec3.reduce((a, b) => a + Number(b.rp || 0), 0); }
       if (md.sec4) { logSec4Stok = md.sec4.reduce((a, b) => a + Number(b.stok_akhir || 0), 0); logSec4Rp = md.sec4.reduce((a, b) => a + Number(b.jumlah_rp || 0), 0); }
@@ -405,7 +544,7 @@ const RecapModule = {
       
       // III. LOGISTIK AGRIBISNIS
       ["III", "DIVISI LOGISTIK AGRIBISNIS", "", "", ""],
-      ["1", "Nilai Aset Peralatan Ternak (Unit 322)", 322, "Unit", 21045000],
+      ["1", `Nilai Aset Peralatan Ternak (Unit ${logSec1Unit})`, logSec1Unit, "Unit", logSec1Rp],
       ["2", "Volume & Omset Penjualan Pakan Ternak (Seksi II)", logSec2Kg, "KG", logSec2Rp],
       ["3", "Volume & Total Pembelian Pakan Ternak (Seksi III)", logSec3Kg, "KG", logSec3Rp],
       ["4", "Volume & Nilai Aset Stok Akhir Pakan (Seksi IV)", logSec4Stok, "KG", logSec4Rp],
@@ -450,7 +589,19 @@ const RecapModule = {
       ["NO", "NAMA PAKAN TERNAK", "STOK AWAL (KG)", "PEMBELIAN (KG)", "SIAP JUAL (KG)", "PENJUALAN (KG)", "SUSUT (KG)", "STOK AKHIR (KG)", "HARGA / KG (RP)", "JUMLAH ASET (RP)"]
     ];
 
-    const currentLogSec4 = (allLogData[bulan] && allLogData[bulan].sec4) ? allLogData[bulan].sec4 : [];
+    // FIX Bug L39: Saat bulan='ALL', allLogData['ALL'] tidak ada (undefined).
+    // Gunakan data bulan terakhir (latestMonth) yang tersedia sebagai representasi stok akhir.
+    let _sec4SourceKey = bulan;
+    if (bulan === 'ALL') {
+      const _mo = ["JAN","FEB","MAR","APRIL","MEI","JUNI","JULI","AGU","SEP","OKT","NOV","DES"];
+      for (let _i = _mo.length - 1; _i >= 0; _i--) {
+        if (allLogData[_mo[_i]] && allLogData[_mo[_i]].sec4 && allLogData[_mo[_i]].sec4.length > 0) {
+          _sec4SourceKey = _mo[_i];
+          break;
+        }
+      }
+    }
+    const currentLogSec4 = (allLogData[_sec4SourceKey] && allLogData[_sec4SourceKey].sec4) ? allLogData[_sec4SourceKey].sec4 : [];
     currentLogSec4.forEach(it => {
       logistikSheetData.push([
         it.no || "-",

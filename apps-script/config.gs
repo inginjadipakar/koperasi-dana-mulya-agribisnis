@@ -93,7 +93,9 @@ var TABLE_HEADERS = {
     "selisih_liter", "catatan_sisa_botol", "created_by", "created_at"
   ],
   LOGISTIK_TRANSACTIONS: [
-    "transaction_id", "status_note", "created_at"
+    "transaction_id", "tanggal", "kategori", "nama_pakan", "nama_peternak", 
+    "jenis_pembayaran", "jumlah_kg", "harga_per_kg", "total_rupiah", 
+    "keterangan", "created_by", "created_at"
   ],
   DEPOT_AGEN: [
     "agen_id", "nama_agen", "created_by", "created_at"

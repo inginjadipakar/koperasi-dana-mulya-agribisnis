@@ -11,16 +11,152 @@
 
 const LogistikModule = {
   selectedYear: (new Date().getFullYear()).toString(),
-  selectedMonth: "JUNI",
+  // FIX LOG-B12: Inisialisasi dinamis dari bulan kalender saat ini agar tampilan dan filter
+  // tidak terkunci di JUNI sehingga transaksi yang baru disimpan langsung terlihat.
+  selectedMonth: (["JAN","FEB","MAR","APRIL","MEI","JUNI","JULI","AGU","SEP","OKT","NOV","DES"])[new Date().getMonth()] || "JAN",
   
+  getLocalDateStr: function(d) {
+    const dateObj = d || new Date();
+    const yr = dateObj.getFullYear();
+    const mo = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const da = String(dateObj.getDate()).padStart(2, '0');
+    return `${yr}-${mo}-${da}`;
+  },
+
+  cleanFeed: function(s) {
+    return (s || '').toLowerCase()
+      .replace(/mf\./g, 'mix feed')
+      .replace(/\bmf\b/g, 'mix feed')
+      .replace(/[^a-z0-9]/g, '');
+  },
+
+  // FIX LOG-B64: Sanitasi numerik aman (toleran koma desimal Indonesia '10,5' dan pemisah ribuan)
+  parseNum: function(val) {
+    if (val === undefined || val === null || val === "") return 0;
+    if (typeof val === "number") return isNaN(val) ? 0 : val;
+    let s = String(val).trim();
+    if (!s) return 0;
+    if (s.includes(".") && s.includes(",")) {
+      s = s.replace(/\./g, "").replace(/,/g, ".");
+    } else if (s.includes(",")) {
+      s = s.replace(/,/g, ".");
+    }
+    const n = parseFloat(s);
+    return isNaN(n) ? 0 : n;
+  },
+
+  isExactFeedMatch: function(a, b) {
+    if (!a || !b) return false;
+    return this.cleanFeed(a) === this.cleanFeed(b);
+  },
+
+  isSec4FeedMatch: function(sec4Nama, targetNama) {
+    if (!sec4Nama || !targetNama) return false;
+    const c4 = this.cleanFeed(sec4Nama);
+    const ct = this.cleanFeed(targetNama);
+    if (c4 === ct) return true;
+    // FIX LOG-B39: Komutatif — satu sisi adalah token kanonik, sisi lain mengandung token tersebut
+    if (c4 === 'mixfeeda18' && ct.includes('mixfeeda18')) return true;
+    if (ct === 'mixfeeda18' && c4.includes('mixfeeda18')) return true;
+    if (c4 === 'mixfeeda20' && ct.includes('mixfeeda20')) return true;
+    if (ct === 'mixfeeda20' && c4.includes('mixfeeda20')) return true;
+    return false;
+  },
+
   getAvailableYears: function() {
     const current = (new Date().getFullYear()).toString();
     const set = new Set(["2026", current]);
+    try {
+      const txs = this.getTransactions();
+      txs.forEach(t => {
+        const yr = (t.timestamp || '').slice(0, 4);
+        if (yr && yr.length === 4 && !isNaN(parseInt(yr, 10))) {
+          set.add(yr);
+        }
+      });
+    } catch (e) {}
     return Array.from(set).sort();
   },
 
   defaultFullData: {
   "JAN": {
+    "sec1": [
+      {
+            "no": 1,
+            "nama": "MILK CAN",
+            "stok_awal_unit": 6.0,
+            "stok_awal_harga": 650000.0,
+            "stok_awal_rp": 3900000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 6.0,
+            "stok_akhir_rp": 3900000.0
+      },
+      {
+            "no": 2,
+            "nama": "SARINGAN MILK CAN",
+            "stok_awal_unit": 24.0,
+            "stok_awal_harga": 130000.0,
+            "stok_awal_rp": 3120000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 24.0,
+            "stok_akhir_rp": 3120000.0
+      },
+      {
+            "no": 3,
+            "nama": "TIMBA PERAH",
+            "stok_awal_unit": 32.0,
+            "stok_awal_harga": 125000.0,
+            "stok_awal_rp": 4000000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 32.0,
+            "stok_akhir_rp": 4000000.0
+      },
+      {
+            "no": 4,
+            "nama": "BRANGUS SAPI",
+            "stok_awal_unit": 85.0,
+            "stok_awal_harga": 15000.0,
+            "stok_awal_rp": 1275000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 85.0,
+            "stok_akhir_rp": 1275000.0
+      },
+      {
+            "no": 5,
+            "nama": "ALAT CELUP",
+            "stok_awal_unit": 175.0,
+            "stok_awal_harga": 50000.0,
+            "stok_awal_rp": 8750000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 175.0,
+            "stok_akhir_rp": 8750000.0
+      }
+],
     "sec2": [
       {
         "no": 1,
@@ -220,6 +356,83 @@ const LogistikModule = {
     ]
   },
   "FEB": {
+    "sec1": [
+      {
+            "no": 1,
+            "nama": "MILK CAN",
+            "stok_awal_unit": 6.0,
+            "stok_awal_harga": 650000.0,
+            "stok_awal_rp": 3900000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 6.0,
+            "stok_akhir_rp": 3900000.0
+      },
+      {
+            "no": 2,
+            "nama": "SARINGAN MILK CAN",
+            "stok_awal_unit": 24.0,
+            "stok_awal_harga": 130000.0,
+            "stok_awal_rp": 3120000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 24.0,
+            "stok_akhir_rp": 3120000.0
+      },
+      {
+            "no": 3,
+            "nama": "TIMBA PERAH",
+            "stok_awal_unit": 32.0,
+            "stok_awal_harga": 125000.0,
+            "stok_awal_rp": 4000000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 32.0,
+            "stok_akhir_rp": 4000000.0
+      },
+      {
+            "no": 4,
+            "nama": "BRANGUS SAPI",
+            "stok_awal_unit": 85.0,
+            "stok_awal_harga": 15000.0,
+            "stok_awal_rp": 1275000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 85.0,
+            "stok_akhir_rp": 1275000.0
+      },
+      {
+            "no": 5,
+            "nama": "ALAT CELUP",
+            "stok_awal_unit": 175.0,
+            "stok_awal_harga": 50000.0,
+            "stok_awal_rp": 8750000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 175.0,
+            "stok_akhir_rp": 8750000.0
+      }
+],
     "sec2": [
       {
         "no": 1,
@@ -419,6 +632,83 @@ const LogistikModule = {
     ]
   },
   "MAR": {
+    "sec1": [
+      {
+            "no": 1,
+            "nama": "MILK CAN",
+            "stok_awal_unit": 6.0,
+            "stok_awal_harga": 650000.0,
+            "stok_awal_rp": 3900000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 6.0,
+            "stok_akhir_rp": 3900000.0
+      },
+      {
+            "no": 2,
+            "nama": "SARINGAN MILK CAN",
+            "stok_awal_unit": 24.0,
+            "stok_awal_harga": 130000.0,
+            "stok_awal_rp": 3120000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 24.0,
+            "stok_akhir_rp": 3120000.0
+      },
+      {
+            "no": 3,
+            "nama": "TIMBA PERAH",
+            "stok_awal_unit": 32.0,
+            "stok_awal_harga": 125000.0,
+            "stok_awal_rp": 4000000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 32.0,
+            "stok_akhir_rp": 4000000.0
+      },
+      {
+            "no": 4,
+            "nama": "BRANGUS SAPI",
+            "stok_awal_unit": 85.0,
+            "stok_awal_harga": 15000.0,
+            "stok_awal_rp": 1275000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 85.0,
+            "stok_akhir_rp": 1275000.0
+      },
+      {
+            "no": 5,
+            "nama": "ALAT CELUP",
+            "stok_awal_unit": 175.0,
+            "stok_awal_harga": 50000.0,
+            "stok_awal_rp": 8750000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 175.0,
+            "stok_akhir_rp": 8750000.0
+      }
+],
     "sec2": [
       {
         "no": 1,
@@ -618,6 +908,83 @@ const LogistikModule = {
     ]
   },
   "APRIL": {
+    "sec1": [
+      {
+            "no": 1,
+            "nama": "MILK CAN",
+            "stok_awal_unit": 6.0,
+            "stok_awal_harga": 650000.0,
+            "stok_awal_rp": 3900000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 6.0,
+            "stok_akhir_rp": 3900000.0
+      },
+      {
+            "no": 2,
+            "nama": "SARINGAN MILK CAN",
+            "stok_awal_unit": 24.0,
+            "stok_awal_harga": 130000.0,
+            "stok_awal_rp": 3120000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 24.0,
+            "stok_akhir_rp": 3120000.0
+      },
+      {
+            "no": 3,
+            "nama": "TIMBA PERAH",
+            "stok_awal_unit": 32.0,
+            "stok_awal_harga": 125000.0,
+            "stok_awal_rp": 4000000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 32.0,
+            "stok_akhir_rp": 4000000.0
+      },
+      {
+            "no": 4,
+            "nama": "BRANGUS SAPI",
+            "stok_awal_unit": 85.0,
+            "stok_awal_harga": 15000.0,
+            "stok_awal_rp": 1275000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 85.0,
+            "stok_akhir_rp": 1275000.0
+      },
+      {
+            "no": 5,
+            "nama": "ALAT CELUP",
+            "stok_awal_unit": 175.0,
+            "stok_awal_harga": 50000.0,
+            "stok_awal_rp": 8750000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 175.0,
+            "stok_akhir_rp": 8750000.0
+      }
+],
     "sec2": [
       {
         "no": 1,
@@ -817,6 +1184,83 @@ const LogistikModule = {
     ]
   },
   "MEI": {
+    "sec1": [
+      {
+            "no": 1,
+            "nama": "MILK CAN",
+            "stok_awal_unit": 6.0,
+            "stok_awal_harga": 650000.0,
+            "stok_awal_rp": 3900000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 1.0,
+            "penjualan_harga": 650000.0,
+            "penjualan_rp": 650000.0,
+            "stok_akhir_unit": 5.0,
+            "stok_akhir_rp": 3250000.0
+      },
+      {
+            "no": 2,
+            "nama": "SARINGAN MILK CAN",
+            "stok_awal_unit": 24.0,
+            "stok_awal_harga": 130000.0,
+            "stok_awal_rp": 3120000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 24.0,
+            "stok_akhir_rp": 3120000.0
+      },
+      {
+            "no": 3,
+            "nama": "TIMBA PERAH",
+            "stok_awal_unit": 32.0,
+            "stok_awal_harga": 125000.0,
+            "stok_awal_rp": 4000000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 32.0,
+            "stok_akhir_rp": 4000000.0
+      },
+      {
+            "no": 4,
+            "nama": "BRANGUS SAPI",
+            "stok_awal_unit": 85.0,
+            "stok_awal_harga": 15000.0,
+            "stok_awal_rp": 1275000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 85.0,
+            "stok_akhir_rp": 1275000.0
+      },
+      {
+            "no": 5,
+            "nama": "ALAT CELUP",
+            "stok_awal_unit": 175.0,
+            "stok_awal_harga": 50000.0,
+            "stok_awal_rp": 8750000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 175.0,
+            "stok_akhir_rp": 8750000.0
+      }
+],
     "sec2": [
       {
         "no": 1,
@@ -998,6 +1442,83 @@ const LogistikModule = {
     ]
   },
   "JUNI": {
+    "sec1": [
+      {
+            "no": 1,
+            "nama": "MILK CAN",
+            "stok_awal_unit": 6.0,
+            "stok_awal_harga": 650000.0,
+            "stok_awal_rp": 3900000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 1.0,
+            "penjualan_harga": 650000.0,
+            "penjualan_rp": 650000.0,
+            "stok_akhir_unit": 5.0,
+            "stok_akhir_rp": 3250000.0
+      },
+      {
+            "no": 2,
+            "nama": "SARINGAN MILK CAN",
+            "stok_awal_unit": 24.0,
+            "stok_awal_harga": 130000.0,
+            "stok_awal_rp": 3120000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 24.0,
+            "stok_akhir_rp": 3120000.0
+      },
+      {
+            "no": 3,
+            "nama": "TIMBA PERAH",
+            "stok_awal_unit": 32.0,
+            "stok_awal_harga": 125000.0,
+            "stok_awal_rp": 4000000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 32.0,
+            "stok_akhir_rp": 4000000.0
+      },
+      {
+            "no": 4,
+            "nama": "BRANGUS SAPI",
+            "stok_awal_unit": 85.0,
+            "stok_awal_harga": 15000.0,
+            "stok_awal_rp": 1275000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 85.0,
+            "stok_akhir_rp": 1275000.0
+      },
+      {
+            "no": 5,
+            "nama": "ALAT CELUP",
+            "stok_awal_unit": 175.0,
+            "stok_awal_harga": 50000.0,
+            "stok_awal_rp": 8750000.0,
+            "pembelian_unit": 0.0,
+            "pembelian_harga": 0.0,
+            "pembelian_rp": 0.0,
+            "penjualan_unit": 0.0,
+            "penjualan_harga": 0.0,
+            "penjualan_rp": 0.0,
+            "stok_akhir_unit": 175.0,
+            "stok_akhir_rp": 8750000.0
+      }
+],
     "sec2": [
       {
         "no": 1,
@@ -1199,11 +1720,22 @@ const LogistikModule = {
     if (!data) {
       data = JSON.parse(JSON.stringify(this.defaultFullData));
     }
+    // FIX Bug L36: Pastikan properti sec1 selalu terdefinisi sebagai array pada seluruh bulan
+    const monthsList = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"];
+    monthsList.forEach(m => {
+      if (data[m] && !Array.isArray(data[m].sec1)) {
+        data[m].sec1 = [];
+      }
+    });
     return data;
   },
 
   saveFullData: function(data) {
-    localStorage.setItem("DANAMULYA_LOGISTIK_FULL_V12", JSON.stringify(data));
+    try {
+      localStorage.setItem("DANAMULYA_LOGISTIK_FULL_V12", JSON.stringify(data));
+    } catch (e) {
+      console.error("Gagal menyimpan DANAMULYA_LOGISTIK_FULL_V12 ke localStorage:", e);
+    }
   },
 
   render: async function() {
@@ -1213,8 +1745,8 @@ const LogistikModule = {
 
     const allData = this.getFullData();
     const activeMonth = this.getActiveSaveMonth();
-    const monthData = this.ensureMonthData(allData, activeMonth);
     this.syncMatrixFromTransactions(allData, activeMonth);
+    const monthData = this.getMonthDataForView(allData);
 
     // Totals Sec I
     let totSec1StokAwalRp = monthData.sec1.reduce((a, b) => a + (Number(b.stok_awal_rp) || 0), 0);
@@ -1339,9 +1871,9 @@ const LogistikModule = {
         <div class="ma-action-icon sky-bg"><i class="bi bi-calendar3"></i></div>
         <span class="ma-action-label">Jadwal</span>
       </button>
-      <button class="ma-action-item" onclick="App.resetData()">
-        <div class="ma-action-icon yellow-bg"><i class="bi bi-gear-fill"></i></div>
-        <span class="ma-action-label">Pengaturan</span>
+      <button class="ma-action-item" onclick="if (confirm('PERINGATAN: Apakah Anda yakin ingin mereset seluruh database aplikasi ke data bawaan awal? Semua transaksi yang belum disinkronkan akan hilang.')) { App.resetData(); }">
+        <div class="ma-action-icon yellow-bg"><i class="bi bi-arrow-counterclockwise"></i></div>
+        <span class="ma-action-label">Reset Data</span>
       </button>
     </div>
   </div>
@@ -1411,12 +1943,12 @@ const LogistikModule = {
 
           <div class="ma-status-row">
             <div class="ma-status-chip success">
-              <span>Status Kenerimaan</span>
-              <span id="tx_status_label">SUKSES</span>
+              <span>Status Keanggotaan</span>
+              <span id="tx_status_label">ANGGOTA (RASIO)</span>
             </div>
             <div class="ma-status-chip primary">
               <span>Kode Peternak</span>
-              <span id="tx_kode_badge_ma">R-SERIES</span>
+              <span id="tx_kode_badge">R-SERIES</span>
             </div>
           </div>
 
@@ -1438,7 +1970,7 @@ const LogistikModule = {
               <label class="ma-label"><i class="bi bi-calendar3" style="margin-right:4px;"></i>Tanggal</label>
               <div class="ma-input-icon-wrap">
                 <input type="date" class="ma-input" name="tanggal_pengambilan" id="tx_tanggal"
-                  value="${new Date().toISOString().slice(0, 10)}"
+                  value="${this.getLocalDateStr()}"
                   onchange="LogistikModule.onTanggalPengambilanChange(this.value)" required>
               </div>
             </div>
@@ -1543,8 +2075,8 @@ const LogistikModule = {
             </tbody>
           </table>
         </div>
-        <button type="button" class="ma-add-feed-btn">
-          <i class="bi bi-plus-circle-fill"></i> Tambah Jenis Pakan
+        <button type="button" class="ma-add-feed-btn" onclick="LogistikModule.maShowTab('matrix'); document.getElementById('ma-pane-matrix')?.scrollIntoView({behavior:'smooth'});">
+          <i class="bi bi-gear-wide-connected"></i> Kelola / Tambah Pakan di Matriks
         </button>
       </div>
 
@@ -1558,12 +2090,12 @@ const LogistikModule = {
           <div class="ma-field">
             <select class="ma-select" name="jadwal_penagihan" id="tx_jadwal_penagihan"
               onchange="LogistikModule.onJadwalSelectChange(this.value)" required>
-              <option value="P1">Potongan Rutin P1 (Tgl 1-10 | Tagih Tgl 5)</option>
-              <option value="P2">Potongan Rutin P2 (Tgl 11-20 | Tagih Tgl 15)</option>
-              <option value="P3">Potongan Rutin P3 (Tgl 21-Akhir | Tagih Tgl 25)</option>
-              <option value="TUNAI">TUNAI (Uang Rupiah)</option>
-              <option value="PROGRAM_BUNTING">Program Bunting (Inseminasi Buatan)</option>
-              <option value="PIUTANG">PIUTANG (Tunggakan Susu Lewat P3)</option>
+              <option id="opt_p1" value="P1">Potongan Rutin P1 (Tgl 1-10 | Tagih Tgl 5)</option>
+              <option id="opt_p2" value="P2">Potongan Rutin P2 (Tgl 11-20 | Tagih Tgl 15)</option>
+              <option id="opt_p3" value="P3">Potongan Rutin P3 (Tgl 21-Akhir | Tagih Tgl 25)</option>
+              <option id="opt_tunai" value="TUNAI">TUNAI (Uang Rupiah)</option>
+              <option id="opt_prog_bunting" value="PROGRAM_BUNTING">Program Bunting (Inseminasi Buatan)</option>
+              <option id="opt_piutang" value="PIUTANG">PIUTANG (Tunggakan Susu Lewat P3)</option>
             </select>
             <input type="hidden" name="metode_pembayaran" id="tx_metode_pembayaran" value="POTONGAN_RUTIN">
           </div>
@@ -1730,6 +2262,38 @@ const LogistikModule = {
             <i class="bi bi-file-earmark-excel"></i> Excel
           </button>
         </div>
+        <!-- Form Penyesuaian Manual Seksi II -->
+        <form id="formLogSec2" onsubmit="LogistikModule.handleSaveSec2(event)" style="margin-bottom:14px;">
+          <div class="ma-field"><label class="ma-label">Pilih Nama Pakan</label>
+            <select class="ma-select" name="nama_pakan" id="sec2SelectPakan" onchange="LogistikModule.onSelectSec2Pakan(this.value)" required>
+              ${monthData.sec2.map(it => `<option value="${it.nama}">${it.no}. ${it.nama}</option>`).join('')}
+              <option value="+ TAMBAH PAKAN BARU">+ Tambah Pakan Baru...</option>
+            </select>
+          </div>
+          <div id="sec2ColBaru" style="display:none;" class="ma-field">
+            <label class="ma-label">Nama Pakan Baru</label>
+            <input type="text" class="ma-input" name="nama_pakan_custom" placeholder="PAKAN KHUSUS">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+            <div class="ma-field" style="margin:0;"><label class="ma-label">Tunai (KG)</label><input type="number" step="0.1" class="ma-input" name="tunai_kg" id="sec2_tunai_kg" placeholder="0" oninput="LogistikModule.calcSec2Preview()"></div>
+            <div class="ma-field" style="margin:0;"><label class="ma-label">Harga Tunai/KG</label><input type="number" class="ma-input" name="tunai_harga" id="sec2_tunai_harga" placeholder="0" oninput="LogistikModule.calcSec2Preview()"></div>
+            <div class="ma-field" style="margin:0;"><label class="ma-label">Potongan Rutin (KG)</label><input type="number" step="0.1" class="ma-input" name="pot_kg" id="sec2_pot_kg" placeholder="0" oninput="LogistikModule.calcSec2Preview()"></div>
+            <div class="ma-field" style="margin:0;"><label class="ma-label">Harga Potongan/KG</label><input type="number" class="ma-input" name="pot_harga" id="sec2_pot_harga" placeholder="0" oninput="LogistikModule.calcSec2Preview()"></div>
+            <div class="ma-field" style="margin:0;"><label class="ma-label">Piutang (KG)</label><input type="number" step="0.1" class="ma-input" name="piu_kg" id="sec2_piu_kg" placeholder="0" oninput="LogistikModule.calcSec2Preview()"></div>
+            <div class="ma-field" style="margin:0;"><label class="ma-label">Harga Piutang/KG</label><input type="number" class="ma-input" name="piu_harga" id="sec2_piu_harga" placeholder="0" oninput="LogistikModule.calcSec2Preview()"></div>
+            <div class="ma-field" style="margin:0;"><label class="ma-label">Bunting (KG)</label><input type="number" step="0.1" class="ma-input" name="bunt_kg" id="sec2_bunt_kg" placeholder="0" oninput="LogistikModule.calcSec2Preview()"></div>
+            <div class="ma-field" style="margin:0;"><label class="ma-label">Harga Bunting/KG</label><input type="number" class="ma-input" name="bunt_harga" id="sec2_bunt_harga" placeholder="0" oninput="LogistikModule.calcSec2Preview()"></div>
+          </div>
+          <input type="hidden" id="sec2_tunai_rp_input">
+          <input type="hidden" id="sec2_pot_rp_input">
+          <input type="hidden" id="sec2_piu_rp_input">
+          <input type="hidden" id="sec2_bunt_rp_input">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;">
+            <span class="badge bg-primary px-2 py-1" id="sec2PreviewKg">JUMLAH TOTAL KG: 0 KG</span>
+            <span class="badge bg-success px-2 py-1" id="sec2PreviewRp">JUMLAH TOTAL RP: Rp 0</span>
+          </div>
+          <button type="submit" class="ma-btn-primary"><i class="bi bi-save"></i> Simpan Penyesuaian Penjualan</button>
+        </form>
         <div style="overflow-x:auto;">
           <table class="table table-bordered table-hover align-middle text-center mb-0" style="font-size:0.8rem;">
             <thead class="table-light fw-bold">
@@ -1814,6 +2378,8 @@ const LogistikModule = {
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;">
             <span class="badge bg-secondary px-2 py-1" id="sec1PreviewStokAwal">STOK AWAL: 0</span>
+            <span class="badge bg-info px-2 py-1" id="sec1_pembelian_rp_input">BELI: Rp 0</span>
+            <span class="badge bg-warning text-dark px-2 py-1" id="sec1_penjualan_rp_input">JUAL: Rp 0</span>
             <span class="badge bg-primary px-2 py-1" id="sec1PreviewStokAkhirUnit">STOK AKHIR: 0</span>
             <span class="badge bg-success px-2 py-1" id="sec1PreviewStokAkhirRp">Rp 0</span>
           </div>
@@ -1874,9 +2440,21 @@ const LogistikModule = {
         </div>
         <form id="formLogSec3" onsubmit="LogistikModule.handleSaveSec3(event)" style="margin-bottom:14px;">
           <div class="ma-field"><label class="ma-label">Nama Pakan</label>
-            <select class="ma-select" name="nama_pakan" required>
-              ${monthData.sec3.map(it => `<option value="${it.nama}">${it.no}. ${it.nama}</option>`).join('')}
+            <!-- FIX LOG-B15 & LOG-B19: Dropdown pakan dengan fallback pakan standar & opsi tambah pakan baru -->
+            <select class="ma-select" name="nama_pakan" id="sec3SelectPakan" onchange="LogistikModule.onSelectSec3Pakan(this.value)" required>
+              ${(() => {
+                // FIX LOG-B53: Gabungkan pakan standar + yang sudah ada agar semua tetap tampil
+                const standardFeeds = ["MIX FEED A20", "MIX FEED A18", "MAGNESIUM", "DCP", "MF A20 NON RATIO"];
+                const existingFeeds = (monthData.sec3 || []).map(it => it.nama);
+                const allFeeds = Array.from(new Set([...standardFeeds, ...existingFeeds]));
+                return allFeeds.map((name, idx) => `<option value="${name}">${idx + 1}. ${name}</option>`).join('');
+              })()}
+              <option value="+ TAMBAH PAKAN BARU">+ Tambah Pakan Baru...</option>
             </select>
+          </div>
+          <div id="sec3ColBaru" style="display:none;" class="ma-field">
+            <label class="ma-label">Nama Pakan Baru</label>
+            <input type="text" class="ma-input" name="nama_pakan_custom" placeholder="KONSENTRAT BOOSTER">
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
             <div class="ma-field" style="margin:0;"><label class="ma-label">Volume (KG)</label><input type="number" step="0.1" class="ma-input" name="kg" id="sec3_kg" placeholder="0" oninput="LogistikModule.calcSec3Preview()"></div>
@@ -1923,19 +2501,28 @@ const LogistikModule = {
           <button class="ma-btn-secondary" onclick="LogistikModule.exportExcelSec4()"><i class="bi bi-file-earmark-excel"></i> Excel</button>
         </div>
         <form id="formLogSec4" onsubmit="LogistikModule.handleSaveSec4(event)" style="margin-bottom:14px;">
+          <!-- FIX LOG-B50: Tambahkan opsi 'Tambah Pakan Baru' ke Seksi IV -->
+          <div class="ma-field">
+            <label class="ma-label">Nama Pakan</label>
+            <select class="ma-select" name="nama_pakan" id="sec4SelectPakan" onchange="LogistikModule.onSelectSec4Pakan(this.value)" required>
+              ${monthData.sec4.map(it => `<option value="${it.nama}">${it.no}. ${it.nama}</option>`).join('')}
+              <option value="+ TAMBAH PAKAN BARU">+ Tambah Pakan Baru...</option>
+            </select>
+          </div>
+          <div id="sec4ColBaru" style="display:none;" class="ma-field">
+            <label class="ma-label">Nama Pakan Baru (Stok)</label>
+            <input type="text" class="ma-input" name="nama_pakan_custom" placeholder="KONSENTRAT BOOSTER">
+          </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
-            <div class="ma-field" style="margin:0;"><label class="ma-label">Nama Pakan</label>
-              <select class="ma-select" name="nama_pakan" required>
-                ${monthData.sec4.map(it => `<option value="${it.nama}">${it.no}. ${it.nama}</option>`).join('')}
-              </select>
-            </div>
             <div class="ma-field" style="margin:0;"><label class="ma-label">Stok Awal (KG)</label><input type="number" step="0.1" class="ma-input" name="stok_awal" id="sec4_stok_awal" placeholder="0" oninput="LogistikModule.calcSec4Preview()"></div>
             <div class="ma-field" style="margin:0;"><label class="ma-label">Susut (KG)</label><input type="number" step="0.1" class="ma-input" name="susut" id="sec4_susut" placeholder="0" oninput="LogistikModule.calcSec4Preview()"></div>
             <div class="ma-field" style="margin:0;"><label class="ma-label">Harga/KG (Rp)</label><input type="number" class="ma-input" name="harga" id="sec4_harga" placeholder="4000" oninput="LogistikModule.calcSec4Preview()"></div>
           </div>
-          <div style="margin-bottom:10px;">
-            <span class="badge bg-primary px-3 py-2" id="sec4PreviewStokAkhir">STOK AKHIR: 0 KG</span>
-            <span class="badge bg-success px-3 py-2" id="sec4PreviewRp">Rp 0</span>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;">
+            <span class="badge bg-secondary px-2 py-1" id="sec4PreviewStokAwal">STOK AWAL: 0 KG</span>
+            <span class="badge bg-info px-2 py-1" id="sec4PreviewSiapJual">SIAP JUAL: 0 KG</span>
+            <span class="badge bg-primary px-2 py-1" id="sec4PreviewStokAkhir">ESTIMASI STOK AKHIR: 0 KG</span>
+            <span class="badge bg-success px-2 py-1" id="sec4PreviewRp">Rp 0</span>
           </div>
           <button type="submit" class="ma-btn-primary"><i class="bi bi-save"></i> Simpan Stok</button>
         </form>
@@ -2013,7 +2600,7 @@ const LogistikModule = {
   /* ── STEPPER HELPER (± button for pakan quantity) ───── */
   stepperChange: function(inputId, delta) {
     const el = document.getElementById(inputId);
-    if (!el) return;
+    if (!el || el.disabled) return;
     let val = parseFloat(el.value) || 0;
     val = Math.max(0, Math.round((val + delta) * 10) / 10);
     el.value = val || '';
@@ -2032,20 +2619,21 @@ const LogistikModule = {
   },
 
   calcSec2Preview: function() {
-    const tKg = Number(document.getElementById("sec2_tunai_kg")?.value || 0);
-    const tH = Number(document.getElementById("sec2_tunai_harga")?.value || 0);
+    // FIX LOG-B63 & LOG-B64: Sanitasi numerik aman agar pemisah ribuan/titik/koma tidak menghasilkan NaN
+    const tKg = this.parseNum(document.getElementById("sec2_tunai_kg")?.value);
+    const tH = this.parseNum(document.getElementById("sec2_tunai_harga")?.value);
     const tRp = tKg * tH;
 
-    const pKg = Number(document.getElementById("sec2_pot_kg")?.value || 0);
-    const pH = Number(document.getElementById("sec2_pot_harga")?.value || 0);
+    const pKg = this.parseNum(document.getElementById("sec2_pot_kg")?.value);
+    const pH = this.parseNum(document.getElementById("sec2_pot_harga")?.value);
     const pRp = pKg * pH;
 
-    const iuKg = Number(document.getElementById("sec2_piu_kg")?.value || 0);
-    const iuH = Number(document.getElementById("sec2_piu_harga")?.value || 0);
+    const iuKg = this.parseNum(document.getElementById("sec2_piu_kg")?.value);
+    const iuH = this.parseNum(document.getElementById("sec2_piu_harga")?.value);
     const iuRp = iuKg * iuH;
 
-    const bKg = Number(document.getElementById("sec2_bunt_kg")?.value || 0);
-    const bH = Number(document.getElementById("sec2_bunt_harga")?.value || 0);
+    const bKg = this.parseNum(document.getElementById("sec2_bunt_kg")?.value);
+    const bH = this.parseNum(document.getElementById("sec2_bunt_harga")?.value);
     const bRp = bKg * bH;
 
     // Update Form Input Field ke-3 (Total Rp Otomatis) tiap kotak
@@ -2070,8 +2658,9 @@ const LogistikModule = {
   },
 
   calcSec3Preview: function() {
-    const kg = Number(document.getElementById("sec3_kg")?.value || 0);
-    const harga = Number(document.getElementById("sec3_harga")?.value || 0);
+    // FIX LOG-B64: Gunakan parseNum aman dari koma desimal Indonesia
+    const kg = this.parseNum(document.getElementById("sec3_kg")?.value);
+    const harga = this.parseNum(document.getElementById("sec3_harga")?.value);
     const totRp = kg * harga;
 
     const inputRp = document.getElementById("sec3_rp_input");
@@ -2081,18 +2670,42 @@ const LogistikModule = {
     if (elRp) elRp.innerText = "TOTAL RP: Rp " + totRp.toLocaleString("id-ID");
   },
 
+  // FIX LOG-B15: Pre-fill form Seksi III saat pakan dipilih dari dropdown
+  onSelectSec3Pakan: function(val) {
+    const colNew = document.getElementById("sec3ColBaru");
+    if (colNew) colNew.style.display = (val === "+ TAMBAH PAKAN BARU") ? "block" : "none";
+    const allData = this.getFullData();
+    const targetMonth = this.getActiveSaveMonth();
+    const monthData = this.ensureMonthData(allData, targetMonth);
+    const item = monthData.sec3.find(it => (it.nama || '').toLowerCase() === (val || '').toLowerCase());
+    if (item) {
+      if (document.getElementById("sec3_kg")) document.getElementById("sec3_kg").value = item.kg > 0 ? item.kg : "";
+      if (document.getElementById("sec3_harga")) document.getElementById("sec3_harga").value = item.harga > 0 ? item.harga : "";
+    } else {
+      if (document.getElementById("sec3_kg")) document.getElementById("sec3_kg").value = "";
+      if (document.getElementById("sec3_harga")) document.getElementById("sec3_harga").value = "";
+    }
+    this.calcSec3Preview();
+  },
+
   calcSec4Preview: function() {
     const namaPakan = document.getElementById("sec4SelectPakan")?.value || "";
-    const susut = Number(document.getElementById("sec4_susut")?.value || 0);
-    const harga = Number(document.getElementById("sec4_harga")?.value || 0);
+    const stokAwalInput = document.getElementById("sec4_stok_awal")?.value;
+    // FIX LOG-B64: Gunakan parseNum toleran koma
+    const susut = this.parseNum(document.getElementById("sec4_susut")?.value);
+    const harga = this.parseNum(document.getElementById("sec4_harga")?.value);
 
+    // FIX Bug L10 & L16: Sync transaksi ke memory dan gunakan targetMonth aktif
+    // agar form preview tetap valid meskipun selectedMonth === "ALL".
     const allData = this.getFullData();
-    const sec4Items = allData[this.selectedMonth]?.sec4 || [];
-    const item = sec4Items.find(it => it.nama === namaPakan) || {};
+    const targetMonth = this.getActiveSaveMonth();
+    this.syncMatrixFromTransactions(allData, targetMonth);
+    const sec4Items = this.ensureMonthData(allData, targetMonth).sec4 || [];
+    const item = sec4Items.find(it => this.isSec4FeedMatch(it.nama, namaPakan) || it.nama === namaPakan) || {};
 
-    const stokAwal = Number(item.stok_awal || 0);
-    const pembelian = Number(item.pembelian || 0);
-    const penjualan = Number(item.penjualan || 0);
+    const stokAwal = (stokAwalInput !== undefined && stokAwalInput !== "") ? this.parseNum(stokAwalInput) : this.parseNum(item.stok_awal);
+    const pembelian = this.parseNum(item.pembelian);
+    const penjualan = this.parseNum(item.penjualan);
 
     const siapJual = stokAwal + pembelian;
     const stokAkhir = Math.max(0, siapJual - penjualan - susut);
@@ -2113,35 +2726,58 @@ const LogistikModule = {
     const colNew = document.getElementById("sec2ColBaru");
     if (colNew) colNew.style.display = (val === "+ TAMBAH PAKAN BARU") ? "block" : "none";
     const allData = this.getFullData();
-    const monthData = allData[this.selectedMonth] || { sec2: [] };
+    // FIX Bug L16: Gunakan ensureMonthData dengan getActiveSaveMonth agar tidak kosong saat "ALL"
+    const targetMonth = this.getActiveSaveMonth();
+    const monthData = this.ensureMonthData(allData, targetMonth);
     const item = monthData.sec2.find(it => it.nama === val);
+    // FIX LOG-B25: Guard null check agar tidak melempar TypeError jika elemen tidak ada di DOM
+    const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
     if (item) {
-      document.getElementById("sec2_tunai_kg").value = item.tunai_kg || "";
-      document.getElementById("sec2_tunai_harga").value = item.tunai_harga || "";
-      document.getElementById("sec2_pot_kg").value = item.pot_kg || "";
-      document.getElementById("sec2_pot_harga").value = item.pot_harga || "";
-      document.getElementById("sec2_piu_kg").value = item.piu_kg || "";
-      document.getElementById("sec2_piu_harga").value = item.piu_harga || "";
-      document.getElementById("sec2_bunt_kg").value = item.bunt_kg || "";
-      document.getElementById("sec2_bunt_harga").value = item.bunt_harga || "";
+      setVal("sec2_tunai_kg", item.tunai_kg || "");
+      setVal("sec2_tunai_harga", item.tunai_harga || "");
+      setVal("sec2_pot_kg", item.pot_kg || "");
+      setVal("sec2_pot_harga", item.pot_harga || "");
+      setVal("sec2_piu_kg", item.piu_kg || "");
+      setVal("sec2_piu_harga", item.piu_harga || "");
+      setVal("sec2_bunt_kg", item.bunt_kg || "");
+      setVal("sec2_bunt_harga", item.bunt_harga || "");
     } else {
-      document.getElementById("sec2_tunai_kg").value = "";
-      document.getElementById("sec2_tunai_harga").value = "";
-      document.getElementById("sec2_pot_kg").value = "";
-      document.getElementById("sec2_pot_harga").value = "";
-      document.getElementById("sec2_piu_kg").value = "";
-      document.getElementById("sec2_piu_harga").value = "";
-      document.getElementById("sec2_bunt_kg").value = "";
-      document.getElementById("sec2_bunt_harga").value = "";
+      setVal("sec2_tunai_kg", "");
+      setVal("sec2_tunai_harga", "");
+      setVal("sec2_pot_kg", "");
+      setVal("sec2_pot_harga", "");
+      setVal("sec2_piu_kg", "");
+      setVal("sec2_piu_harga", "");
+      setVal("sec2_bunt_kg", "");
+      setVal("sec2_bunt_harga", "");
     }
     this.calcSec2Preview();
   },
 
   onSelectSec4Pakan: function(val) {
+    // FIX LOG-B50: Tampilkan input nama pakan baru jika opsi '+ TAMBAH PAKAN BARU' dipilih
+    const colBaru = document.getElementById("sec4ColBaru");
+    if (colBaru) colBaru.style.display = (val === "+ TAMBAH PAKAN BARU") ? "block" : "none";
+
+    if (val === "+ TAMBAH PAKAN BARU") {
+      // Kosongkan field agar pengguna isi sendiri
+      if (document.getElementById("sec4_stok_awal")) document.getElementById("sec4_stok_awal").value = "";
+      if (document.getElementById("sec4_susut")) document.getElementById("sec4_susut").value = "";
+      if (document.getElementById("sec4_harga")) document.getElementById("sec4_harga").value = "";
+      // FIX LOG-B59: Perbarui preview agar badge tidak tertinggal angka dari pakan sebelumnya
+      this.calcSec4Preview();
+      return;
+    }
+
     const allData = this.getFullData();
-    const sec4Items = allData[this.selectedMonth]?.sec4 || [];
-    const item = sec4Items.find(it => it.nama === val);
+    // FIX Bug L16: Gunakan ensureMonthData dengan getActiveSaveMonth agar tidak kosong saat "ALL"
+    const targetMonth = this.getActiveSaveMonth();
+    // FIX LOG-B44: Sinkronkan matrix dahulu agar stok_awal sudah up-to-date sebelum dibaca
+    this.syncMatrixFromTransactions(allData, targetMonth);
+    const sec4Items = this.ensureMonthData(allData, targetMonth).sec4 || [];
+    const item = sec4Items.find(it => this.isSec4FeedMatch(it.nama, val) || it.nama === val);
     if (item) {
+      if (document.getElementById("sec4_stok_awal")) document.getElementById("sec4_stok_awal").value = item.stok_awal || "0";
       if (document.getElementById("sec4_susut")) document.getElementById("sec4_susut").value = item.susut || "0";
       if (document.getElementById("sec4_harga")) document.getElementById("sec4_harga").value = item.harga || "";
     }
@@ -2155,14 +2791,14 @@ const LogistikModule = {
     if (namaPakan === "+ TAMBAH PAKAN BARU") {
       namaPakan = form.nama_pakan_custom?.value.trim() || "PAKAN BARU";
     }
-    const tKg = Number(form.tunai_kg?.value || 0);
-    const tH = Number(form.tunai_harga?.value || 0);
-    const pKg = Number(form.pot_kg?.value || 0);
-    const pH = Number(form.pot_harga?.value || 0);
-    const iuKg = Number(form.piu_kg?.value || 0);
-    const iuH = Number(form.piu_harga?.value || 0);
-    const bKg = Number(form.bunt_kg?.value || 0);
-    const bH = Number(form.bunt_harga?.value || 0);
+    const tKg = this.parseNum(form.tunai_kg?.value);
+    const tH = this.parseNum(form.tunai_harga?.value);
+    const pKg = this.parseNum(form.pot_kg?.value);
+    const pH = this.parseNum(form.pot_harga?.value);
+    const iuKg = this.parseNum(form.piu_kg?.value);
+    const iuH = this.parseNum(form.piu_harga?.value);
+    const bKg = this.parseNum(form.bunt_kg?.value);
+    const bH = this.parseNum(form.bunt_harga?.value);
 
     const targetMonth = this.getActiveSaveMonth();
     const allData = this.getFullData();
@@ -2181,7 +2817,12 @@ const LogistikModule = {
     item.bunt_kg = bKg; item.bunt_harga = bH; item.bunt_rp = bKg * bH;
     item.total_kg = tKg + pKg + iuKg + bKg;
     item.total_rp = item.tunai_rp + item.pot_rp + item.piu_rp + item.bunt_rp;
+    // FIX Bug L8: Tandai item ini sebagai manual override agar syncMatrixFromTransactions
+    // tidak menimpa nilai yang sudah diinput manual via form Sec2.
+    item._manual = true;
 
+    // FIX Bug L30: Sinkronkan ke seluruh matriks/carryover sebelum disimpan agar tidak hilang
+    this.syncMatrixFromTransactions(allData, targetMonth);
     this.saveFullData(allData);
     showToast("Data Penjualan Pakan berhasil disimpan!", "success");
     App.render();
@@ -2190,9 +2831,13 @@ const LogistikModule = {
   handleSaveSec3: async function(e) {
     e.preventDefault();
     const form = e.target;
-    const namaPakan = form.nama_pakan.value;
-    const kg = Number(form.kg?.value || 0);
-    const harga = Number(form.harga?.value || 0);
+    let namaPakan = form.nama_pakan.value;
+    // FIX LOG-B19: Dukung input nama pakan baru jika dipilih opsi '+ TAMBAH PAKAN BARU'
+    if (namaPakan === "+ TAMBAH PAKAN BARU") {
+      namaPakan = form.nama_pakan_custom?.value.trim() || "PAKAN BARU";
+    }
+    const kg = this.parseNum(form.kg?.value);
+    const harga = this.parseNum(form.harga?.value);
 
     const targetMonth = this.getActiveSaveMonth();
     const allData = this.getFullData();
@@ -2209,6 +2854,50 @@ const LogistikModule = {
     item.harga = harga;
     item.rp = kg * harga;
 
+    // FIX LOG-B11: Sinkronkan catatan pembelian pakan ke database LocalBridgeEngine DANAMULYA_DB
+    try {
+      const rawDb = localStorage.getItem("DANAMULYA_DB");
+      if (rawDb) {
+        const db = JSON.parse(rawDb);
+        if (!db.LOGISTIK_PAKAN_PEMBELIAN) db.LOGISTIK_PAKAN_PEMBELIAN = [];
+        const existingIdx = db.LOGISTIK_PAKAN_PEMBELIAN.findIndex(p => p.bulan === targetMonth && (p.nama_pakan || '').toLowerCase() === namaPakan.toLowerCase());
+
+        // FIX LOG-B54: Gunakan tanggal di bulan target, bukan new Date() hari ini
+        const monthMap = { JAN:1, FEB:2, MAR:3, APRIL:4, MEI:5, JUNI:6, JULI:7, AGU:8, SEP:9, OKT:10, NOV:11, DES:12 };
+        const txMonthNum = monthMap[targetMonth] || new Date().getMonth() + 1;
+        const txYear = parseInt(this.selectedYear || new Date().getFullYear(), 10);
+        const txMonthStr = String(txMonthNum).padStart(2, "0");
+        const tanggalTarget = `${txYear}-${txMonthStr}-01`;
+
+        const trxId = existingIdx >= 0
+          ? (db.LOGISTIK_PAKAN_PEMBELIAN[existingIdx].transaction_id || db.LOGISTIK_PAKAN_PEMBELIAN[existingIdx].purchase_id || ("PUR-LOG-" + Date.now().toString(36).toUpperCase()))
+          : ("PUR-LOG-" + Date.now().toString(36).toUpperCase());
+
+        const record = {
+          // FIX LOG-B55: Simpan transaction_id agar API dapat match lewat field yang tepat
+          transaction_id: trxId,
+          purchase_id: trxId,
+          tanggal: tanggalTarget, // FIX LOG-B54
+          bulan: targetMonth,
+          nama_pakan: namaPakan,
+          jumlah_kg: kg,
+          harga_per_kg: harga,
+          total_rupiah: kg * harga,
+          keterangan: "Input Manual Seksi III (" + targetMonth + ")"
+        };
+        if (existingIdx >= 0) {
+          db.LOGISTIK_PAKAN_PEMBELIAN[existingIdx] = record;
+        } else {
+          db.LOGISTIK_PAKAN_PEMBELIAN.push(record);
+        }
+        localStorage.setItem("DANAMULYA_DB", JSON.stringify(db));
+      }
+    } catch (eDb) {
+      console.warn("Gagal sinkronisasi pembelian ke LocalBridge DB:", eDb);
+    }
+
+    // FIX Bug L30: Sinkronkan pembelian ke Seksi IV dan carryover stok sebelum disimpan
+    this.syncMatrixFromTransactions(allData, targetMonth);
     this.saveFullData(allData);
     showToast("Data Pembelian Pakan berhasil disimpan!", "success");
     App.render();
@@ -2217,27 +2906,39 @@ const LogistikModule = {
   handleSaveSec4: async function(e) {
     e.preventDefault();
     const form = e.target;
-    const namaPakan = form.nama_pakan.value;
-    const susut = Number(form.susut?.value || 0);
-    const harga = Number(form.harga?.value || 0);
+    // FIX LOG-B50: Dukung input nama pakan baru di Seksi IV
+    let namaPakan = form.nama_pakan.value;
+    if (namaPakan === "+ TAMBAH PAKAN BARU") {
+      namaPakan = (form.nama_pakan_custom?.value || "").trim().toUpperCase() || "PAKAN BARU";
+    }
+    const stokAwalVal = form.stok_awal ? form.stok_awal.value : "";
+    const susut = this.parseNum(form.susut?.value);
+    const harga = this.parseNum(form.harga?.value);
 
     const targetMonth = this.getActiveSaveMonth();
     const allData = this.getFullData();
     const monthData = this.ensureMonthData(allData, targetMonth);
     const sec4Items = monthData.sec4;
-    let item = sec4Items.find(it => it.nama.toLowerCase().includes(namaPakan.toLowerCase()) || namaPakan.toLowerCase().includes(it.nama.toLowerCase()));
+    // FIX Bug L29: Pencocokan eksak / agregasi untuk Seksi IV, hindari .includes() yang ambigu
+    let item = sec4Items.find(it => this.isSec4FeedMatch(it.nama, namaPakan) || it.nama.trim().toLowerCase() === namaPakan.trim().toLowerCase());
 
     if (!item) {
       item = { no: sec4Items.length + 1, nama: namaPakan, stok_awal: 0, pembelian: 0, siap_jual: 0, penjualan: 0, susut: 0, stok_akhir: 0, harga: 0, jumlah_rp: 0 };
       sec4Items.push(item);
     }
 
+    if (stokAwalVal !== "") {
+      item.stok_awal = this.parseNum(stokAwalVal);
+      item._manual_stok_awal = true;
+    }
     item.susut = susut;
     item.harga = harga;
     item.siap_jual = (item.stok_awal || 0) + (item.pembelian || 0);
     item.stok_akhir = Math.max(0, item.siap_jual - (item.penjualan || 0) - item.susut);
     item.jumlah_rp = item.stok_akhir * item.harga;
 
+    // FIX Bug L30: Sinkronkan carryover stok ke bulan-bulan berikutnya sebelum disimpan
+    this.syncMatrixFromTransactions(allData, targetMonth);
     this.saveFullData(allData);
     showToast("Data Stok Pakan berhasil diperbarui!", "success");
     App.render();
@@ -2259,127 +2960,398 @@ const LogistikModule = {
   },
 
   saveTransactions: function(txs) {
-    localStorage.setItem("DANAMULYA_LOGISTIK_TX_V1", JSON.stringify(txs));
+    // FIX LOG-B58: Guard QuotaExceededError agar form tidak macet diam-diam
+    try {
+      localStorage.setItem("DANAMULYA_LOGISTIK_TX_V1", JSON.stringify(txs));
+    } catch (e) {
+      console.error("[LOG-B58] saveTransactions: QuotaExceededError atau storage diblokir.", e);
+      if (typeof showToast === 'function') showToast("Penyimpanan gagal: storage penuh atau diblokir!", "danger");
+    }
   },
 
   getActiveSaveMonth: function() {
+    // FIX Bug L3: Jangan hardcode fallback ke 'JUNI'.
+    // Gunakan nama bulan saat ini dari tanggal sistem jika selectedMonth tidak valid.
     if (this.selectedMonth && this.selectedMonth !== "ALL") return this.selectedMonth;
-    return "JUNI";
+    const monthNames = ["JAN","FEB","MAR","APRIL","MEI","JUNI","JULI","AGU","SEP","OKT","NOV","DES"];
+    return monthNames[new Date().getMonth()] || "JUNI";
   },
 
   ensureMonthData: function(allData, monthKey) {
     if (!monthKey || monthKey === "ALL") {
       monthKey = this.getActiveSaveMonth();
     }
+    // FIX Bug L20: Template pakan default untuk bulan baru (Juli - Desember)
+    // agar tabel tidak kosong dan pewarisan stok awal dari bulan sebelumnya dapat berjalan.
+    // FIX LOG-B18: Template Seksi I (Peralatan) untuk bulan baru agar konsisten dengan Excel
+    const defaultSec1 = [
+      { no: 1, nama: "MILK CAN", stok_awal_unit: 5, stok_awal_harga: 650000, stok_awal_rp: 3250000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 5, stok_akhir_rp: 3250000 },
+      { no: 2, nama: "SARINGAN MILK CAN", stok_awal_unit: 24, stok_awal_harga: 130000, stok_awal_rp: 3120000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 24, stok_akhir_rp: 3120000 },
+      { no: 3, nama: "TIMBA PERAH", stok_awal_unit: 32, stok_awal_harga: 125000, stok_awal_rp: 4000000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 32, stok_akhir_rp: 4000000 },
+      { no: 4, nama: "BRANGUS SAPI", stok_awal_unit: 85, stok_awal_harga: 15000, stok_awal_rp: 1275000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 85, stok_akhir_rp: 1275000 },
+      { no: 5, nama: "ALAT CELUP", stok_awal_unit: 175, stok_awal_harga: 50000, stok_awal_rp: 8750000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 175, stok_akhir_rp: 8750000 }
+    ];
+    const defaultSec2 = [
+      { no: 1, nama: "MF. A18 AGGT SUB", tunai_kg: 0, tunai_harga: 3900, tunai_rp: 0, pot_kg: 0, pot_harga: 3900, pot_rp: 0, piu_kg: 0, piu_harga: 3900, piu_rp: 0, bunt_kg: 0, bunt_harga: 3900, bunt_rp: 0, total_kg: 0, total_rp: 0 },
+      { no: 2, nama: "MAGNESIUM", tunai_kg: 0, tunai_harga: 30000, tunai_rp: 0, pot_kg: 0, pot_harga: 30000, pot_rp: 0, piu_kg: 0, piu_harga: 30000, piu_rp: 0, bunt_kg: 0, bunt_harga: 30000, bunt_rp: 0, total_kg: 0, total_rp: 0 },
+      { no: 3, nama: "DCP", tunai_kg: 0, tunai_harga: 25000, tunai_rp: 0, pot_kg: 0, pot_harga: 25000, pot_rp: 0, piu_kg: 0, piu_harga: 25000, piu_rp: 0, bunt_kg: 0, bunt_harga: 25000, bunt_rp: 0, total_kg: 0, total_rp: 0 },
+      { no: 4, nama: "MF A20 NON SUB", tunai_kg: 0, tunai_harga: 4500, tunai_rp: 0, pot_kg: 0, pot_harga: 4500, pot_rp: 0, piu_kg: 0, piu_harga: 4500, piu_rp: 0, bunt_kg: 0, bunt_harga: 4500, bunt_rp: 0, total_kg: 0, total_rp: 0 },
+      { no: 5, nama: "MF A20 SUB", tunai_kg: 0, tunai_harga: 4200, tunai_rp: 0, pot_kg: 0, pot_harga: 4200, pot_rp: 0, piu_kg: 0, piu_harga: 4200, piu_rp: 0, bunt_kg: 0, bunt_harga: 4200, bunt_rp: 0, total_kg: 0, total_rp: 0 },
+      { no: 6, nama: "MF A20 RATIO", tunai_kg: 0, tunai_harga: 4200, tunai_rp: 0, pot_kg: 0, pot_harga: 4200, pot_rp: 0, piu_kg: 0, piu_harga: 4200, piu_rp: 0, bunt_kg: 0, bunt_harga: 4200, bunt_rp: 0, total_kg: 0, total_rp: 0 },
+      { no: 7, nama: "MF A20 NON RATIO", tunai_kg: 0, tunai_harga: 4500, tunai_rp: 0, pot_kg: 0, pot_harga: 4500, pot_rp: 0, piu_kg: 0, piu_harga: 4500, piu_rp: 0, bunt_kg: 0, bunt_harga: 4500, bunt_rp: 0, total_kg: 0, total_rp: 0 },
+      { no: 8, nama: "MF A20 NON ANGG", tunai_kg: 0, tunai_harga: 4500, tunai_rp: 0, pot_kg: 0, pot_harga: 4500, pot_rp: 0, piu_kg: 0, piu_harga: 4500, piu_rp: 0, bunt_kg: 0, bunt_harga: 4500, bunt_rp: 0, total_kg: 0, total_rp: 0 }
+    ];
+    const defaultSec4 = [
+      { no: 1, nama: "MIX FEED A18", stok_awal: 0, pembelian: 0, siap_jual: 0, penjualan: 0, susut: 0, stok_akhir: 0, harga: 3900, jumlah_rp: 0 },
+      { no: 2, nama: "MAGNESIUM", stok_awal: 0, pembelian: 0, siap_jual: 0, penjualan: 0, susut: 0, stok_akhir: 0, harga: 30000, jumlah_rp: 0 },
+      { no: 3, nama: "DCP", stok_awal: 0, pembelian: 0, siap_jual: 0, penjualan: 0, susut: 0, stok_akhir: 0, harga: 25000, jumlah_rp: 0 },
+      { no: 4, nama: "MIX FEED A20", stok_awal: 0, pembelian: 0, siap_jual: 0, penjualan: 0, susut: 0, stok_akhir: 0, harga: 4200, jumlah_rp: 0 }
+    ];
+
     if (!allData[monthKey]) {
       if (this.defaultFullData[monthKey]) {
         allData[monthKey] = JSON.parse(JSON.stringify(this.defaultFullData[monthKey]));
       } else {
         allData[monthKey] = {
-          sec1: [],
-          sec2: [],
+          sec1: JSON.parse(JSON.stringify(defaultSec1)),
+          sec2: JSON.parse(JSON.stringify(defaultSec2)),
           sec3: [],
-          sec4: []
+          sec4: JSON.parse(JSON.stringify(defaultSec4))
         };
       }
     }
-    if (!allData[monthKey].sec1) allData[monthKey].sec1 = [];
-    if (!allData[monthKey].sec2) allData[monthKey].sec2 = [];
+    if (!allData[monthKey].sec1 || allData[monthKey].sec1.length === 0) {
+      allData[monthKey].sec1 = JSON.parse(JSON.stringify(defaultSec1));
+    }
+    if (!allData[monthKey].sec2 || allData[monthKey].sec2.length === 0) {
+      allData[monthKey].sec2 = JSON.parse(JSON.stringify(defaultSec2));
+    }
     if (!allData[monthKey].sec3) allData[monthKey].sec3 = [];
-    if (!allData[monthKey].sec4) allData[monthKey].sec4 = [];
+    if (!allData[monthKey].sec4 || allData[monthKey].sec4.length === 0) {
+      allData[monthKey].sec4 = JSON.parse(JSON.stringify(defaultSec4));
+    }
     return allData[monthKey];
+  },
+
+  getMonthDataForView: function(allData, targetMonth) {
+    const activeMonth = targetMonth || this.selectedMonth;
+    if (activeMonth !== "ALL") {
+      return this.ensureMonthData(allData, activeMonth);
+    }
+    const monthsList = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"];
+    const aggSec1Map = {};
+    const aggSec2Map = {};
+    const aggSec3Map = {};
+    const aggSec4Map = {};
+    monthsList.forEach((mKey, idx) => {
+      const md = allData[mKey];
+      if (!md) return;
+
+      if (md.sec1 && Array.isArray(md.sec1)) {
+        md.sec1.forEach(it => {
+          const key = (it.nama || "").trim().toUpperCase();
+          if (!aggSec1Map[key]) {
+            aggSec1Map[key] = {
+              no: Object.keys(aggSec1Map).length + 1,
+              nama: it.nama,
+              stok_awal_unit: Number(it.stok_awal_unit) || 0,
+              stok_awal_harga: Number(it.stok_awal_harga) || 0,
+              stok_awal_rp: Number(it.stok_awal_rp) || 0,
+              pembelian_unit: 0,
+              pembelian_harga: it.pembelian_harga || 0,
+              pembelian_rp: 0,
+              penjualan_unit: 0,
+              penjualan_harga: it.penjualan_harga || 0,
+              penjualan_rp: 0,
+              stok_akhir_unit: Number(it.stok_akhir_unit) || 0,
+              stok_akhir_rp: Number(it.stok_akhir_rp) || 0
+            };
+          }
+          const agg = aggSec1Map[key];
+          agg.pembelian_unit += (Number(it.pembelian_unit) || 0);
+          agg.pembelian_rp += (Number(it.pembelian_rp) || 0);
+          if (it.pembelian_harga) agg.pembelian_harga = it.pembelian_harga;
+
+          agg.penjualan_unit += (Number(it.penjualan_unit) || 0);
+          agg.penjualan_rp += (Number(it.penjualan_rp) || 0);
+          if (it.penjualan_harga) agg.penjualan_harga = it.penjualan_harga;
+
+          agg.stok_akhir_unit = Number(it.stok_akhir_unit) || 0;
+          agg.stok_akhir_rp = Number(it.stok_akhir_rp) || 0;
+        });
+      }
+
+      if (md.sec2 && Array.isArray(md.sec2)) {
+        md.sec2.forEach(it => {
+          // FIX LOG-B61: Normalisasi key nama pakan agar konsisten dan tidak terpecah ganda
+          const key = (it.nama || "").trim().toUpperCase();
+          if (!aggSec2Map[key]) {
+            aggSec2Map[key] = {
+              no: Object.keys(aggSec2Map).length + 1,
+              nama: it.nama,
+              tunai_kg: 0, tunai_harga: it.tunai_harga || 0, tunai_rp: 0,
+              pot_kg: 0, pot_harga: it.pot_harga || 0, pot_rp: 0,
+              piu_kg: 0, piu_harga: it.piu_harga || 0, piu_rp: 0,
+              bunt_kg: 0, bunt_harga: it.bunt_harga || 0, bunt_rp: 0,
+              total_kg: 0, total_rp: 0
+            };
+          }
+          const agg = aggSec2Map[key];
+          agg.tunai_kg += (Number(it.tunai_kg) || 0);
+          agg.tunai_rp += (Number(it.tunai_rp) || 0);
+          agg.pot_kg += (Number(it.pot_kg) || 0);
+          agg.pot_rp += (Number(it.pot_rp) || 0);
+          agg.piu_kg += (Number(it.piu_kg) || 0);
+          agg.piu_rp += (Number(it.piu_rp) || 0);
+          agg.bunt_kg += (Number(it.bunt_kg) || 0);
+          agg.bunt_rp += (Number(it.bunt_rp) || 0);
+          agg.total_kg += (Number(it.total_kg) || 0);
+          agg.total_rp += (Number(it.total_rp) || 0);
+          if (it.tunai_harga) agg.tunai_harga = it.tunai_harga;
+          if (it.pot_harga) agg.pot_harga = it.pot_harga;
+          if (it.piu_harga) agg.piu_harga = it.piu_harga;
+          if (it.bunt_harga) agg.bunt_harga = it.bunt_harga;
+        });
+      }
+
+      if (md.sec3 && Array.isArray(md.sec3)) {
+        md.sec3.forEach(it => {
+          // FIX LOG-B61: Normalisasi key nama pakan
+          const key = (it.nama || "").trim().toUpperCase();
+          if (!aggSec3Map[key]) {
+            aggSec3Map[key] = { no: Object.keys(aggSec3Map).length + 1, nama: it.nama, kg: 0, harga: it.harga || 0, rp: 0 };
+          }
+          const agg = aggSec3Map[key];
+          agg.kg += (Number(it.kg) || 0);
+          agg.rp += (Number(it.rp) || 0);
+          if (it.harga) agg.harga = it.harga;
+        });
+      }
+
+      if (md.sec4 && Array.isArray(md.sec4)) {
+        md.sec4.forEach(it => {
+          // FIX LOG-B61: Normalisasi key nama pakan
+          const key = (it.nama || "").trim().toUpperCase();
+          if (!aggSec4Map[key]) {
+            aggSec4Map[key] = {
+              no: Object.keys(aggSec4Map).length + 1,
+              nama: it.nama,
+              stok_awal: Number(it.stok_awal) || 0,
+              pembelian: 0,
+              siap_jual: 0,
+              penjualan: 0,
+              susut: 0,
+              stok_akhir: Number(it.stok_akhir) || 0,
+              harga: it.harga || 0,
+              jumlah_rp: 0
+            };
+          }
+          const agg = aggSec4Map[key];
+          agg.pembelian += (Number(it.pembelian) || 0);
+          agg.penjualan += (Number(it.penjualan) || 0);
+          agg.susut += (Number(it.susut) || 0);
+          agg.stok_akhir = Number(it.stok_akhir) || 0;
+          if (it.harga) agg.harga = it.harga;
+        });
+      }
+    });
+
+    const aggSec1List = Object.values(aggSec1Map).map(it => {
+      // FIX LOG-B32: Hitung stok akhir tahunan sesuai neraca fisik: Stok Awal + Beli - Jual
+      it.stok_akhir_unit = Math.max(0, (it.stok_awal_unit || 0) + (it.pembelian_unit || 0) - (it.penjualan_unit || 0));
+      const hg = it.stok_awal_harga || it.pembelian_harga || it.penjualan_harga || 0;
+      it.stok_akhir_rp = it.stok_akhir_unit * hg;
+      return it;
+    });
+
+    const aggSec4List = Object.values(aggSec4Map).map(it => {
+      // FIX LOG-B32: Hitung stok akhir tahunan sesuai neraca fisik: Siap Jual - Jual - Susut
+      it.siap_jual = (it.stok_awal || 0) + (it.pembelian || 0);
+      it.stok_akhir = Math.max(0, it.siap_jual - (it.penjualan || 0) - (it.susut || 0));
+      it.jumlah_rp = it.stok_akhir * (it.harga || 0);
+      return it;
+    });
+
+    return {
+      sec1: aggSec1List,
+      sec2: Object.values(aggSec2Map),
+      sec3: Object.values(aggSec3Map),
+      sec4: aggSec4List
+    };
   },
 
   syncMatrixFromTransactions: function(allData, monthKey) {
     const monthsList = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"];
     const monthMap = { JAN:1, FEB:2, MAR:3, APRIL:4, MEI:5, JUNI:6, JULI:7, AGU:8, SEP:9, OKT:10, NOV:11, DES:12 };
 
-    const isFeedMatch = (a, b) => {
-      if (!a || !b) return false;
-      const cleanA = a.toLowerCase().replace(/mf\./g, 'mix feed').replace(/\bmf\b/g, 'mix feed').replace(/[^a-z0-9]/g, '');
-      const cleanB = b.toLowerCase().replace(/mf\./g, 'mix feed').replace(/\bmf\b/g, 'mix feed').replace(/[^a-z0-9]/g, '');
-      return cleanA.includes(cleanB) || cleanB.includes(cleanA);
-    };
+    // FIX Bug L15: Normalisasi pakan yang presisi untuk menghindari collision substring
+    const cleanFeed = s => this.cleanFeed(s);
+    const isExactFeedMatch = (a, b) => this.isExactFeedMatch(a, b);
+    const isSec4FeedMatch = (sec4Nama, targetNama) => this.isSec4FeedMatch(sec4Nama, targetNama);
 
     const allTxs = this.getTransactions();
+
+    // FIX Bug L2: Tentukan tahun target dari selectedYear (default tahun ini)
+    const targetYear = parseInt(this.selectedYear || new Date().getFullYear(), 10);
 
     monthsList.forEach((mKey, idx) => {
       const monthData = this.ensureMonthData(allData, mKey);
       const monthNum = monthMap[mKey];
 
-      // 1. Filter transactions for this specific month
+      // 1. Filter transactions for this specific month AND year
       const txs = allTxs.filter(tx => {
         const tgl = (tx.timestamp || '').split('T')[0] || '';
         if (!tgl) return false;
-        return parseInt(tgl.split('-')[1], 10) === monthNum;
+        const parts = tgl.split('-');
+        // FIX Bug L2: Cek tahun juga agar tidak tercampur lintas tahun
+        const txYear  = parseInt(parts[0], 10);
+        const txMonth = parseInt(parts[1], 10);
+        return txYear === targetYear && txMonth === monthNum;
       });
 
-      // 2. Reset sec2 totals for this month
-      if (monthData.sec2 && Array.isArray(monthData.sec2)) {
-        monthData.sec2.forEach(it => {
-          it.tunai_kg = 0; it.tunai_rp = 0;
-          it.pot_kg = 0; it.pot_rp = 0;
-          it.piu_kg = 0; it.piu_rp = 0;
-          it.bunt_kg = 0; it.bunt_rp = 0;
-          it.total_kg = 0; it.total_rp = 0;
-        });
-      }
+      // 2 & 3. FIX LOG-B1: Sinkronisasi presisi Seksi II (Penjualan) dan Seksi IV (Stok)
+      const hasExcelBaseline = (targetYear === 2026 && this.defaultFullData[mKey]);
 
-      // 3. Reset sec4 penjualan & sync pembelian from sec3
-      if (monthData.sec4 && Array.isArray(monthData.sec4)) {
-        monthData.sec4.forEach(it => {
-          it.penjualan = 0;
-          if (monthData.sec3 && Array.isArray(monthData.sec3)) {
-            const matchedSec3 = monthData.sec3.filter(s3 => isFeedMatch(s3.nama, it.nama));
-            const totPemKg = matchedSec3.reduce((sum, s3) => sum + (Number(s3.kg) || 0), 0);
-            if (totPemKg > 0) {
-              it.pembelian = totPemKg;
+      if (txs.length > 0) {
+        // Ada transaksi harian untuk bulan & tahun ini: reset sec2 & sec4 lalu akumulasikan
+        // FIX LOG-B52: Pre-compute feed names yang ada di tx bulan ini untuk menentukan mana yang perlu di-reset
+        const txFeedNames = new Set(txs.map(tx => (tx.jenis_pakan || '').trim().toLowerCase()));
+
+        if (monthData.sec2 && Array.isArray(monthData.sec2)) {
+          monthData.sec2.forEach(it => {
+            // FIX LOG-B52: Jika ada tx nyata untuk pakan ini, hapus _manual lock dan reset
+            // Jika tidak ada tx untuk pakan ini bulan ini, pertahankan nilai _manual
+            const hasTx = [...txFeedNames].some(txF => isExactFeedMatch(it.nama, txF));
+            if (it._manual && !hasTx) return; // pertahankan manual jika tidak ada tx bulan ini
+            if (it._manual) delete it._manual; // cabut lock jika ada tx nyata
+            it.tunai_kg = 0; it.tunai_rp = 0;
+            it.pot_kg = 0; it.pot_rp = 0;
+            it.piu_kg = 0; it.piu_rp = 0;
+            it.bunt_kg = 0; it.bunt_rp = 0;
+            it.total_kg = 0; it.total_rp = 0;
+          });
+        }
+        if (monthData.sec4 && Array.isArray(monthData.sec4)) {
+          monthData.sec4.forEach(it => { it.penjualan = 0; });
+        }
+
+        // Akumulasikan transaksi harian
+        txs.forEach(tx => {
+          const feedName = (tx.jenis_pakan || '').trim();
+          const qty = Number(tx.jumlah_sak_kg || 0);
+          const price = Number(tx.harga_satuan || 0);
+          const rp = Number(tx.total_rp || qty * price);
+          const metode = tx.metode_pembayaran || 'POTONGAN_RUTIN';
+
+          let sec2Item = monthData.sec2.find(it => isExactFeedMatch(it.nama, feedName));
+          if (!sec2Item && feedName) {
+            sec2Item = { no: monthData.sec2.length + 1, nama: tx.jenis_pakan, tunai_kg: 0, tunai_harga: price, tunai_rp: 0, pot_kg: 0, pot_harga: price, pot_rp: 0, piu_kg: 0, piu_harga: price, piu_rp: 0, bunt_kg: 0, bunt_harga: price, bunt_rp: 0, total_kg: 0, total_rp: 0 };
+            monthData.sec2.push(sec2Item);
+          }
+
+          if (sec2Item) {
+            if (metode === 'TUNAI') {
+              sec2Item.tunai_kg += qty;
+              sec2Item.tunai_harga = price || sec2Item.tunai_harga;
+              sec2Item.tunai_rp += rp;
+            } else if (metode === 'POTONGAN_RUTIN') {
+              sec2Item.pot_kg += qty;
+              sec2Item.pot_harga = price || sec2Item.pot_harga;
+              sec2Item.pot_rp += rp;
+            } else if (metode === 'PIUTANG') {
+              sec2Item.piu_kg += qty;
+              sec2Item.piu_harga = price || sec2Item.piu_harga;
+              sec2Item.piu_rp += rp;
+            } else if (metode === 'PROGRAM_BUNTING') {
+              sec2Item.bunt_kg += qty;
+              sec2Item.bunt_harga = price || sec2Item.bunt_harga;
+              sec2Item.bunt_rp += rp;
             }
           }
+
+          let sec4Item = monthData.sec4.find(it => isSec4FeedMatch(it.nama, feedName));
+          if (sec4Item) {
+            sec4Item.penjualan = (sec4Item.penjualan || 0) + qty;
+          }
         });
-      }
-
-      // 4. Accumulate daily transactions for this month into sec2 and sec4
-      txs.forEach(tx => {
-        const feedName = (tx.jenis_pakan || '').trim();
-        const qty = Number(tx.jumlah_sak_kg || 0);
-        const price = Number(tx.harga_satuan || 0);
-        const rp = Number(tx.total_rp || qty * price);
-        const metode = tx.metode_pembayaran || 'POTONGAN_RUTIN';
-
-        // Update sec2
-        let sec2Item = monthData.sec2.find(it => isFeedMatch(it.nama, feedName));
-        if (!sec2Item && feedName) {
-          sec2Item = { no: monthData.sec2.length + 1, nama: tx.jenis_pakan, tunai_kg: 0, tunai_harga: price, tunai_rp: 0, pot_kg: 0, pot_harga: price, pot_rp: 0, piu_kg: 0, piu_harga: price, piu_rp: 0, bunt_kg: 0, bunt_harga: price, bunt_rp: 0, total_kg: 0, total_rp: 0 };
-          monthData.sec2.push(sec2Item);
-        }
-
-        if (sec2Item) {
-          if (metode === 'TUNAI') {
-            sec2Item.tunai_kg += qty;
-            sec2Item.tunai_harga = price || sec2Item.tunai_harga;
-            sec2Item.tunai_rp += rp;
-          } else if (metode === 'POTONGAN_RUTIN') {
-            sec2Item.pot_kg += qty;
-            sec2Item.pot_harga = price || sec2Item.pot_harga;
-            sec2Item.pot_rp += rp;
-          } else if (metode === 'PIUTANG') {
-            sec2Item.piu_kg += qty;
-            sec2Item.piu_harga = price || sec2Item.piu_harga;
-            sec2Item.piu_rp += rp;
-          } else if (metode === 'PROGRAM_BUNTING') {
-            sec2Item.bunt_kg += qty;
-            sec2Item.bunt_harga = price || sec2Item.bunt_harga;
-            sec2Item.bunt_rp += rp;
+      } else {
+        // Tidak ada transaksi harian untuk bulan & tahun ini:
+        if (hasExcelBaseline) {
+          // Kembalikan ke baseline Excel defaultFullData jika tidak di-override manual
+          const baseSec2 = this.defaultFullData[mKey].sec2 || [];
+          if (monthData.sec2 && Array.isArray(monthData.sec2)) {
+            monthData.sec2.forEach(it => {
+              if (it._manual) return;
+              const def = baseSec2.find(d => isExactFeedMatch(d.nama, it.nama));
+              if (def) {
+                it.tunai_kg = def.tunai_kg || 0; it.tunai_harga = def.tunai_harga || 0; it.tunai_rp = def.tunai_rp || 0;
+                it.pot_kg = def.pot_kg || 0; it.pot_harga = def.pot_harga || 0; it.pot_rp = def.pot_rp || 0;
+                it.piu_kg = def.piu_kg || 0; it.piu_harga = def.piu_harga || 0; it.piu_rp = def.piu_rp || 0;
+                it.bunt_kg = def.bunt_kg || 0; it.bunt_harga = def.bunt_harga || 0; it.bunt_rp = def.bunt_rp || 0;
+                it.total_kg = def.total_kg || 0; it.total_rp = def.total_rp || 0;
+              } else {
+                it.tunai_kg = 0; it.tunai_rp = 0; it.pot_kg = 0; it.pot_rp = 0;
+                it.piu_kg = 0; it.piu_rp = 0; it.bunt_kg = 0; it.bunt_rp = 0;
+                it.total_kg = 0; it.total_rp = 0;
+              }
+            });
+          }
+          const baseSec4 = this.defaultFullData[mKey].sec4 || [];
+          if (monthData.sec4 && Array.isArray(monthData.sec4)) {
+            monthData.sec4.forEach(it => {
+              const def4 = baseSec4.find(d => isSec4FeedMatch(d.nama, it.nama));
+              it.penjualan = def4 ? (def4.penjualan || 0) : 0;
+            });
+          }
+        } else {
+          // Bulan tanpa baseline Excel (JULI-DES atau tahun selain 2026): reset ke 0
+          if (monthData.sec2 && Array.isArray(monthData.sec2)) {
+            monthData.sec2.forEach(it => {
+              if (it._manual) return;
+              it.tunai_kg = 0; it.tunai_rp = 0; it.pot_kg = 0; it.pot_rp = 0;
+              it.piu_kg = 0; it.piu_rp = 0; it.bunt_kg = 0; it.bunt_rp = 0;
+              it.total_kg = 0; it.total_rp = 0;
+            });
+          }
+          if (monthData.sec4 && Array.isArray(monthData.sec4)) {
+            monthData.sec4.forEach(it => { it.penjualan = 0; });
           }
         }
+      }
 
-        // Update sec4
-        let sec4Item = monthData.sec4.find(it => isFeedMatch(it.nama, feedName));
-        if (sec4Item) {
-          sec4Item.penjualan = (sec4Item.penjualan || 0) + qty;
+      // Sync pembelian dari sec3 ke sec4
+      if (monthData.sec4 && Array.isArray(monthData.sec4)) {
+        monthData.sec4.forEach(it => {
+          if (monthData.sec3 && Array.isArray(monthData.sec3)) {
+            const matchedSec3 = monthData.sec3.filter(s3 => isSec4FeedMatch(it.nama, s3.nama));
+            const totPemKg = matchedSec3.reduce((sum, s3) => sum + (Number(s3.kg) || 0), 0);
+            it.pembelian = totPemKg;
+          }
+        });
+        // FIX LOG-B33: Jika ada pakan di sec3 yang belum terdaftar di sec4, tambahkan agar stok terlacak
+        if (monthData.sec3 && Array.isArray(monthData.sec3)) {
+          monthData.sec3.forEach(s3 => {
+            if (!s3.nama || !s3.nama.trim()) return;
+            const exists = monthData.sec4.some(s4 => isSec4FeedMatch(s4.nama, s3.nama));
+            if (!exists) {
+              const pemKg = Number(s3.kg) || 0;
+              const hrg = Number(s3.harga) || 0;
+              monthData.sec4.push({
+                no: monthData.sec4.length + 1,
+                nama: s3.nama.trim(),
+                stok_awal: 0,
+                pembelian: pemKg,
+                siap_jual: pemKg,
+                penjualan: 0,
+                susut: 0,
+                stok_akhir: pemKg,
+                harga: hrg,
+                jumlah_rp: pemKg * hrg
+              });
+            }
+          });
         }
-      });
+      }
 
       // 5. Update totals for sec2
       if (monthData.sec2) {
@@ -2389,21 +3361,101 @@ const LogistikModule = {
         });
       }
 
+      // FIX LOG-B26: Sinkronkan penjualan dari sec2 ke sec4 secara deterministik
+      // agar input manual via handleSaveSec2 tidak hilang saat txs.length === 0,
+      // dan volume penjualan di Seksi II dan Seksi IV selalu 100% konsisten
+      if (monthData.sec4 && Array.isArray(monthData.sec4)) {
+        monthData.sec4.forEach(it => {
+          if (monthData.sec2 && Array.isArray(monthData.sec2)) {
+            const matchedSec2 = monthData.sec2.filter(s2 => isSec4FeedMatch(it.nama, s2.nama));
+            const totPenKg = matchedSec2.reduce((sum, s2) => sum + (Number(s2.total_kg) || 0), 0);
+            it.penjualan = totPenKg;
+          }
+        });
+      }
+
       // 6. Carryover stok_akhir from previous month into stok_awal of current month
       if (idx > 0) {
         const prevMKey = monthsList[idx - 1];
         const prevMonthData = allData[prevMKey];
+
+        // FIX Bug L37 & LOG-B18: Carryover stok akhir Seksi I (Peralatan) dan teruskan item yang belum ada di bulan berjalan
+        if (prevMonthData && prevMonthData.sec1) {
+          if (!monthData.sec1) monthData.sec1 = [];
+          prevMonthData.sec1.forEach(prevSec1 => {
+            let currSec1 = monthData.sec1.find(p => (p.nama || '').toLowerCase().trim() === (prevSec1.nama || '').toLowerCase().trim());
+            if (!currSec1) {
+              currSec1 = {
+                no: monthData.sec1.length + 1,
+                nama: prevSec1.nama,
+                stok_awal_unit: prevSec1.stok_akhir_unit || 0,
+                stok_awal_harga: prevSec1.stok_awal_harga || prevSec1.pembelian_harga || 0,
+                stok_awal_rp: (prevSec1.stok_akhir_unit || 0) * (prevSec1.stok_awal_harga || prevSec1.pembelian_harga || 0),
+                pembelian_unit: 0,
+                pembelian_harga: 0,
+                pembelian_rp: 0,
+                penjualan_unit: 0,
+                penjualan_harga: 0,
+                penjualan_rp: 0,
+                stok_akhir_unit: prevSec1.stok_akhir_unit || 0,
+                stok_akhir_rp: (prevSec1.stok_akhir_unit || 0) * (prevSec1.stok_awal_harga || prevSec1.pembelian_harga || 0)
+              };
+              monthData.sec1.push(currSec1);
+            } else if (!currSec1._manual) {
+              currSec1.stok_awal_unit = prevSec1.stok_akhir_unit || 0;
+              currSec1.stok_awal_harga = prevSec1.stok_awal_harga || prevSec1.pembelian_harga || currSec1.stok_awal_harga || 0;
+              currSec1.stok_awal_rp = currSec1.stok_awal_unit * currSec1.stok_awal_harga;
+            }
+          });
+        }
+
+        // Carryover Seksi IV (Stok Makanan Ternak)
+        // FIX LOG-B42: Loop dari prevMonthData.sec4 (bukan currSec4) agar pakan kustom ikut di-carry
         if (prevMonthData && prevMonthData.sec4 && monthData.sec4) {
+          // Step A: Update stok_awal pakan yang sudah ada di bulan ini
           monthData.sec4.forEach(currSec4 => {
-            const prevSec4 = prevMonthData.sec4.find(p => isFeedMatch(p.nama, currSec4.nama));
+            if (currSec4._manual_stok_awal) return;
+            const prevSec4 = prevMonthData.sec4.find(p => isSec4FeedMatch(p.nama, currSec4.nama));
             if (prevSec4) {
               currSec4.stok_awal = prevSec4.stok_akhir || 0;
+            }
+          });
+          // Step B: Daftarkan pakan kustom dari bulan lalu yang belum ada di bulan ini
+          prevMonthData.sec4.forEach(prevSec4 => {
+            if ((prevSec4.stok_akhir || 0) <= 0) return; // skip jika stok habis
+            const alreadyExists = monthData.sec4.some(c => isSec4FeedMatch(c.nama, prevSec4.nama));
+            if (!alreadyExists) {
+              // Tambahkan entri baru dengan stok_awal = stok_akhir bulan lalu
+              monthData.sec4.push({
+                no: monthData.sec4.length + 1,
+                nama: prevSec4.nama,
+                stok_awal: prevSec4.stok_akhir || 0,
+                pembelian: 0,
+                siap_jual: prevSec4.stok_akhir || 0,
+                penjualan: 0,
+                susut: 0,
+                stok_akhir: prevSec4.stok_akhir || 0,
+                harga: prevSec4.harga || 0,
+                jumlah_rp: (prevSec4.stok_akhir || 0) * (prevSec4.harga || 0)
+              });
             }
           });
         }
       }
 
-      // 7. Update sec4 totals (siap_jual, stok_akhir, jumlah_rp)
+      // 7. Update sec1 totals (stok_akhir_unit, stok_akhir_rp)
+      if (monthData.sec1) {
+        monthData.sec1.forEach(it => {
+          const saU = Number(it.stok_awal_unit || 0);
+          const pemU = Number(it.pembelian_unit || 0);
+          const penU = Number(it.penjualan_unit || 0);
+          it.stok_akhir_unit = Math.max(0, saU + pemU - penU);
+          const hg = Number(it.stok_awal_harga || it.pembelian_harga || it.penjualan_harga || 0);
+          it.stok_akhir_rp = it.stok_akhir_unit * hg;
+        });
+      }
+
+      // 8. Update sec4 totals (siap_jual, stok_akhir, jumlah_rp)
       if (monthData.sec4) {
         monthData.sec4.forEach(it => {
           it.siap_jual = (it.stok_awal || 0) + (it.pembelian || 0);
@@ -2415,17 +3467,29 @@ const LogistikModule = {
   },
 
   getTransactionsByMonth: function() {
-    // Mapping nama bulan (same as selectedMonth) ke angka bulan (1-12)
     const monthMap = { JAN:1, FEB:2, MAR:3, APRIL:4, MEI:5, JUNI:6, JULI:7, AGU:8, SEP:9, OKT:10, NOV:11, DES:12 };
     const all = this.getTransactions();
-    if (this.selectedMonth === 'ALL') return all;
+    // FIX Bug L35: Saring transaksi tahun target meskipun selectedMonth === "ALL"
+    const targetYear = parseInt(this.selectedYear || new Date().getFullYear(), 10);
+    if (this.selectedMonth === 'ALL') {
+      return all.filter(tx => {
+        const tgl = (tx.timestamp || '').split('T')[0] || '';
+        if (!tgl) return true;
+        const txYear = parseInt(tgl.split('-')[0], 10);
+        return isNaN(txYear) || txYear === targetYear;
+      });
+    }
     const targetMonth = monthMap[this.selectedMonth];
     if (!targetMonth) return all;
+    // FIX Bug L6: Tambah filter tahun agar transaksi lintas tahun tidak tampil
+    // di bulan yang sama pada tahun berbeda (misal Jan 2025 muncul di Jan 2026)
     return all.filter(tx => {
       const tgl = (tx.timestamp || '').split('T')[0] || '';
       if (!tgl) return false;
-      const m = parseInt(tgl.split('-')[1], 10);
-      return m === targetMonth;
+      const parts = tgl.split('-');
+      const txYear  = parseInt(parts[0], 10);
+      const txMonth = parseInt(parts[1], 10);
+      return txYear === targetYear && txMonth === targetMonth;
     });
   },
 
@@ -2434,7 +3498,9 @@ const LogistikModule = {
     if (stored) {
       try {
         const parsedStored = JSON.parse(stored);
-        if (Array.isArray(parsedStored) && parsedStored.length >= 50) {
+        // FIX Bug L7: Guard sebelumnya >= 50 menyebabkan data peternak < 50 orang
+        // selalu ter-reset ke default. Ganti ke > 0 agar data apapun yang tersimpan dipakai.
+        if (Array.isArray(parsedStored) && parsedStored.length > 0) {
           return parsedStored;
         }
       } catch (e) {
@@ -2447,7 +3513,13 @@ const LogistikModule = {
   },
 
   saveMasterPeternak: function(list) {
-    localStorage.setItem("DANAMULYA_MASTER_PETERNAK_V4", JSON.stringify(list));
+    // FIX LOG-B58: Guard QuotaExceededError pada penyimpanan master peternak
+    try {
+      localStorage.setItem("DANAMULYA_MASTER_PETERNAK_V4", JSON.stringify(list));
+    } catch (e) {
+      console.error("[LOG-B58] saveMasterPeternak: QuotaExceededError atau storage diblokir.", e);
+      if (typeof showToast === 'function') showToast("Penyimpanan master peternak gagal: storage penuh!", "danger");
+    }
   },
 
   onFilterKategoriChange: function(kat) {
@@ -2492,6 +3564,7 @@ const LogistikModule = {
     
     const elKodeDisplay = document.getElementById("tx_kode_display");
     const elKodeBadge = document.getElementById("tx_kode_badge");
+    const elStatusLabel = document.getElementById("tx_status_label");
     const elKodeInput = document.getElementById("tx_kode_r_nr");
     const elKategoriInput = document.getElementById("tx_kategori_pembeli");
     const elNoAnggotaInput = document.getElementById("tx_nomor_anggota");
@@ -2500,6 +3573,9 @@ const LogistikModule = {
     if (elKodeBadge) {
       elKodeBadge.innerText = kat === "NON_RASIO" ? "NR-SERIES" : "R-SERIES";
       elKodeBadge.className = kat === "NON_RASIO" ? "badge bg-amber rounded-pill px-3 py-2" : "badge bg-emerald rounded-pill px-3 py-2";
+    }
+    if (elStatusLabel) {
+      elStatusLabel.innerText = kat === "NON_RASIO" ? "NON-ANGGOTA (NON-RASIO)" : "ANGGOTA (RASIO)";
     }
     if (elKodeInput) elKodeInput.value = kat === "NON_RASIO" ? "NR-0" : "";
     if (elKategoriInput) elKategoriInput.value = kat;
@@ -2512,9 +3588,12 @@ const LogistikModule = {
     if (kategori === "NON_RASIO") return "NR-0";
     const master = this.getMasterPeternak();
     const rasioItems = master.filter(m => m.kategori === "RASIO");
-    let maxNum = 100;
+    // FIX Bug L9: Mulai dari 0 agar nomor urut benar.
+    // FIX LOG-B13: Gunakan regex strip karakter non-digit agar format 'R-50' tidak menghasilkan NaN
+    let maxNum = 0;
     rasioItems.forEach(m => {
-      const num = parseInt(m.nomor_anggota || "0");
+      const rawNum = String(m.nomor_anggota || m.kode || "").replace(/[^0-9]/g, "");
+      const num = parseInt(rawNum || "0", 10);
       if (!isNaN(num) && num > maxNum) maxNum = num;
     });
     const nextNum = maxNum + 1;
@@ -2527,26 +3606,39 @@ const LogistikModule = {
 
     const elKodeDisplay = document.getElementById("tx_kode_display");
     const elKodeBadge = document.getElementById("tx_kode_badge");
+    const elStatusLabel = document.getElementById("tx_status_label");
     const elKodeInput = document.getElementById("tx_kode_r_nr");
     const elKategoriInput = document.getElementById("tx_kategori_pembeli");
     const elNoAnggotaInput = document.getElementById("tx_nomor_anggota");
 
     if (val === "+ TAMBAH NAMA PETERNAK BARU") {
       this.openAddPeternakModal();
-    } else {
+    } else if (val) {
       const master = this.getMasterPeternak();
       const item = master.find(m => m.nama === val);
       if (item) {
         if (elKodeDisplay) elKodeDisplay.innerText = "KODE: " + item.kode;
+        // FIX Bug L23: Update badge kode peternak dan status label dengan presisi
         if (elKodeBadge) {
           elKodeBadge.innerText = item.kode;
           elKodeBadge.className = item.kategori === "NON_RASIO" ? "badge bg-amber rounded-pill px-3 py-2" : "badge bg-emerald rounded-pill px-3 py-2";
+        }
+        if (elStatusLabel) {
+          elStatusLabel.innerText = item.kategori === "NON_RASIO" ? "NON-ANGGOTA (NON-RASIO)" : "ANGGOTA (RASIO)";
         }
         if (elKodeInput) elKodeInput.value = item.kode;
         if (elKategoriInput) elKategoriInput.value = item.kategori;
         if (elNoAnggotaInput) elNoAnggotaInput.value = item.nomor_anggota;
         this.onKategoriPembeliChange(item.kategori);
       }
+    } else {
+      // Reset ke nilai default saat pilihan dikosongkan
+      const currentKat = elKategoriInput?.value || "RASIO";
+      if (elKodeDisplay) elKodeDisplay.innerText = "KODE: -";
+      if (elKodeBadge) elKodeBadge.innerText = currentKat === "NON_RASIO" ? "NR-SERIES" : "R-SERIES";
+      if (elStatusLabel) elStatusLabel.innerText = currentKat === "NON_RASIO" ? "NON-ANGGOTA (NON-RASIO)" : "ANGGOTA (RASIO)";
+      if (elKodeInput) elKodeInput.value = currentKat === "NON_RASIO" ? "NR-0" : "";
+      if (elNoAnggotaInput) elNoAnggotaInput.value = "0";
     }
   },
 
@@ -2564,8 +3656,8 @@ const LogistikModule = {
           <div class="text-start mb-3">
             <label class="form-label extra-small fw-bold text-muted text-uppercase mb-1">Kategori Keanggotaan</label>
             <select id="swal_input_kategori" class="form-select form-select-lg fw-bold">
-              <option value="RASIO" \${currentKat === 'RASIO' ? 'selected' : ''}>RASIO (Peternak Anggota Koperasi)</option>
-              <option value="NON_RASIO" \${currentKat === 'NON_RASIO' ? 'selected' : ''}>NON-RASIO (Bukan Anggota Koperasi)</option>
+              <option value="RASIO" ${currentKat === 'RASIO' ? 'selected' : ''}>RASIO (Peternak Anggota Koperasi)</option>
+              <option value="NON_RASIO" ${currentKat === 'NON_RASIO' ? 'selected' : ''}>NON-RASIO (Bukan Anggota Koperasi)</option>
             </select>
           </div>
           <div class="text-start">
@@ -2596,7 +3688,8 @@ const LogistikModule = {
           const noAnggota = kategori === "NON_RASIO" ? "0" : kode.replace("R-", "");
           
           const newPeternak = {
-            id: "P-" + Date.now().toString().slice(-5),
+            // FIX LOG-B36: Gunakan ID unik base-36 + random suffix anti-collision
+            id: "P-" + Date.now().toString(36).toUpperCase() + "-" + Math.floor(1000 + Math.random() * 9000),
             kode: kode,
             nomor_anggota: noAnggota,
             nama: nama,
@@ -2628,7 +3721,7 @@ const LogistikModule = {
         const kode = this.generateNextKodePeternak(currentKat);
         const noAnggota = currentKat === "NON_RASIO" ? "0" : kode.replace("R-", "");
         const master = this.getMasterPeternak();
-        master.push({ id: "P-" + Date.now().toString().slice(-5), kode, nomor_anggota: noAnggota, nama: nama.trim(), kategori: currentKat });
+        master.push({ id: "P-" + Date.now().toString(36).toUpperCase() + "-" + Math.floor(1000 + Math.random() * 9000), kode, nomor_anggota: noAnggota, nama: nama.trim(), kategori: currentKat });
         this.saveMasterPeternak(master);
         this.onFilterKategoriChange(currentKat);
         const selectEl = document.getElementById("tx_peternak_select");
@@ -2672,7 +3765,8 @@ const LogistikModule = {
     let totalRp = 0;
 
     feedItems.forEach(item => {
-      const qty = Number(document.getElementById(`tx_qty_${item.id}`)?.value || 0);
+      // FIX LOG-B64: Gunakan parseNum aman koma/titik desimal
+      const qty = this.parseNum(document.getElementById(`tx_qty_${item.id}`)?.value);
       totalKg += qty;
       totalRp += (qty * item.price);
     });
@@ -2694,6 +3788,10 @@ const LogistikModule = {
     const optPiu = document.getElementById("opt_piutang");
     const optBunt = document.getElementById("opt_prog_bunting");
 
+    const inputRatio = document.getElementById("tx_qty_mf_a20_ratio");
+    const inputSub = document.getElementById("tx_qty_mf_a18_sub");
+    const inputNon = document.getElementById("tx_qty_mf_a20_non");
+
     if (val === "NON_RASIO") {
       if (elJadwal) elJadwal.value = "TUNAI";
       if (elMetode) elMetode.value = "TUNAI";
@@ -2703,6 +3801,11 @@ const LogistikModule = {
       if (optPiu) optPiu.disabled = true;
       if (optBunt) optBunt.disabled = true;
       if (elNonRasioNotice) elNonRasioNotice.style.display = "block";
+
+      // Non-Anggota tidak boleh membeli pakan subsidi jatah anggota
+      if (inputRatio) { inputRatio.value = ""; inputRatio.disabled = true; }
+      if (inputSub) { inputSub.value = ""; inputSub.disabled = true; }
+      if (inputNon) { inputNon.disabled = false; }
     } else {
       if (optP1) optP1.disabled = false;
       if (optP2) optP2.disabled = false;
@@ -2710,8 +3813,19 @@ const LogistikModule = {
       if (optPiu) optPiu.disabled = false;
       if (optBunt) optBunt.disabled = false;
       if (elNonRasioNotice) elNonRasioNotice.style.display = "none";
+      // FIX Bug L27: Kembalikan jadwal ke P1 dan metode ke POTONGAN_RUTIN jika sebelumnya TUNAI dari non-rasio
+      if (elJadwal && elJadwal.value === "TUNAI") {
+        elJadwal.value = "P1";
+        if (elMetode) elMetode.value = "POTONGAN_RUTIN";
+      }
       this.onTanggalPengambilanChange(document.getElementById("tx_tanggal")?.value);
+
+      // Anggota berhak pakan subsidi anggota, pakan non-anggota dinonaktifkan
+      if (inputRatio) { inputRatio.disabled = false; }
+      if (inputSub) { inputSub.disabled = false; }
+      if (inputNon) { inputNon.value = ""; inputNon.disabled = true; }
     }
+    this.calcMultiTxPreview();
   },
 
   onJadwalSelectChange: function(val) {
@@ -2733,8 +3847,9 @@ const LogistikModule = {
     const kat = document.getElementById("tx_kategori_pembeli")?.value || "RASIO";
     if (kat === "NON_RASIO") return;
 
-    const dt = new Date(val);
-    const day = dt.getDate();
+    // FIX LOG-B8: Hindari new Date(val).getDate() yang terpengaruh UTC timezone drift
+    const day = parseInt((val || "").split("-")[2], 10);
+    if (isNaN(day)) return;
     const elJadwal = document.getElementById("tx_jadwal_penagihan");
     if (!elJadwal) return;
     
@@ -2751,10 +3866,40 @@ const LogistikModule = {
     }
   },
 
-  checkBuntingLimit: function(noAnggota) {
+  checkBuntingLimit: function(noAnggota, year) {
     if (!noAnggota || noAnggota === "0") return 0;
+    const targetYear = parseInt(year || this.selectedYear || new Date().getFullYear(), 10);
     const txs = this.getTransactions();
-    return txs.filter(t => t.nomor_anggota === noAnggota && (t.is_program_bunting || t.metode_pembayaran === "PROGRAM_BUNTING")).length;
+    // FIX LOG-B20: Sanitasi non-digit agar string awalan 'R-50' tidak menghasilkan NaN !== NaN
+    const cleanNoAnggota = String(noAnggota || "").replace(/[^0-9]/g, "");
+    // FIX LOG-B43: Jika setelah strip non-digit hasilnya kosong/'0', anggap bukan anggota → return 0
+    if (!cleanNoAnggota || cleanNoAnggota === "0") return 0;
+    const buntingTxs = txs.filter(t => {
+      const cleanTargetNo = String(t.nomor_anggota || "").replace(/[^0-9]/g, "");
+      if (!cleanTargetNo) return false; // guard: skip non-anggota yang memiliki nomor kosong
+      if (cleanTargetNo !== cleanNoAnggota) return false;
+      if (!t.is_program_bunting && t.metode_pembayaran !== "PROGRAM_BUNTING") return false;
+      const tgl = (t.timestamp || '').split('T')[0] || '';
+      if (!tgl) return true;
+      const txYear = parseInt(tgl.split('-')[0], 10);
+      return isNaN(txYear) || txYear === targetYear;
+    });
+
+    const uniqueTxIds = new Set();
+    buntingTxs.forEach(t => {
+      // FIX LOG-B21: Pisahkan penanganan ID dari form (TX-xxx-0) vs ID dari API (TRX-LOG-PAK-xxx)
+      // agar transaksi API tidak saling menabrak (collision) pada string 'TRX-LOG'
+      let baseId;
+      const tid = String(t.id || "");
+      if (tid.startsWith("TRX-LOG-")) {
+        baseId = tid;
+      } else {
+        baseId = tid.split('-').slice(0, 2).join('-') || (t.timestamp || '').split('T')[0];
+      }
+      uniqueTxIds.add(baseId);
+    });
+
+    return uniqueTxIds.size;
   },
 
   handleSaveLogistikTx: function(e) {
@@ -2774,7 +3919,8 @@ const LogistikModule = {
       // Register into master
       const master = this.getMasterPeternak();
       master.push({
-        id: "P-" + Date.now().toString().slice(-4),
+        // FIX LOG-B36: Gunakan ID unik base-36 + random suffix anti-collision
+        id: "P-" + Date.now().toString(36).toUpperCase() + "-" + Math.floor(1000 + Math.random() * 9000),
         kode: kodeBaru,
         nomor_anggota: noAnggotaBaru,
         nama: namaPeternak,
@@ -2822,10 +3968,19 @@ const LogistikModule = {
       jadwalPenagihan = jadwalVal;
     }
 
+    if (kategori === "NON_RASIO") {
+      metode = "TUNAI";
+      jadwalPenagihan = "-";
+      isPiutang = false;
+      isBunting = false;
+    }
+
     if (isBunting) {
-      const countBunting = this.checkBuntingLimit(noAnggota);
+      // FIX Bug L34: Teruskan tahun riil dari tanggal form agar pengecekan batas jatah akurat per tahun transaksi
+      const txYear = parseInt(tgl.split('-')[0], 10) || parseInt(this.selectedYear || new Date().getFullYear(), 10);
+      const countBunting = this.checkBuntingLimit(noAnggota, txYear);
       if (countBunting >= 3) {
-        showAlert("Batas Jatah Terlampaui!", `Peternak ${namaPeternak} (${kodeRNR}) sudah menggunakan Program Bunting sebanyak ${countBunting}x (Maksimal 3x)!`, "error");
+        showAlert("Batas Jatah Terlampaui!", `Peternak ${namaPeternak} (${kodeRNR}) sudah menggunakan Program Bunting sebanyak ${countBunting}x di tahun ${txYear} (Maksimal 3x)!`, "error");
         return;
       }
     }
@@ -2840,7 +3995,8 @@ const LogistikModule = {
 
     const selectedFeeds = [];
     feedConfigs.forEach(fc => {
-      const qty = Number(document.getElementById(`tx_qty_${fc.id}`)?.value || 0);
+      // FIX LOG-B64: Gunakan parseNum aman koma/titik desimal
+      const qty = this.parseNum(document.getElementById(`tx_qty_${fc.id}`)?.value);
       if (qty > 0) {
         selectedFeeds.push({ name: fc.name, qty: qty, price: fc.price, total_rp: qty * fc.price });
       }
@@ -2851,15 +4007,35 @@ const LogistikModule = {
       return;
     }
 
-    const txs = this.getTransactions();
-    const targetMonth = this.getActiveSaveMonth();
-    const allData = this.getFullData();
-    const monthData = this.ensureMonthData(allData, targetMonth);
-    const sec2Items = monthData.sec2;
-    const sec4Items = monthData.sec4;
+    if (kategori === "NON_RASIO") {
+      const hasSubsidized = selectedFeeds.some(f => f.name === "MF A20 RATIO" || f.name === "MF. A18 AGGT SUB");
+      if (hasSubsidized) {
+        showAlert("Pakan Khusus Anggota", "Pembeli Non-Rasio (Bukan Anggota) tidak dapat membeli pakan bersubsidi anggota. Silakan gunakan 'MF A20 NON RATIO'!", "warning");
+        return;
+      }
+    } else {
+      const hasNonMemberFeed = selectedFeeds.some(f => f.name === "MF A20 NON RATIO");
+      if (hasNonMemberFeed) {
+        showAlert("Pakan Non-Anggota", "Peternak anggota berhak mendapatkan harga jatah/subsidi anggota. Silakan gunakan 'MF A20 RATIO'!", "warning");
+        return;
+      }
+    }
 
+    const txs = this.getTransactions();
+    // FIX LOG-B30: Ekstrak targetMonth langsung dari tanggal form transaksi (tgl)
+    const txParts = tgl.split('-');
+    const txMonthNum = parseInt(txParts[1], 10);
+    const monthsList = ["JAN","FEB","MAR","APRIL","MEI","JUNI","JULI","AGU","SEP","OKT","NOV","DES"];
+    const targetMonth = monthsList[txMonthNum - 1] || this.getActiveSaveMonth();
+    const allData = this.getFullData();
+    // FIX LOG-B17: Hapus deklarasi sec2Items dan sec4Items yang tidak terpakai (dead code)
+    this.ensureMonthData(allData, targetMonth);
+
+    // FIX Bug L4: Gunakan ID yang lebih unik (base-36 timestamp + index)
+    // untuk menghindari collision pada slice(-5) saat loop cepat
+    const baseTxId = Date.now().toString(36).toUpperCase();
     selectedFeeds.forEach((sf, index) => {
-      const txId = "TX-" + (Date.now() + index).toString().slice(-5);
+      const txId = "TX-" + baseTxId + "-" + index;
       const newTx = {
         id: txId,
         timestamp: timestampStr,
@@ -2879,45 +4055,63 @@ const LogistikModule = {
       };
       txs.unshift(newTx);
 
-      // Update Matrix Seksi II
-      let sec2Item = sec2Items.find(it => it.nama.toLowerCase().includes(sf.name.toLowerCase()) || sf.name.toLowerCase().includes(it.nama.toLowerCase()));
-      if (!sec2Item) {
-        sec2Item = { no: sec2Items.length + 1, nama: sf.name, tunai_kg: 0, tunai_harga: sf.price, tunai_rp: 0, pot_kg: 0, pot_harga: sf.price, pot_rp: 0, piu_kg: 0, piu_harga: sf.price, piu_rp: 0, bunt_kg: 0, bunt_harga: sf.price, bunt_rp: 0, total_kg: 0, total_rp: 0 };
-        sec2Items.push(sec2Item);
-      }
-
-      if (metode === "TUNAI") {
-        sec2Item.tunai_kg = (sec2Item.tunai_kg || 0) + sf.qty;
-        sec2Item.tunai_harga = sf.price;
-        sec2Item.tunai_rp = sec2Item.tunai_kg * sec2Item.tunai_harga;
-      } else if (metode === "POTONGAN_RUTIN") {
-        sec2Item.pot_kg = (sec2Item.pot_kg || 0) + sf.qty;
-        sec2Item.pot_harga = sf.price;
-        sec2Item.pot_rp = sec2Item.pot_kg * sec2Item.pot_harga;
-      } else if (metode === "PIUTANG") {
-        sec2Item.piu_kg = (sec2Item.piu_kg || 0) + sf.qty;
-        sec2Item.piu_harga = sf.price;
-        sec2Item.piu_rp = sec2Item.piu_kg * sec2Item.piu_harga;
-      } else if (metode === "PROGRAM_BUNTING") {
-        sec2Item.bunt_kg = (sec2Item.bunt_kg || 0) + sf.qty;
-        sec2Item.bunt_harga = sf.price;
-        sec2Item.bunt_rp = sec2Item.bunt_kg * sec2Item.bunt_harga;
-      }
-
-      sec2Item.total_kg = (sec2Item.tunai_kg || 0) + (sec2Item.pot_kg || 0) + (sec2Item.piu_kg || 0) + (sec2Item.bunt_kg || 0);
-      sec2Item.total_rp = (sec2Item.tunai_rp || 0) + (sec2Item.pot_rp || 0) + (sec2Item.piu_rp || 0) + (sec2Item.bunt_rp || 0);
-
-      // Update Seksi IV
-      let sec4Item = sec4Items.find(it => it.nama.toLowerCase().includes(sf.name.toLowerCase()) || sf.name.toLowerCase().includes(it.nama.toLowerCase()));
-      if (sec4Item) {
-        sec4Item.penjualan = (sec4Item.penjualan || 0) + sf.qty;
-        sec4Item.stok_akhir = Math.max(0, (sec4Item.siap_jual || 0) - sec4Item.penjualan - (sec4Item.susut || 0));
-        sec4Item.jumlah_rp = sec4Item.stok_akhir * (sec4Item.harga || 0);
-      }
     });
 
     this.saveTransactions(txs);
+
+    // FIX Bug L15: Gunakan syncMatrixFromTransactions agar sec2 & sec4
+    // disinkronkan secara otomatis & akurat menggunakan pencocokan pakan yang tepat
+    this.syncMatrixFromTransactions(allData, targetMonth);
     this.saveFullData(allData);
+
+    // FIX LOG-B14: Sinkronkan setiap transaksi baru ke DANAMULYA_DB.LOGISTIK_PAKAN_PENJUALAN
+    // agar API getLogistikPenjualan dan rekap backend membaca data yang konsisten
+    try {
+      const rawDb = localStorage.getItem("DANAMULYA_DB");
+      if (rawDb) {
+        const db = JSON.parse(rawDb);
+        if (!db.LOGISTIK_PAKAN_PENJUALAN) db.LOGISTIK_PAKAN_PENJUALAN = [];
+        selectedFeeds.forEach((sf, index) => {
+          const txId = "TX-" + baseTxId + "-" + index;
+          // Hindari duplikasi jika sudah ada record dengan transaction_id yang sama
+          const alreadyExists = db.LOGISTIK_PAKAN_PENJUALAN.some(r => r.transaction_id === txId);
+          if (!alreadyExists) {
+            db.LOGISTIK_PAKAN_PENJUALAN.push({
+              transaction_id: txId,
+              tanggal: tgl,
+              nama_pakan: sf.name,
+              nama_peternak: namaPeternak,
+              kategori_pembeli: kategori,
+              kode_r_nr: kodeRNR,
+              nomor_anggota: noAnggota,
+              jumlah_kg: sf.qty,
+              harga_per_kg: sf.price,
+              total_rupiah: sf.total_rp,
+              metode_pembayaran: metode,
+              jenis_pembayaran: metode, // FIX LOG-B51: Apps Script logistik.gs membaca jenis_pembayaran
+              jadwal_penagihan: jadwalPenagihan,
+              is_piutang: isPiutang,
+              is_program_bunting: isBunting,
+              created_by: "LOGISTIK_UI",
+              created_at: new Date().toISOString()
+            });
+          }
+        });
+        localStorage.setItem("DANAMULYA_DB", JSON.stringify(db));
+      }
+    } catch (eDbSync) {
+      console.warn("FIX LOG-B14: Gagal sinkronisasi ke DANAMULYA_DB.LOGISTIK_PAKAN_PENJUALAN:", eDbSync);
+    }
+
+    // FIX LOG-B12: Setelah simpan, perbarui selectedMonth dan selectedYear ke bulan transaksi
+    // agar tampilan langsung berpindah ke bulan yang sesuai dan transaksi baru tampil di list
+    {
+      const txParts = tgl.split('-');
+      const txMonthNum = parseInt(txParts[1], 10);
+      const monthsList = ["JAN","FEB","MAR","APRIL","MEI","JUNI","JULI","AGU","SEP","OKT","NOV","DES"];
+      if (monthsList[txMonthNum - 1]) this.selectedMonth = monthsList[txMonthNum - 1];
+      if (txParts[0]) this.selectedYear = txParts[0];
+    }
 
     // Reset form setelah simpan
     const formEl = document.getElementById('formLogistikTx');
@@ -2940,21 +4134,43 @@ const LogistikModule = {
   deleteLogistikTx: function(txId) {
     if (confirm(`Apakah Anda yakin ingin menghapus transaksi ID ${txId}?`)) {
       let txs = this.getTransactions();
-      txs = txs.filter(t => t.id !== txId);
+      // FIX LOG-B65: Filter dual-ID (id atau transaction_id) untuk kebal tabrakan identifier API
+      txs = txs.filter(t => t.id !== txId && t.transaction_id !== txId);
       this.saveTransactions(txs);
+
+      // FIX LOG-B2 & LOG-B65: Hapus juga transaksi dari LocalBridgeEngine database
+      try {
+        const rawDb = localStorage.getItem("DANAMULYA_DB");
+        if (rawDb) {
+          const db = JSON.parse(rawDb);
+          if (db.LOGISTIK_PAKAN_PENJUALAN && Array.isArray(db.LOGISTIK_PAKAN_PENJUALAN)) {
+            db.LOGISTIK_PAKAN_PENJUALAN = db.LOGISTIK_PAKAN_PENJUALAN.filter(t => t.transaction_id !== txId && t.id !== txId);
+            localStorage.setItem("DANAMULYA_DB", JSON.stringify(db));
+          }
+        }
+      } catch (eDb) {
+        console.warn("Gagal menghapus transaksi dari LocalBridgeEngine DB:", eDb);
+      }
+
+      // FIX Bug L11 & LOG-B1: Setelah hapus transaksi, sync SEMUA bulan agar sec2/sec4 diperbarui seimbang
+      const allData = this.getFullData();
+      this.syncMatrixFromTransactions(allData, null);
+      this.saveFullData(allData);
+
       showToast("Transaksi berhasil dihapus!", "info");
       App.render();
     }
   },
 
   filterTxTable: function() {
-    const q = document.getElementById("searchTxInput")?.value.toLowerCase() || "";
-    const tbody = document.querySelector("#printableFormPenjualanPakan tbody");
-    if (!tbody) return;
-    const rows = tbody.querySelectorAll("tr");
-    rows.forEach(tr => {
-      const txt = tr.innerText.toLowerCase();
-      tr.style.display = txt.includes(q) ? "" : "none";
+    // FIX Bug L21: Kontainer #printableFormPenjualanPakan menggunakan elemen div.ma-tx-card
+    const q = (document.getElementById("searchTxInput")?.value || "").toLowerCase().trim();
+    const container = document.getElementById("printableFormPenjualanPakan");
+    if (!container) return;
+    const cards = container.querySelectorAll(".ma-tx-card");
+    cards.forEach(card => {
+      const txt = card.innerText.toLowerCase();
+      card.style.display = txt.includes(q) ? "" : "none";
     });
   },
 
@@ -3003,11 +4219,22 @@ const LogistikModule = {
     const c2Val = String(ws[XLSX.utils.encode_cell({ r: 2, c: 2 })]?.v || "").toUpperCase();
     const hasSubHeaders = (c2Val === "UNIT" || c2Val === "KG" || c2Val === "SAK/KG");
 
+    // FIX Bug L19: Cek apakah baris terakhir benar-benar baris total (mengandung teks TOTAL/JUMLAH).
+    // Jika tidak ada (misal tabel Penjualan Harian tanpa tfoot), baris transaksi terakhir tidak diformat sebagai total.
+    let hasTotalRow = false;
+    for (let c = range.s.c; c <= Math.min(range.e.c, range.s.c + 3); c++) {
+      const v = String(ws[XLSX.utils.encode_cell({ r: range.e.r, c })]?.v || "").toUpperCase();
+      if (v.includes("JUMLAH") || v.includes("TOTAL")) {
+        hasTotalRow = true;
+        break;
+      }
+    }
+
     for (let R = range.s.r; R <= range.e.r; ++R) {
       const isTitleRow = (R === 0);
       const isHeaderRow1 = (R === 1);
       const isHeaderRow2 = (R === 2 && hasSubHeaders);
-      const isTotalRow = (R === range.e.r);
+      const isTotalRow = hasTotalRow && (R === range.e.r);
 
       for (let C = range.s.c; C <= range.e.c; ++C) {
         const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
@@ -3071,7 +4298,8 @@ const LogistikModule = {
     const div = document.createElement("div");
     div.innerHTML = htmlStr;
     const table = div.querySelector("table");
-    const ws = XLSX.utils.table_to_sheet(table);
+    // FIX LOG-B49: raw:true mencegah SheetJS memparsing '4.200' (Rp ribuan) menjadi 4.2 desimal
+    const ws = XLSX.utils.table_to_sheet(table, { raw: false, defval: '' });
     if (colWidths && Array.isArray(colWidths)) {
       ws["!cols"] = colWidths.map(w => ({ wch: w }));
     }
@@ -3094,8 +4322,9 @@ const LogistikModule = {
       const penU = Number(it.penjualan_unit) || 0;
       const penH = Number(it.penjualan_harga) || 0;
       const penRp = Number(it.penjualan_rp) || (penU * penH);
-      const akU = Number(it.stok_akhir_unit) || Math.max(0, saU + pemU - penU);
-      const akRp = Number(it.stok_akhir_rp) || (akU * (saH || pemH || penH));
+      // FIX LOG-B28: Pengecekan ketat agar stok akhir fisik 0 tidak tertimpa rumus fallback
+      const akU = (it.stok_akhir_unit !== undefined && it.stok_akhir_unit !== null && !isNaN(Number(it.stok_akhir_unit))) ? Number(it.stok_akhir_unit) : Math.max(0, saU + pemU - penU);
+      const akRp = (it.stok_akhir_rp !== undefined && it.stok_akhir_rp !== null && !isNaN(Number(it.stok_akhir_rp))) ? Number(it.stok_akhir_rp) : (akU * (saH || pemH || penH));
 
       totSaUnit += saU; totSaRp += saRp;
       totPemUnit += pemU; totPemRp += pemRp;
@@ -3343,9 +4572,10 @@ const LogistikModule = {
       const siap = Number(it.siap_jual) || (sa + pem);
       const pen = Number(it.penjualan) || 0;
       const sus = Number(it.susut) || 0;
-      const ak = Number(it.stok_akhir) || Math.max(0, siap - pen - sus);
+      // FIX LOG-B28: Pengecekan ketat agar stok akhir 0 tidak tertimpa rumus fallback
+      const ak = (it.stok_akhir !== undefined && it.stok_akhir !== null && !isNaN(Number(it.stok_akhir))) ? Number(it.stok_akhir) : Math.max(0, siap - pen - sus);
       const hg = Number(it.harga) || 0;
-      const rp = Number(it.jumlah_rp) || (ak * hg);
+      const rp = (it.jumlah_rp !== undefined && it.jumlah_rp !== null && !isNaN(Number(it.jumlah_rp))) ? Number(it.jumlah_rp) : (ak * hg);
 
       totAk += ak;
       totRp += rp;
@@ -3403,28 +4633,41 @@ const LogistikModule = {
   buildHtmlPenjualanHarian: function(txs) {
     const todayStr = new Date().toISOString().slice(0, 10);
     let rowsHtml = "";
+    let totalKg = 0;
+    let totalRp = 0;
 
     txs.forEach(tx => {
       const kodeRNR = tx.kode_r_nr || (tx.kategori_pembeli === "RASIO" ? `R-${tx.nomor_anggota}` : `NR-0`);
       const dtParts = (tx.timestamp || "").split("T");
       const tgl = dtParts[0] || todayStr;
-      const wkt = dtParts[1] || "08:00";
+      // FIX LOG-B29: Format waktu tepat HH:mm agar cocok regex /^\d{2}:\d{2}$/ dan rata tengah di Excel
+      const rawWkt = tx.waktu || dtParts[1] || "08:00";
+      const wkt = rawWkt.length >= 5 ? rawWkt.substring(0, 5) : rawWkt;
 
       const isBunting = tx.is_program_bunting || tx.metode_pembayaran === "PROGRAM_BUNTING";
       const isPiutang = tx.metode_pembayaran === "PIUTANG";
+      const isTunai = tx.metode_pembayaran === "TUNAI" || tx.jadwal_penagihan === "TUNAI";
+
+      const qty = Number(tx.jumlah_sak_kg || 0);
+      const hg = Number(tx.harga_satuan || 0);
+      const rp = Number(tx.total_rp || (qty * hg));
+      totalKg += qty;
+      totalRp += rp;
 
       rowsHtml += `
         <tr>
           <td>${kodeRNR}</td>
-          <td>${tx.nama_peternak || ''}</td>
+          <td style="text-align:left;">${tx.nama_peternak || ''}</td>
           <td>${tx.jenis_pakan || ''}</td>
-          <td>${this.fmtNumExcel(tx.jumlah_sak_kg || 0)}</td>
-          <td>${this.fmtRpExcel(tx.harga_satuan || 0)}</td>
+          <td>${this.fmtNumExcel(qty)}</td>
+          <td>${this.fmtRpExcel(hg)}</td>
+          <td style="font-weight:600;">${this.fmtRpExcel(rp)}</td>
           <td>${tgl}</td>
           <td>${wkt}</td>
-          <td>${tx.jadwal_penagihan === "P1" ? "✓" : ""}</td>
-          <td>${tx.jadwal_penagihan === "P2" ? "✓" : ""}</td>
-          <td>${tx.jadwal_penagihan === "P3" ? "✓" : ""}</td>
+          <td>${isTunai ? "✓" : ""}</td>
+          <td>${(!isTunai && !isBunting && !isPiutang && tx.jadwal_penagihan === "P1") ? "✓" : ""}</td>
+          <td>${(!isTunai && !isBunting && !isPiutang && tx.jadwal_penagihan === "P2") ? "✓" : ""}</td>
+          <td>${(!isTunai && !isBunting && !isPiutang && tx.jadwal_penagihan === "P3") ? "✓" : ""}</td>
           <td>${isPiutang ? "✓" : ""}</td>
           <td>${isBunting ? "✓" : ""}</td>
         </tr>
@@ -3435,7 +4678,7 @@ const LogistikModule = {
       <table>
         <thead>
           <tr>
-            <th colspan="12" style="font-weight:bold; font-size:14pt;">FORM PENJUALAN PAKAN LOGISTIK — PERIODE ${this.selectedMonth} ${this.selectedYear}</th>
+            <th colspan="14" style="font-weight:bold; font-size:14pt;">FORM PENJUALAN PAKAN LOGISTIK — PERIODE ${this.selectedMonth} ${this.selectedYear}</th>
           </tr>
           <tr>
             <th>KODE R/NR</th>
@@ -3443,8 +4686,10 @@ const LogistikModule = {
             <th>Nama Pakan</th>
             <th>Sak/KG</th>
             <th>Harga/KG</th>
+            <th>Total (RP)</th>
             <th>Tanggal</th>
             <th>Waktu</th>
+            <th>Tunai</th>
             <th>P1</th>
             <th>P2</th>
             <th>P3</th>
@@ -3455,6 +4700,15 @@ const LogistikModule = {
         <tbody>
           ${rowsHtml}
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" style="font-weight:bold; text-align:left;">JUMLAH TOTAL (${txs.length} TRANSAKSI)</td>
+            <td style="font-weight:bold;">${this.fmtNumExcel(totalKg)}</td>
+            <td>-</td>
+            <td style="font-weight:bold;">${this.fmtRpExcel(totalRp)}</td>
+            <td colspan="8">-</td>
+          </tr>
+        </tfoot>
       </table>
     `;
   },
@@ -3468,7 +4722,8 @@ const LogistikModule = {
     const txs = this.getTransactionsByMonth();
     const todayStr = new Date().toISOString().slice(0, 10);
     const htmlStr = this.buildHtmlPenjualanHarian(txs);
-    const colWidths = [14, 24, 20, 10, 14, 14, 10, 6, 6, 6, 10, 24];
+    // FIX LOG-B6: 14 kolom presisi termasuk kolom Tunai & Total (RP)
+    const colWidths = [14, 24, 20, 10, 14, 16, 12, 10, 8, 6, 6, 6, 10, 24];
     const ws = this.buildSheetFromHtml(htmlStr, colWidths, "0F766E", "115E59", "CCFBF1");
 
     const wb = XLSX.utils.book_new();
@@ -3479,14 +4734,21 @@ const LogistikModule = {
     showToast(`Excel penjualan harian berhasil diunduh.`, "success");
   },
 
-  exportExcelSec1: function() {
+  getPreparedMonthData: function() {
     if (typeof XLSX === "undefined") {
       showAlert("Error", "Library XLSX belum dimuat. Pastikan koneksi internet terhubung.", "error");
-      return;
+      return null;
     }
     const activeMonth = this.getActiveSaveMonth();
     const allData = this.getFullData();
-    const monthData = this.ensureMonthData(allData, activeMonth);
+    // Sinkronkan transaksi ke matriks sebelum export
+    this.syncMatrixFromTransactions(allData, activeMonth);
+    return this.getMonthDataForView(allData);
+  },
+
+  exportExcelSec1: function() {
+    const monthData = this.getPreparedMonthData();
+    if (!monthData) return;
     const htmlStr = this.buildHtmlSec1(monthData);
     const colWidths = [6, 28, 10, 14, 16, 10, 14, 16, 10, 14, 16, 12, 16];
     const ws = this.buildSheetFromHtml(htmlStr, colWidths, "1B365D", "334155", "D1E7DD");
@@ -3498,13 +4760,8 @@ const LogistikModule = {
   },
 
   exportExcelSec2: function() {
-    if (typeof XLSX === "undefined") {
-      showAlert("Error", "Library XLSX belum dimuat.", "error");
-      return;
-    }
-    const activeMonth = this.getActiveSaveMonth();
-    const allData = this.getFullData();
-    const monthData = this.ensureMonthData(allData, activeMonth);
+    const monthData = this.getPreparedMonthData();
+    if (!monthData) return;
     const htmlStr = this.buildHtmlSec2(monthData);
     const colWidths = [6, 26, 10, 12, 15, 10, 12, 15, 10, 12, 15, 10, 12, 15, 12, 16];
     const ws = this.buildSheetFromHtml(htmlStr, colWidths, "065F46", "047857", "D1E7DD");
@@ -3516,13 +4773,8 @@ const LogistikModule = {
   },
 
   exportExcelSec3: function() {
-    if (typeof XLSX === "undefined") {
-      showAlert("Error", "Library XLSX belum dimuat.", "error");
-      return;
-    }
-    const activeMonth = this.getActiveSaveMonth();
-    const allData = this.getFullData();
-    const monthData = this.ensureMonthData(allData, activeMonth);
+    const monthData = this.getPreparedMonthData();
+    if (!monthData) return;
     const htmlStr = this.buildHtmlSec3(monthData);
     const colWidths = [6, 30, 16, 16, 20];
     const ws = this.buildSheetFromHtml(htmlStr, colWidths, "1E40AF", "1E3A8A", "DBEAFE");
@@ -3534,13 +4786,8 @@ const LogistikModule = {
   },
 
   exportExcelSec4: function() {
-    if (typeof XLSX === "undefined") {
-      showAlert("Error", "Library XLSX belum dimuat.", "error");
-      return;
-    }
-    const activeMonth = this.getActiveSaveMonth();
-    const allData = this.getFullData();
-    const monthData = this.ensureMonthData(allData, activeMonth);
+    const monthData = this.getPreparedMonthData();
+    if (!monthData) return;
     const htmlStr = this.buildHtmlSec4(monthData);
     const colWidths = [6, 28, 16, 16, 16, 16, 14, 16, 14, 20];
     const ws = this.buildSheetFromHtml(htmlStr, colWidths, "3730A3", "312E81", "E0E7FF");
@@ -3552,14 +4799,8 @@ const LogistikModule = {
   },
 
   exportExcelRekapBulananCombined: function() {
-    if (typeof XLSX === "undefined") {
-      showAlert("Error", "Library XLSX belum dimuat. Pastikan koneksi internet terhubung.", "error");
-      return;
-    }
-    const activeMonth = this.getActiveSaveMonth();
-    const allData = this.getFullData();
-    const monthData = this.ensureMonthData(allData, activeMonth);
-    this.syncMatrixFromTransactions(allData, activeMonth);
+    const monthData = this.getPreparedMonthData();
+    if (!monthData) return;
 
     const wb = XLSX.utils.book_new();
 
@@ -3597,9 +4838,10 @@ const LogistikModule = {
 
     // --- SHEET 5: TRANSAKSI HARIAN ---
     const txs = this.getTransactionsByMonth();
+    // FIX LOG-B7: 14 kolom presisi selaras dengan tabel form penjualan harian
     const ws5 = this.buildSheetFromHtml(
       this.buildHtmlPenjualanHarian(txs),
-      [14, 24, 20, 10, 14, 14, 10, 6, 6, 6, 10, 24],
+      [14, 24, 20, 10, 14, 16, 12, 10, 8, 6, 6, 6, 10, 24],
       "0F766E", "115E59", "CCFBF1"
     );
     XLSX.utils.book_append_sheet(wb, ws5, "Form Penjualan Harian");
@@ -3610,30 +4852,42 @@ const LogistikModule = {
   },
 
   printPenjualanPakanHarian: function() {
-    const printEl = document.getElementById("printableFormPenjualanPakan");
-    if (!printEl) return;
+    // FIX Bug L22: Cetak tabel resmi buildHtmlPenjualanHarian, bukan printEl.innerHTML (kartu mobile ber-icon sampah)
+    const txs = this.getTransactionsByMonth();
+    const tableHtml = this.buildHtmlPenjualanHarian(txs);
     const win = window.open("", "_blank");
+    if (!win) {
+      showAlert("Popup Diblokir", "Izinkan popup di browser Anda untuk mencetak laporan ini, lalu coba lagi.", "warning");
+      return;
+    }
     win.document.write(`
       <!DOCTYPE html>
       <html>
         <head>
-          <title>FORM PENJUALAN PAKAN LOGISTIK</title>
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+          <title>FORM PENJUALAN PAKAN LOGISTIK — ${this.selectedMonth} ${this.selectedYear}</title>
           <style>
-            body { font-family: Arial, sans-serif; padding: 20px; color: #000; background: #fff; }
-            h4 { text-align: center; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
-            table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-            th, td { border: 1px solid #000 !important; padding: 6px 8px; text-align: center; font-size: 13px; color: #000 !important; }
-            th { background-color: #9ab0c7 !important; font-weight: bold; }
+            body { font-family: 'Segoe UI', Arial, sans-serif; padding: 24px; color: #0f172a; background: #fff; }
+            .print-header { text-align: center; margin-bottom: 18px; border-bottom: 2px solid #0f766e; padding-bottom: 12px; }
+            .print-title { font-size: 16pt; font-weight: 800; color: #0f766e; margin: 0; text-transform: uppercase; letter-spacing: 0.5px; }
+            .print-subtitle { font-size: 10pt; color: #64748b; margin-top: 4px; }
+            table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+            th, td { border: 1px solid #cbd5e1 !important; padding: 6px 8px; text-align: center; font-size: 9.5pt; color: #1e293b !important; }
+            thead th { background-color: #0f766e !important; color: #ffffff !important; font-weight: 700; border-color: #0f766e !important; }
+            tfoot td { background-color: #ccfbf1 !important; font-weight: 700; border-color: #99f6e4 !important; }
+            tr:nth-child(even) td { background-color: #f8fafc; }
             .text-start { text-align: left !important; }
             @media print {
-              @page { size: landscape; margin: 10mm; }
+              @page { size: landscape; margin: 8mm; }
+              body { padding: 0; }
             }
           </style>
         </head>
         <body onload="window.print(); window.close();">
-          <h4>FORM PENJUALAN PAKAN LOGISTIK</h4>
-          ${printEl.innerHTML}
+          <div class="print-header">
+            <div class="print-title">KOPERASI AGRIBISNIS DANA MULYA PACET</div>
+            <div class="print-subtitle">DIVISI LOGISTIK — FORM LAPORAN PENJUALAN PAKAN HARIAN (PERIODE: ${this.selectedMonth} ${this.selectedYear})</div>
+          </div>
+          ${tableHtml}
         </body>
       </html>
     `);
@@ -3644,7 +4898,9 @@ const LogistikModule = {
     const colNew = document.getElementById("sec1ColBaru");
     if (colNew) colNew.style.display = (val === "+ TAMBAH ALAT BARU") ? "block" : "none";
     const allData = this.getFullData();
-    const monthData = allData[this.selectedMonth] || {};
+    // FIX Bug L13: Gunakan ensureMonthData agar bulan yang belum ada
+    // diinisialisasi terlebih dahulu, bukan fallback ke {} yang menyesatkan.
+    const monthData = this.ensureMonthData(allData, this.selectedMonth);
     const items = monthData.sec1 || [];
     const item = items.find(it => it.nama === val);
 
@@ -3665,19 +4921,22 @@ const LogistikModule = {
   calcSec1Preview: function() {
     const val = document.getElementById("sec1SelectAlat")?.value;
     const allData = this.getFullData();
-    const monthData = allData[this.selectedMonth] || {};
+    // FIX Bug L16: Gunakan targetMonth aktif agar form preview tidak kosong saat "ALL"
+    const targetMonth = this.getActiveSaveMonth();
+    const monthData = this.ensureMonthData(allData, targetMonth);
     const items = monthData.sec1 || [];
     const item = items.find(it => it.nama === val);
 
-    const saUnit = Number(item?.stok_awal_unit || 0);
-    const saHarga = Number(item?.stok_awal_harga || 0);
+    const saUnit = this.parseNum(item?.stok_awal_unit);
+    const saHarga = this.parseNum(item?.stok_awal_harga);
 
-    const pemUnit = Number(document.getElementById("sec1_pembelian_unit")?.value || 0);
-    const pemHarga = Number(document.getElementById("sec1_pembelian_harga")?.value || 0);
+    // FIX LOG-B64: Gunakan parseNum toleran koma
+    const pemUnit = this.parseNum(document.getElementById("sec1_pembelian_unit")?.value);
+    const pemHarga = this.parseNum(document.getElementById("sec1_pembelian_harga")?.value);
     const pemRp = pemUnit * pemHarga;
 
-    const penUnit = Number(document.getElementById("sec1_penjualan_unit")?.value || 0);
-    const penHarga = Number(document.getElementById("sec1_penjualan_harga")?.value || 0);
+    const penUnit = this.parseNum(document.getElementById("sec1_penjualan_unit")?.value);
+    const penHarga = this.parseNum(document.getElementById("sec1_penjualan_harga")?.value);
     const penRp = penUnit * penHarga;
 
     const elPemRp = document.getElementById("sec1_pembelian_rp_input");
@@ -3685,8 +4944,14 @@ const LogistikModule = {
     const elSaBadge = document.getElementById("sec1PreviewStokAwal");
 
     if (elSaBadge) elSaBadge.innerText = "STOK AWAL: " + saUnit.toLocaleString("id-ID") + " UNIT";
-    if (elPemRp) elPemRp.value = "Rp " + pemRp.toLocaleString("id-ID");
-    if (elPenRp) elPenRp.value = "Rp " + penRp.toLocaleString("id-ID");
+    if (elPemRp) {
+      if ("value" in elPemRp && elPemRp.tagName === "INPUT") elPemRp.value = "Rp " + pemRp.toLocaleString("id-ID");
+      else elPemRp.innerText = "BELI: Rp " + pemRp.toLocaleString("id-ID");
+    }
+    if (elPenRp) {
+      if ("value" in elPenRp && elPenRp.tagName === "INPUT") elPenRp.value = "Rp " + penRp.toLocaleString("id-ID");
+      else elPenRp.innerText = "JUAL: Rp " + penRp.toLocaleString("id-ID");
+    }
 
     const stokAkhirUnit = Math.max(0, saUnit + pemUnit - penUnit);
     const stokAkhirRp = stokAkhirUnit * (saHarga || pemHarga || penHarga);
@@ -3706,10 +4971,10 @@ const LogistikModule = {
       namaAlat = form.nama_alat_custom.value.trim() || "ALAT BARU";
     }
 
-    const pemUnit = Number(form.pembelian_unit.value || 0);
-    const pemHarga = Number(form.pembelian_harga.value || 0);
-    const penUnit = Number(form.penjualan_unit.value || 0);
-    const penHarga = Number(form.penjualan_harga.value || 0);
+    const pemUnit = this.parseNum(form.pembelian_unit.value);
+    const pemHarga = this.parseNum(form.pembelian_harga.value);
+    const penUnit = this.parseNum(form.penjualan_unit.value);
+    const penHarga = this.parseNum(form.penjualan_harga.value);
 
     const targetMonth = this.getActiveSaveMonth();
     const allData = this.getFullData();
@@ -3725,22 +4990,25 @@ const LogistikModule = {
     const saUnit = Number(item.stok_awal_unit || 0);
     const saHarga = Number(item.stok_awal_harga || pemHarga || 0);
 
-    if (pemUnit > 0) {
-      item.pembelian_unit = (item.pembelian_unit || 0) + pemUnit;
-      item.pembelian_harga = pemHarga || saHarga;
-      item.pembelian_rp = item.pembelian_unit * item.pembelian_harga;
-    }
+    // FIX Bug L32: Tetapkan nilai secara presisi (bukan += akumulatif tak terkendali),
+    // sehingga input typo bisa diperbaiki dan nilai 0 bisa di-reset dengan benar.
+    item.pembelian_unit = pemUnit;
+    item.pembelian_harga = pemHarga || saHarga;
+    item.pembelian_rp = pemUnit * item.pembelian_harga;
 
-    if (penUnit > 0) {
-      item.penjualan_unit = (item.penjualan_unit || 0) + penUnit;
-      item.penjualan_harga = penHarga || saHarga;
-      item.penjualan_rp = item.penjualan_unit * item.penjualan_harga;
-    }
+    item.penjualan_unit = penUnit;
+    item.penjualan_harga = penHarga || saHarga;
+    item.penjualan_rp = penUnit * item.penjualan_harga;
 
-    item.stok_akhir_unit = Math.max(0, saUnit + (item.pembelian_unit || 0) - (item.penjualan_unit || 0));
-    item.stok_akhir_rp = item.stok_akhir_unit * saHarga;
+    item.stok_akhir_unit = Math.max(0, saUnit + pemUnit - penUnit);
+    item.stok_akhir_rp = item.stok_akhir_unit * (saHarga || item.pembelian_harga || item.penjualan_harga || 0);
 
-    allData[this.selectedMonth].sec1 = sec1Items;
+    // Tandai manual override agar tidak tertimpa
+    item._manual = true;
+
+    // FIX Bug L1 & L37: Simpan dan sinkronkan carryover ke bulan-bulan berikutnya
+    allData[targetMonth].sec1 = sec1Items;
+    this.syncMatrixFromTransactions(allData, targetMonth);
     this.saveFullData(allData);
     showToast(`Data Inventaris Peralatan (${namaAlat}) Berhasil Disimpan!`, "success");
     App.render();

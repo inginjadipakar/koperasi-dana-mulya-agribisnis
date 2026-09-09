@@ -85,9 +85,11 @@ const ApiClient = {
  * Engine penanganan transaksi lokal browser yang menggunakan LOGIKA PERSIS
  * dengan Apps Script backend jika user belum memasukkan URL Google Apps Script.
  */
+const LOCAL_BRIDGE_DB_VERSION = "2026_REAL_DATA_MATRIX_V5";
+
 const LocalBridgeEngine = {
   initStorage: function() {
-    if (!localStorage.getItem("DANAMULYA_DB") || localStorage.getItem("DANAMULYA_DB_VERSION") !== "2026_REAL_DATA_MATRIX_V5") {
+    if (!localStorage.getItem("DANAMULYA_DB") || localStorage.getItem("DANAMULYA_DB_VERSION") !== LOCAL_BRIDGE_DB_VERSION) {
       const db = {
         "USERS": [
                 {
@@ -1869,15 +1871,22 @@ const LocalBridgeEngine = {
                 }
         ],
         "DEPOT_STOK_OPNAME": [],
+        "LOGISTIK_PAKAN_PENJUALAN": [],
+        "LOGISTIK_PAKAN_PEMBELIAN": [],
         "AUDIT_LOG": []
 };
       localStorage.setItem("DANAMULYA_DB", JSON.stringify(db));
-      localStorage.setItem("DANAMULYA_DB_VERSION", "2026_REAL_DATA_ONLY_V3");
+      localStorage.setItem("DANAMULYA_DB_VERSION", LOCAL_BRIDGE_DB_VERSION);
     }
   },
   getDB: function() {
     this.initStorage();
-    return JSON.parse(localStorage.getItem("DANAMULYA_DB"));
+    const db = JSON.parse(localStorage.getItem("DANAMULYA_DB"));
+    if (db) {
+      if (!db.LOGISTIK_PAKAN_PENJUALAN) db.LOGISTIK_PAKAN_PENJUALAN = [];
+      if (!db.LOGISTIK_PAKAN_PEMBELIAN) db.LOGISTIK_PAKAN_PEMBELIAN = [];
+    }
+    return db;
   },
 
   saveDB: function(db) {
@@ -2029,23 +2038,76 @@ const LocalBridgeEngine = {
 
       case "getLogistikData":
         if (sess.divisi !== "LOGISTIK" && sess.role !== "admin") return { success: false, code: "FORBIDDEN_DIVISION", message: "Anda tidak berhak mengakses data Divisi LOGISTIK." };
-        return { success: true, code: "OK", data: { status: "ACTIVE" } };
+        let fullLogData = null;
+        try {
+          const rawFull = localStorage.getItem("DANAMULYA_LOGISTIK_FULL_V12");
+          if (rawFull) fullLogData = JSON.parse(rawFull);
+        } catch (eFull) {}
+        return {
+          success: true,
+          code: "OK",
+          data: {
+            status: "ACTIVE",
+            fullDataAvailable: !!fullLogData,
+            totalPenjualanRecords: (db.LOGISTIK_PAKAN_PENJUALAN || []).length,
+            totalPembelianRecords: (db.LOGISTIK_PAKAN_PEMBELIAN || []).length
+          }
+        };
 
       case "getLogistikPenjualan":
         if (sess.divisi !== "LOGISTIK" && sess.role !== "admin") return { success: false, code: "FORBIDDEN_DIVISION", message: "Anda tidak berhak mengakses data Divisi LOGISTIK." };
-        return { success: true, code: "OK", data: db.LOGISTIK_PAKAN_PENJUALAN || [] };
+        // Gabungkan transaksi dari database lokal dan modul UI
+        const bridgePenjualan = db.LOGISTIK_PAKAN_PENJUALAN || [];
+        const mergedPenjualan = [...bridgePenjualan];
+        try {
+          const rawTxs = localStorage.getItem("DANAMULYA_LOGISTIK_TX_V1");
+          if (rawTxs) {
+            const txs = JSON.parse(rawTxs);
+            txs.forEach(t => {
+              if (!mergedPenjualan.some(m => m.transaction_id === t.id)) {
+                mergedPenjualan.push({
+                  transaction_id: t.id,
+                  tanggal: (t.timestamp || "").split("T")[0] || "",
+                  nama_pakan: t.jenis_pakan || "",
+                  nama_peternak: t.nama_peternak || "",
+                  jenis_pembayaran: t.metode_pembayaran || "TUNAI",
+                  jumlah_kg: Number(t.jumlah_sak_kg || 0),
+                  harga_per_kg: Number(t.harga_satuan || 0),
+                  total_rupiah: Number(t.total_rp || 0),
+                  keterangan: t.keterangan || "",
+                  created_by: "LOGISTIK_MODULE",
+                  created_at: t.timestamp || new Date().toISOString()
+                });
+              }
+            });
+          }
+        } catch (eMerge) {
+          console.warn("Gagal menggabungkan transaksi DANAMULYA_LOGISTIK_TX_V1:", eMerge);
+        }
+        return { success: true, code: "OK", data: mergedPenjualan };
 
+      // FIX LOG-B22: Dukung aksi resmi createLogistikTransaction agar selaras dengan Code.gs
+      case "createLogistikTransaction":
       case "createLogistikPenjualan":
         if (sess.role !== "logistik" && sess.role !== "admin") return { success: false, code: "FORBIDDEN_DIVISION", message: "Akses ditolak." };
+        // FIX API-B4: Validasi data ketat agar nilai NaN/rusak tidak masuk ke DB
+        if (!payload.tanggal) return { success: false, code: "VALIDATION_ERROR", message: "Tanggal transaksi wajib diisi." };
+        if (!payload.nama_pakan || !payload.nama_pakan.trim()) return { success: false, code: "VALIDATION_ERROR", message: "Nama pakan wajib diisi." };
+        const qtyPenj = Number(payload.jumlah_kg);
+        const hargaPenj = Number(payload.harga_per_kg || 0);
+        if (isNaN(qtyPenj) || qtyPenj <= 0) return { success: false, code: "VALIDATION_ERROR", message: "Jumlah pakan (KG) harus berupa angka positif." };
+        if (isNaN(hargaPenj) || hargaPenj < 0) return { success: false, code: "VALIDATION_ERROR", message: "Harga per KG harus berupa angka non-negatif." };
+
         const trxLogP1 = "TRX-LOG-PAK-" + Date.now();
         const recLogP1 = {
           transaction_id: trxLogP1,
           tanggal: payload.tanggal,
-          nama_pakan: payload.nama_pakan,
-          jenis_pembayaran: payload.jenis_pembayaran,
-          jumlah_kg: Number(payload.jumlah_kg),
-          harga_per_kg: Number(payload.harga_per_kg || 0),
-          total_rupiah: Number(payload.jumlah_kg) * Number(payload.harga_per_kg || 0),
+          nama_pakan: payload.nama_pakan.trim(),
+          nama_peternak: (payload.nama_peternak || "").trim(),
+          jenis_pembayaran: payload.jenis_pembayaran || "TUNAI",
+          jumlah_kg: qtyPenj,
+          harga_per_kg: hargaPenj,
+          total_rupiah: qtyPenj * hargaPenj,
           keterangan: payload.keterangan || "",
           created_by: sess.userId,
           created_at: new Date().toISOString()
@@ -2053,6 +2115,104 @@ const LocalBridgeEngine = {
         if (!db.LOGISTIK_PAKAN_PENJUALAN) db.LOGISTIK_PAKAN_PENJUALAN = [];
         db.LOGISTIK_PAKAN_PENJUALAN.push(recLogP1);
         this.saveDB(db);
+
+        // FIX API-B2: Sinkronisasi dua arah ke DANAMULYA_LOGISTIK_TX_V1 agar modul UI Logistik otomatis terisi
+        try {
+          const rawTxs = localStorage.getItem("DANAMULYA_LOGISTIK_TX_V1");
+          const txs = rawTxs ? JSON.parse(rawTxs) : [];
+          txs.unshift({
+            id: trxLogP1,
+            timestamp: payload.tanggal + "T" + (payload.waktu || "12:00"),
+            kategori_pembeli: payload.kategori || "RASIO",
+            nomor_anggota: payload.nomor_anggota || "0",
+            kode_r_nr: payload.kode_r_nr || "NR-0",
+            nama_peternak: (payload.nama_peternak || "Umum").trim(),
+            jenis_pakan: payload.nama_pakan.trim(),
+            jumlah_sak_kg: qtyPenj,
+            harga_satuan: hargaPenj,
+            total_rp: qtyPenj * hargaPenj,
+            metode_pembayaran: payload.jenis_pembayaran || "TUNAI",
+            jadwal_penagihan: payload.jadwal_penagihan || "-",
+            is_piutang: payload.jenis_pembayaran === "PIUTANG",
+            is_program_bunting: payload.jenis_pembayaran === "PROGRAM_BUNTING",
+            keterangan: payload.keterangan || ""
+          });
+          localStorage.setItem("DANAMULYA_LOGISTIK_TX_V1", JSON.stringify(txs));
+        } catch (eSync) {
+          console.warn("Sinkronisasi ke DANAMULYA_LOGISTIK_TX_V1 gagal:", eSync);
+        }
+
+        // FIX LOG-B34: Sinkronkan penjualan pakan ke DANAMULYA_LOGISTIK_FULL_V12 (Seksi II & Seksi IV UI)
+        try {
+          const rawFull = localStorage.getItem("DANAMULYA_LOGISTIK_FULL_V12");
+          if (rawFull) {
+            const allLog = JSON.parse(rawFull);
+            const txMonthNum = parseInt(payload.tanggal.split("-")[1], 10);
+            const monthsList = ["JAN","FEB","MAR","APRIL","MEI","JUNI","JULI","AGU","SEP","OKT","NOV","DES"];
+            const mKey = monthsList[txMonthNum - 1] || "JAN";
+            if (allLog[mKey]) {
+              if (!allLog[mKey].sec2) allLog[mKey].sec2 = [];
+              const cleanFeed = (s) => (s || '').toLowerCase().replace(/mf\./g, 'mix feed').replace(/\bmf\b/g, 'mix feed').replace(/[^a-z0-9]/g, '');
+              const targetClean = cleanFeed(payload.nama_pakan);
+              let s2Item = allLog[mKey].sec2.find(it => {
+                const itClean = cleanFeed(it.nama);
+                // FIX LOG-B57: Pencocokan kommutatif agar 'MIX FEED A20' cocok dengan 'MIX FEED A20 TUNAI'
+                return itClean === targetClean ||
+                  (targetClean.includes(itClean) && itClean.length >= 4) ||
+                  (itClean.includes(targetClean) && targetClean.length >= 4);
+              });
+              if (!s2Item) {
+                s2Item = {
+                  no: allLog[mKey].sec2.length + 1,
+                  nama: payload.nama_pakan.trim(),
+                  tunai_kg: 0, tunai_harga: hargaPenj, tunai_rp: 0,
+                  pot_kg: 0, pot_harga: hargaPenj, pot_rp: 0,
+                  piu_kg: 0, piu_harga: hargaPenj, piu_rp: 0,
+                  bunt_kg: 0, bunt_harga: hargaPenj, bunt_rp: 0,
+                  total_kg: 0, total_rp: 0
+                };
+                allLog[mKey].sec2.push(s2Item);
+              }
+              const payMethod = payload.jenis_pembayaran || "TUNAI";
+              if (payMethod === "TUNAI") {
+                s2Item.tunai_kg = (s2Item.tunai_kg || 0) + qtyPenj;
+                s2Item.tunai_harga = hargaPenj || s2Item.tunai_harga;
+                s2Item.tunai_rp = (s2Item.tunai_rp || 0) + (qtyPenj * hargaPenj);
+              } else if (payMethod === "PIUTANG") {
+                s2Item.piu_kg = (s2Item.piu_kg || 0) + qtyPenj;
+                s2Item.piu_harga = hargaPenj || s2Item.piu_harga;
+                s2Item.piu_rp = (s2Item.piu_rp || 0) + (qtyPenj * hargaPenj);
+              } else if (payMethod === "PROGRAM_BUNTING") {
+                s2Item.bunt_kg = (s2Item.bunt_kg || 0) + qtyPenj;
+                s2Item.bunt_harga = hargaPenj || s2Item.bunt_harga;
+                s2Item.bunt_rp = (s2Item.bunt_rp || 0) + (qtyPenj * hargaPenj);
+              } else {
+                s2Item.pot_kg = (s2Item.pot_kg || 0) + qtyPenj;
+                s2Item.pot_harga = hargaPenj || s2Item.pot_harga;
+                s2Item.pot_rp = (s2Item.pot_rp || 0) + (qtyPenj * hargaPenj);
+              }
+              s2Item.total_kg = (s2Item.tunai_kg || 0) + (s2Item.pot_kg || 0) + (s2Item.piu_kg || 0) + (s2Item.bunt_kg || 0);
+              s2Item.total_rp = (s2Item.tunai_rp || 0) + (s2Item.pot_rp || 0) + (s2Item.piu_rp || 0) + (s2Item.bunt_rp || 0);
+
+              // Update Seksi IV
+              if (allLog[mKey].sec4) {
+                const s4Item = allLog[mKey].sec4.find(it => {
+                  const itClean = cleanFeed(it.nama);
+                  return itClean === targetClean || (itClean === 'mixfeeda18' && targetClean.includes('mixfeeda18')) || (itClean === 'mixfeeda20' && targetClean.includes('mixfeeda20'));
+                });
+                if (s4Item) {
+                  s4Item.penjualan = (s4Item.penjualan || 0) + qtyPenj;
+                  s4Item.stok_akhir = Math.max(0, (s4Item.siap_jual || 0) - s4Item.penjualan - (s4Item.susut || 0));
+                  s4Item.jumlah_rp = s4Item.stok_akhir * (s4Item.harga || 0);
+                }
+              }
+              localStorage.setItem("DANAMULYA_LOGISTIK_FULL_V12", JSON.stringify(allLog));
+            }
+          }
+        } catch (eSyncFull) {
+          console.warn("Gagal sinkronisasi penjualan ke DANAMULYA_LOGISTIK_FULL_V12:", eSyncFull);
+        }
+
         return { success: true, code: "CREATED", message: "Transaksi Penjualan Pakan berhasil disimpan.", data: recLogP1 };
 
       case "getLogistikPembelian":
@@ -2061,14 +2221,22 @@ const LocalBridgeEngine = {
 
       case "createLogistikPembelian":
         if (sess.role !== "logistik" && sess.role !== "admin") return { success: false, code: "FORBIDDEN_DIVISION", message: "Akses ditolak." };
+        // FIX API-B4: Validasi data ketat agar nilai NaN/rusak tidak masuk ke DB
+        if (!payload.tanggal) return { success: false, code: "VALIDATION_ERROR", message: "Tanggal transaksi wajib diisi." };
+        if (!payload.nama_pakan || !payload.nama_pakan.trim()) return { success: false, code: "VALIDATION_ERROR", message: "Nama pakan wajib diisi." };
+        const qtyPem = Number(payload.jumlah_kg);
+        const hargaPem = Number(payload.harga_per_kg || 0);
+        if (isNaN(qtyPem) || qtyPem <= 0) return { success: false, code: "VALIDATION_ERROR", message: "Jumlah pakan (KG) harus berupa angka positif." };
+        if (isNaN(hargaPem) || hargaPem < 0) return { success: false, code: "VALIDATION_ERROR", message: "Harga per KG harus berupa angka non-negatif." };
+
         const trxLogP2 = "TRX-LOG-PEM-" + Date.now();
         const recLogP2 = {
           transaction_id: trxLogP2,
           tanggal: payload.tanggal,
-          nama_pakan: payload.nama_pakan,
-          jumlah_kg: Number(payload.jumlah_kg),
-          harga_per_kg: Number(payload.harga_per_kg || 0),
-          total_rupiah: Number(payload.jumlah_kg) * Number(payload.harga_per_kg || 0),
+          nama_pakan: payload.nama_pakan.trim(),
+          jumlah_kg: qtyPem,
+          harga_per_kg: hargaPem,
+          total_rupiah: qtyPem * hargaPem,
           keterangan: payload.keterangan || "",
           created_by: sess.userId,
           created_at: new Date().toISOString()
@@ -2076,7 +2244,137 @@ const LocalBridgeEngine = {
         if (!db.LOGISTIK_PAKAN_PEMBELIAN) db.LOGISTIK_PAKAN_PEMBELIAN = [];
         db.LOGISTIK_PAKAN_PEMBELIAN.push(recLogP2);
         this.saveDB(db);
+
+        // FIX LOG-B23: Sinkronkan pembelian pakan ke DANAMULYA_LOGISTIK_FULL_V12 (Seksi III & Seksi IV UI)
+        try {
+          const rawFull = localStorage.getItem("DANAMULYA_LOGISTIK_FULL_V12");
+          if (rawFull) {
+            const allLog = JSON.parse(rawFull);
+            const txMonthNum = parseInt(payload.tanggal.split("-")[1], 10);
+            const monthsList = ["JAN","FEB","MAR","APRIL","MEI","JUNI","JULI","AGU","SEP","OKT","NOV","DES"];
+            const mKey = monthsList[txMonthNum - 1] || "JAN";
+            if (allLog[mKey]) {
+              if (!allLog[mKey].sec3) allLog[mKey].sec3 = [];
+              const s3Idx = allLog[mKey].sec3.findIndex(it => (it.nama || '').toLowerCase() === payload.nama_pakan.trim().toLowerCase());
+              if (s3Idx >= 0) {
+                allLog[mKey].sec3[s3Idx].kg = (allLog[mKey].sec3[s3Idx].kg || 0) + qtyPem;
+                allLog[mKey].sec3[s3Idx].harga = hargaPem || allLog[mKey].sec3[s3Idx].harga;
+                allLog[mKey].sec3[s3Idx].rp = (allLog[mKey].sec3[s3Idx].kg || 0) * allLog[mKey].sec3[s3Idx].harga;
+              } else {
+                allLog[mKey].sec3.push({
+                  no: allLog[mKey].sec3.length + 1,
+                  nama: payload.nama_pakan.trim(),
+                  kg: qtyPem,
+                  harga: hargaPem,
+                  rp: qtyPem * hargaPem
+                });
+              }
+              // FIX LOG-B27: Perbaiki pencocokan nama pakan dua arah (bidirectional feed matching)
+              // agar pakan spesifik seperti 'MIX FEED A20 TUNAI' dapat mencocokkan 'MIX FEED A20' di Seksi IV
+              if (allLog[mKey].sec4) {
+                const cleanFeed = (s) => (s || '').toLowerCase().replace(/mf\./g, 'mix feed').replace(/\bmf\b/g, 'mix feed').replace(/[^a-z0-9]/g, '');
+                const targetClean = cleanFeed(payload.nama_pakan);
+                const s4Item = allLog[mKey].sec4.find(it => {
+                  const itClean = cleanFeed(it.nama);
+                  if (itClean === targetClean) return true;
+                  // FIX LOG-B60: Pencocokan komutatif dua arah agar pakan bervariasi tetap cocok
+                  if (itClean.includes('mixfeeda18') && targetClean.includes('mixfeeda18')) return true;
+                  if (itClean.includes('mixfeeda20') && targetClean.includes('mixfeeda20')) return true;
+                  return false;
+                });
+                if (s4Item) {
+                  s4Item.pembelian = (s4Item.pembelian || 0) + qtyPem;
+                  s4Item.siap_jual = (s4Item.stok_awal || 0) + s4Item.pembelian;
+                  s4Item.stok_akhir = Math.max(0, s4Item.siap_jual - (s4Item.penjualan || 0) - (s4Item.susut || 0));
+                  s4Item.jumlah_rp = s4Item.stok_akhir * (s4Item.harga || 0);
+                } else {
+                  // FIX LOG-B56: Auto-register pakan baru ke Seksi IV jika belum ada
+                  if (!allLog[mKey].sec4) allLog[mKey].sec4 = [];
+                  allLog[mKey].sec4.push({
+                    no: allLog[mKey].sec4.length + 1,
+                    nama: payload.nama_pakan.trim(),
+                    stok_awal: 0,
+                    pembelian: qtyPem,
+                    siap_jual: qtyPem,
+                    penjualan: 0,
+                    susut: 0,
+                    stok_akhir: qtyPem,
+                    harga: hargaPem,
+                    jumlah_rp: qtyPem * hargaPem
+                  });
+                }
+              }
+              localStorage.setItem("DANAMULYA_LOGISTIK_FULL_V12", JSON.stringify(allLog));
+            }
+          }
+        } catch (eSyncFull) {
+          console.warn("Gagal sinkronisasi pembelian ke DANAMULYA_LOGISTIK_FULL_V12:", eSyncFull);
+        }
+
         return { success: true, code: "CREATED", message: "Transaksi Pembelian Pakan berhasil disimpan.", data: recLogP2 };
+
+      // FIX LOG-B35 & LOG-B62: Tambah route deleteLogistikTransaction, deleteLogistikPenjualan & deleteLogistikPembelian
+      case "deleteLogistikTransaction":
+      case "deleteLogistikPenjualan":
+      case "deleteLogistikPembelian":
+        if (sess.role !== "logistik" && sess.role !== "admin") return { success: false, code: "FORBIDDEN_DIVISION", message: "Akses ditolak." };
+        const delTxId = (payload && typeof payload === "object") ? (payload.transaction_id || payload.id) : payload;
+        if (!delTxId) return { success: false, code: "VALIDATION_ERROR", message: "ID transaksi wajib diisi." };
+
+        let dbChanged = false;
+        if (db.LOGISTIK_PAKAN_PENJUALAN && Array.isArray(db.LOGISTIK_PAKAN_PENJUALAN)) {
+          const prevLen = db.LOGISTIK_PAKAN_PENJUALAN.length;
+          db.LOGISTIK_PAKAN_PENJUALAN = db.LOGISTIK_PAKAN_PENJUALAN.filter(t => t.transaction_id !== delTxId && t.id !== delTxId);
+          if (db.LOGISTIK_PAKAN_PENJUALAN.length !== prevLen) dbChanged = true;
+        }
+
+        // FIX LOG-B62: Hapus juga dari LOGISTIK_PAKAN_PEMBELIAN jika merupakan transaksi pembelian
+        if (db.LOGISTIK_PAKAN_PEMBELIAN && Array.isArray(db.LOGISTIK_PAKAN_PEMBELIAN)) {
+          const prevLen = db.LOGISTIK_PAKAN_PEMBELIAN.length;
+          db.LOGISTIK_PAKAN_PEMBELIAN = db.LOGISTIK_PAKAN_PEMBELIAN.filter(t => t.transaction_id !== delTxId && t.purchase_id !== delTxId && t.id !== delTxId);
+          if (db.LOGISTIK_PAKAN_PEMBELIAN.length !== prevLen) dbChanged = true;
+        }
+
+        if (dbChanged) {
+          this.saveDB(db);
+        }
+
+        // Hapus juga dari DANAMULYA_LOGISTIK_TX_V1
+        try {
+          const rawTxs = localStorage.getItem("DANAMULYA_LOGISTIK_TX_V1");
+          if (rawTxs) {
+            let txs = JSON.parse(rawTxs);
+            txs = txs.filter(t => t.id !== delTxId && t.transaction_id !== delTxId);
+            localStorage.setItem("DANAMULYA_LOGISTIK_TX_V1", JSON.stringify(txs));
+          }
+        } catch (eDel) {}
+
+        // FIX LOG-B45: Sync DANAMULYA_LOGISTIK_FULL_V12 setelah hapus transaksi
+        try {
+          if (typeof window !== 'undefined' && window.LogistikModule && typeof window.LogistikModule.getFullData === 'function') {
+            const allLog = window.LogistikModule.getFullData();
+            window.LogistikModule.syncMatrixFromTransactions(allLog, null);
+            window.LogistikModule.saveFullData(allLog);
+          } else {
+            // Fallback: hapus entri dari FULL_V12 secara langsung
+            const rawFull = localStorage.getItem("DANAMULYA_LOGISTIK_FULL_V12");
+            if (rawFull) {
+              const allLog = JSON.parse(rawFull);
+              Object.keys(allLog).forEach(mKey => {
+                if (allLog[mKey] && allLog[mKey].sec2) {
+                  // Re-tally sec2 dari TX yang tersisa saja (bukan hapus 1 row)
+                  // Tandai agar syncMatrixFromTransactions di render berikutnya menghitung ulang
+                  allLog[mKey]._needs_sync = true;
+                }
+              });
+              localStorage.setItem("DANAMULYA_LOGISTIK_FULL_V12", JSON.stringify(allLog));
+            }
+          }
+        } catch (eSyncDel) {
+          console.warn("[LOG-B45] Gagal sinkronisasi FULL_V12 setelah hapus:", eSyncDel);
+        }
+
+        return { success: true, code: "DELETED", message: "Transaksi Logistik (" + delTxId + ") berhasil dihapus.", data: { transaction_id: delTxId } };
 
       case "getPusatRecap":
         if (sess.role !== "admin") return { success: false, code: "FORBIDDEN_ROLE", message: "Khusus Role Admin Utama." };
@@ -2094,6 +2392,50 @@ const LocalBridgeEngine = {
         const totDepSalRp = db.DEPOT_PENJUALAN.reduce((a, b) => a + (b.total_rupiah || 0), 0);
         const totDepOpsRp = db.DEPOT_OPERASIONAL.reduce((a, b) => a + (b.nominal_biaya || 0), 0);
 
+        // FIX API-B3: Aggregasi riil Divisi Logistik (bukan hardcoded PENDING)
+        let totLogSalKg = (db.LOGISTIK_PAKAN_PENJUALAN || []).reduce((a, b) => a + (b.jumlah_kg || 0), 0);
+        let totLogSalRp = (db.LOGISTIK_PAKAN_PENJUALAN || []).reduce((a, b) => a + (b.total_rupiah || 0), 0);
+        let totLogPurKg = (db.LOGISTIK_PAKAN_PEMBELIAN || []).reduce((a, b) => a + (b.jumlah_kg || 0), 0);
+        let totLogPurRp = (db.LOGISTIK_PAKAN_PEMBELIAN || []).reduce((a, b) => a + (b.total_rupiah || 0), 0);
+        let totLogStokRp = 0;
+
+        try {
+          const rawFull = localStorage.getItem("DANAMULYA_LOGISTIK_FULL_V12");
+          if (rawFull) {
+            const allLog = JSON.parse(rawFull);
+            let sec2Kg = 0, sec2Rp = 0, sec3Kg = 0, sec3Rp = 0;
+            Object.keys(allLog).forEach(m => {
+              const md = allLog[m];
+              if (md && md.sec2) {
+                sec2Kg += md.sec2.reduce((a, b) => a + Number(b.total_kg || 0), 0);
+                sec2Rp += md.sec2.reduce((a, b) => a + Number(b.total_rp || 0), 0);
+              }
+              if (md && md.sec3) {
+                sec3Kg += md.sec3.reduce((a, b) => a + Number(b.kg || 0), 0);
+                sec3Rp += md.sec3.reduce((a, b) => a + Number(b.rp || 0), 0);
+              }
+            });
+            if (sec2Kg > 0 || sec2Rp > 0) {
+              totLogSalKg = sec2Kg;
+              totLogSalRp = sec2Rp;
+            }
+            if (sec3Kg > 0 || sec3Rp > 0) {
+              totLogPurKg = sec3Kg;
+              totLogPurRp = sec3Rp;
+            }
+            const monthOrder = ["JAN", "FEB", "MAR", "APRIL", "MEI", "JUNI", "JULI", "AGU", "SEP", "OKT", "NOV", "DES"];
+            for (let i = monthOrder.length - 1; i >= 0; i--) {
+              const mk = monthOrder[i];
+              if (allLog[mk] && allLog[mk].sec4 && allLog[mk].sec4.length > 0) {
+                totLogStokRp = allLog[mk].sec4.reduce((a, b) => a + Number(b.jumlah_rp || 0), 0);
+                break;
+              }
+            }
+          }
+        } catch (eRecapLog) {
+          console.warn("Gagal agregasi DANAMULYA_LOGISTIK_FULL_V12:", eRecapLog);
+        }
+
         return {
           success: true,
           code: "OK",
@@ -2109,7 +2451,12 @@ const LocalBridgeEngine = {
               penjualan: { total_liter: totDepSalLtr, total_rupiah: totDepSalRp },
               biaya_operasional_rupiah: totDepOpsRp
             },
-            logistik: { status: "PENDING", message: "File Excel Logistik belum tersedia" }
+            logistik: {
+              status: "ACTIVE",
+              penjualan: { total_kg: totLogSalKg, total_rupiah: totLogSalRp },
+              pembelian: { total_kg: totLogPurKg, total_rupiah: totLogPurRp },
+              nilai_persediaan_stok_rupiah: totLogStokRp
+            }
           }
         };
 

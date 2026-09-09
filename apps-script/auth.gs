@@ -81,7 +81,9 @@ function loginUser(username, password, clientInfo) {
   
   // Store Session JSON
   var cache = CacheService.getScriptCache();
-  cache.put(sessionId, JSON.stringify(sessionData), 21600); // 6 hours in Cache
+  // FIX Bug 4: TTL cache diselaraskan dengan SESSION_TTL_MS (8 jam = 28800 detik)
+  var cacheTTL = Math.floor(SESSION_TTL_MS / 1000);
+  cache.put(sessionId, JSON.stringify(sessionData), cacheTTL);
   
   logAuditLog(targetUser.user_id, targetUser.role, "LOGIN", targetUser.divisi, null, "SUCCESS", clientInfo || "Web Login");
   
@@ -111,7 +113,8 @@ function changePassword(sessionId, oldPassword, newPassword) {
     return { success: false, code: "WEAK_PASSWORD", message: "Password baru minimal 8 karakter." };
   }
   
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  // FIX Bug 1: Gunakan getStorageSpreadsheet() agar konsisten dengan SPREADSHEET_ID di config.gs
+  var ss = getStorageSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_NAMES.USERS);
   var rowIndex = findRowIndexByValue(sheet, 1, session.userId);
   if (rowIndex === -1) return { success: false, code: "USER_NOT_FOUND", message: "User tidak ditemukan." };

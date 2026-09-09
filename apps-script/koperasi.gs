@@ -70,6 +70,8 @@ function getKoperasiPenerimaan(sessionId, startDate, endDate) {
   
   var ss = getStorageSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_NAMES.KOPERASI_PENERIMAAN);
+  // FIX GS-B-K1: Guard null agar tidak crash jika sheet belum dibuat
+  if (!sheet) return { success: true, code: "OK", data: [] };
   var records = readSheetAsObjects(sheet, TABLE_HEADERS.KOPERASI_PENERIMAAN);
   
   if (startDate && endDate) {
@@ -150,6 +152,8 @@ function getKoperasiPengeluaran(sessionId, startDate, endDate) {
   
   var ss = getStorageSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_NAMES.KOPERASI_PENGELUARAN);
+  // FIX GS-B-K1: Guard null agar tidak crash jika sheet belum dibuat
+  if (!sheet) return { success: true, code: "OK", data: [] };
   var records = readSheetAsObjects(sheet, TABLE_HEADERS.KOPERASI_PENGELUARAN);
   
   if (startDate && endDate) {

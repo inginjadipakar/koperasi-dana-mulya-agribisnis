@@ -51,6 +51,9 @@ function setupSpreadsheet() {
   _initSheet(ss, "DEPOT_OPERASIONAL",    TABLE_HEADERS.DEPOT_OPERASIONAL);
   _initSheet(ss, "DEPOT_STOK_OPNAME",    TABLE_HEADERS.DEPOT_STOK_OPNAME);
   _initSheet(ss, "LOGISTIK_TRANSACTIONS",TABLE_HEADERS.LOGISTIK_TRANSACTIONS);
+  // FIX GS-B1: DEPOT_AGEN sebelumnya terlewat dari setup sehingga sheet tidak pernah dibuat
+  // dengan header yang benar jika diinisialisasi via setupSpreadsheet().
+  _initSheet(ss, "DEPOT_AGEN",           TABLE_HEADERS.DEPOT_AGEN);
   _initSheet(ss, "AUDIT_LOG",            TABLE_HEADERS.AUDIT_LOG);
 
   Logger.log("");

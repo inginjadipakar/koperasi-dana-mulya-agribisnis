@@ -54,11 +54,18 @@ function setupDefaultUsers(ss) {
     var saltDep = generateSalt();
     var hashDep = hashPassword("depot123", saltDep);
     
+    // FIX GS-B3: Tambah akun logistik01 agar konsisten dengan setup.gs _seedUsersIfEmpty.
+    // Sebelumnya Code.gs tidak membuat akun logistik01, sehingga divisi Logistik tidak bisa login
+    // jika sistem diinisialisasi lewat initializeSpreadsheet() (bukan setupSpreadsheet()).
+    var saltLog = generateSalt();
+    var hashLog = hashPassword("logistik123", saltLog);
+    
     var timestamp = new Date().toISOString();
     
-    userSheet.appendRow(["USR-ADMIN", "admin", hashAdmin, saltAdmin, "Administrator Utama", ROLES.ADMIN, DIVISIONS.ALL, "ACTIVE", timestamp]);
-    userSheet.appendRow(["USR-KOP01", "koperasi01", hashKop, saltKop, "Petugas Koperasi", ROLES.KOPERASI, DIVISIONS.KOPERASI, "ACTIVE", timestamp]);
-    userSheet.appendRow(["USR-DEP01", "depot01", hashDep, saltDep, "Petugas Depot Susu", ROLES.DEPOT, DIVISIONS.DEPOT, "ACTIVE", timestamp]);
+    userSheet.appendRow(["USR-ADMIN", "admin",      hashAdmin, saltAdmin, "Administrator Utama",  ROLES.ADMIN,     DIVISIONS.ALL,      "ACTIVE", timestamp]);
+    userSheet.appendRow(["USR-KOP01", "koperasi01", hashKop,   saltKop,   "Petugas Koperasi",     ROLES.KOPERASI,  DIVISIONS.KOPERASI, "ACTIVE", timestamp]);
+    userSheet.appendRow(["USR-DEP01", "depot01",    hashDep,   saltDep,   "Petugas Depot Susu",   ROLES.DEPOT,     DIVISIONS.DEPOT,    "ACTIVE", timestamp]);
+    userSheet.appendRow(["USR-LOG01", "logistik01", hashLog,   saltLog,   "Petugas Logistik",     ROLES.LOGISTIK,  DIVISIONS.LOGISTIK, "ACTIVE", timestamp]);
   }
 }
 
@@ -143,6 +150,23 @@ function doPost(e) {
         return buildResponse(res.success, res.code, res.message, res.data);
       case "createLogistikTransaction":
         var res = createLogistikTransaction(sessionId, payload);
+        return buildResponse(res.success, res.code, res.message, res.data);
+      case "getLogistikPenjualan":
+        var res = getLogistikPenjualan(sessionId);
+        return buildResponse(res.success, res.code, res.message, res.data);
+      case "createLogistikPenjualan":
+        var res = createLogistikPenjualan(sessionId, payload);
+        return buildResponse(res.success, res.code, res.message, res.data);
+      case "getLogistikPembelian":
+        var res = getLogistikPembelian(sessionId);
+        return buildResponse(res.success, res.code, res.message, res.data);
+      case "createLogistikPembelian":
+        var res = createLogistikPembelian(sessionId, payload);
+        return buildResponse(res.success, res.code, res.message, res.data);
+      case "deleteLogistikTransaction":
+      case "deleteLogistikPenjualan":
+      case "deleteLogistikPembelian":
+        var res = deleteLogistikTransaction(sessionId, payload);
         return buildResponse(res.success, res.code, res.message, res.data);
         
       // --- REKAP ---

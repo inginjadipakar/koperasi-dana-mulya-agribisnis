@@ -66,6 +66,8 @@ function getDepotPembelian(sessionId, startDate, endDate) {
   
   var ss = getStorageSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_NAMES.DEPOT_PEMBELIAN);
+  // FIX GS-B-D1: Guard null agar tidak crash jika sheet belum dibuat
+  if (!sheet) return { success: true, code: "OK", data: [] };
   var records = readSheetAsObjects(sheet, TABLE_HEADERS.DEPOT_PEMBELIAN);
   
   if (startDate && endDate) {
@@ -142,6 +144,8 @@ function getDepotPenjualan(sessionId, startDate, endDate) {
   
   var ss = getStorageSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_NAMES.DEPOT_PENJUALAN);
+  // FIX GS-B-D1: Guard null agar tidak crash jika sheet belum dibuat
+  if (!sheet) return { success: true, code: "OK", data: [] };
   var records = readSheetAsObjects(sheet, TABLE_HEADERS.DEPOT_PENJUALAN);
   
   if (startDate && endDate) {
@@ -206,6 +210,8 @@ function getDepotLainLain(sessionId, startDate, endDate) {
   
   var ss = getStorageSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_NAMES.DEPOT_LAIN_LAIN);
+  // FIX GS-B-D1: Guard null agar tidak crash jika sheet belum dibuat
+  if (!sheet) return { success: true, code: "OK", data: [] };
   var records = readSheetAsObjects(sheet, TABLE_HEADERS.DEPOT_LAIN_LAIN);
   
   if (startDate && endDate) {
@@ -272,8 +278,11 @@ function getDepotOperasional(sessionId, startDate, endDate) {
   var auth = authorize(sessionId, null, DIVISIONS.DEPOT);
   if (!auth.authorized) return auth;
   
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  // FIX Bug 3: Gunakan getStorageSpreadsheet() konsisten dengan SPREADSHEET_ID di config.gs
+  var ss = getStorageSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_NAMES.DEPOT_OPERASIONAL);
+  // FIX GS-B-D1: Guard null agar tidak crash jika sheet belum dibuat
+  if (!sheet) return { success: true, code: "OK", data: [] };
   var records = readSheetAsObjects(sheet, TABLE_HEADERS.DEPOT_OPERASIONAL);
   
   if (startDate && endDate) {
@@ -302,11 +311,15 @@ function createDepotStokOpname(sessionId, data) {
   var eDate = periodeStr + "-31";
   
   // Calculate Aggregates for Periode
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  // FIX Bug 3: Gunakan getStorageSpreadsheet() konsisten dengan SPREADSHEET_ID di config.gs
+  var ss = getStorageSpreadsheet();
   var pSheet = ss.getSheetByName(SHEET_NAMES.DEPOT_PEMBELIAN);
   var sSheet = ss.getSheetByName(SHEET_NAMES.DEPOT_PENJUALAN);
   var oSheet = ss.getSheetByName(SHEET_NAMES.DEPOT_LAIN_LAIN);
-  
+  // FIX GS-B-D1: Guard null agar stok opname tidak crash jika salah satu sheet belum ada
+  if (!pSheet || !sSheet || !oSheet) {
+    return { success: false, code: "SHEET_NOT_FOUND", message: "Sheet transaksi Depot belum ditemukan. Jalankan setup terlebih dahulu." };
+  }
   var pRecs = readSheetAsObjects(pSheet, TABLE_HEADERS.DEPOT_PEMBELIAN).filter(function(r) {
     var rd = formatDateISO(r.tanggal); return rd >= sDate && rd <= eDate;
   });
