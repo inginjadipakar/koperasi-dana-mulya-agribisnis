@@ -47,7 +47,19 @@ const LogistikModule = {
 
   isExactFeedMatch: function(a, b) {
     if (!a || !b) return false;
-    return this.cleanFeed(a) === this.cleanFeed(b);
+    const ca = this.cleanFeed(a);
+    const cb = this.cleanFeed(b);
+    if (ca === cb) return true;
+
+    // FIX MAPPING: MF A20 RATIO (kasir) <-> MF A20 SUB (rekap tabel)
+    const isA20Member = s => s.includes('mixfeeda20') && (s.includes('ratio') || s.includes('sub')) && !s.includes('nonsub') && !s.includes('non');
+    if (isA20Member(ca) && isA20Member(cb)) return true;
+
+    // FIX MAPPING: MF A20 NON RATIO (kasir) <-> MF A20 NON ANGG / MF A20 NON SUB (rekap tabel)
+    const isA20NonMember = s => s.includes('mixfeeda20') && (s.includes('nonratio') || s.includes('nonangg') || s.includes('nonanggota') || s.includes('nonsub'));
+    if (isA20NonMember(ca) && isA20NonMember(cb)) return true;
+
+    return false;
   },
 
   isSec4FeedMatch: function(sec4Nama, targetNama) {
@@ -214,7 +226,7 @@ const LogistikModule = {
       },
       {
         "no": 4,
-        "nama": "MF A20 SUB",
+        "nama": "MF A20 RATIO",
         "tunai_kg": 23500,
         "tunai_harga": 4000,
         "tunai_rp": 94000000,
@@ -490,7 +502,7 @@ const LogistikModule = {
       },
       {
         "no": 4,
-        "nama": "MF A20 SUB",
+        "nama": "MF A20 RATIO",
         "tunai_kg": 17400,
         "tunai_harga": 4100,
         "tunai_rp": 71340000,
@@ -766,7 +778,7 @@ const LogistikModule = {
       },
       {
         "no": 4,
-        "nama": "MF A20 SUB",
+        "nama": "MF A20 RATIO",
         "tunai_kg": 20700,
         "tunai_harga": 4100,
         "tunai_rp": 84870000,
@@ -1042,7 +1054,7 @@ const LogistikModule = {
       },
       {
         "no": 4,
-        "nama": "MF A20 SUB",
+        "nama": "MF A20 RATIO",
         "tunai_kg": 21000,
         "tunai_harga": 4100,
         "tunai_rp": 86100000,
@@ -1726,6 +1738,40 @@ const LogistikModule = {
       if (data[m] && !Array.isArray(data[m].sec1)) {
         data[m].sec1 = [];
       }
+      // FIX LOG-B65 migration: perbaiki nama pakan di sec2 yang tersimpan di localStorage
+      if (data[m] && Array.isArray(data[m].sec2)) {
+        data[m].sec2.forEach(it => {
+          if (it.nama === "MF A20 SUB") it.nama = "MF A20 RATIO";
+          // "MF A20 NON SUB" tidak cocok dengan pakan kasir, rename ke "MF A20 NON RATIO"
+          if (it.nama === "MF A20 NON SUB") it.nama = "MF A20 NON RATIO";
+        });
+        // Hapus duplikat: pertahankan entry pertama per nama, gabungkan data ke entry pertama
+        const seen = new Map();
+        const deduped = [];
+        data[m].sec2.forEach(it => {
+          const key = (it.nama || '').toLowerCase().trim();
+          if (seen.has(key)) {
+            // Gabungkan data angka dari duplikat ke entry pertama
+            const first = seen.get(key);
+            first.tunai_kg = (first.tunai_kg || 0) + (it.tunai_kg || 0);
+            first.tunai_rp = (first.tunai_rp || 0) + (it.tunai_rp || 0);
+            first.pot_kg = (first.pot_kg || 0) + (it.pot_kg || 0);
+            first.pot_rp = (first.pot_rp || 0) + (it.pot_rp || 0);
+            first.piu_kg = (first.piu_kg || 0) + (it.piu_kg || 0);
+            first.piu_rp = (first.piu_rp || 0) + (it.piu_rp || 0);
+            first.bunt_kg = (first.bunt_kg || 0) + (it.bunt_kg || 0);
+            first.bunt_rp = (first.bunt_rp || 0) + (it.bunt_rp || 0);
+            first.total_kg = (first.tunai_kg || 0) + (first.pot_kg || 0) + (first.piu_kg || 0) + (first.bunt_kg || 0);
+            first.total_rp = (first.tunai_rp || 0) + (first.pot_rp || 0) + (first.piu_rp || 0) + (first.bunt_rp || 0);
+          } else {
+            seen.set(key, it);
+            deduped.push(it);
+          }
+        });
+        // Renumber
+        deduped.forEach((it, idx) => { it.no = idx + 1; });
+        data[m].sec2 = deduped;
+      }
     });
     return data;
   },
@@ -1931,12 +1977,29 @@ const LogistikModule = {
           <span class="ma-section-title">Nama Peternak / Pembeli</span>
         </div>
         <div class="ma-section-body">
+          <!-- Filter Wilayah & Cari Nomor Peternak Cepat -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+            <div class="ma-field" style="margin:0;">
+              <label class="ma-label" style="font-size:0.75rem;margin-bottom:2px;"><i class="bi bi-geo-alt me-1 text-primary"></i>Wilayah / Dusun</label>
+              <select class="ma-select" id="tx_filter_wilayah" onchange="LogistikModule.onWilayahFilterChange(this.value)" style="padding:6px 10px;font-size:0.82rem;">
+                <option value="SEMUA">SEMUA WILAYAH (${this.getMasterPeternak().filter(p => p.kategori === 'RASIO').length})</option>
+                ${this.getUniqueWilayahList().map(w => `<option value="${w}">${w}</option>`).join('')}
+              </select>
+            </div>
+            <div class="ma-field" style="margin:0;">
+              <label class="ma-label" style="font-size:0.75rem;margin-bottom:2px;"><i class="bi bi-hash me-1 text-emerald"></i>Ketik No. Peternak</label>
+              <input type="number" class="ma-input" id="tx_input_nomor" placeholder="Contoh: 22" oninput="LogistikModule.onNomorPeternakInput(this.value)" style="padding:6px 10px;font-size:0.82rem;font-weight:bold;">
+            </div>
+          </div>
+
           <div class="ma-field">
             <select class="ma-select" id="tx_peternak_select" onchange="LogistikModule.onPeternakSelectChange(this.value)" required>
               <option value="">— Pilih Nama Peternak —</option>
-              ${this.getMasterPeternak().filter(p => p.kategori === 'RASIO').map(p =>
-                `<option value="${p.nama}">${p.nama}</option>`
-              ).join('')}
+              ${this.getMasterPeternak().filter(p => p.kategori === 'RASIO')
+                .sort((a, b) => (parseInt(a.nomor_anggota || 0, 10) - parseInt(b.nomor_anggota || 0, 10)))
+                .map(p =>
+                  `<option value="${p.nama}">[No. ${p.nomor_anggota || p.kode}] ${p.nama}${p.alamat ? ' (' + p.alamat + ')' : ''}</option>`
+                ).join('')}
               <option value="+ TAMBAH NAMA PETERNAK BARU">+ Tambah Peternak Baru...</option>
             </select>
           </div>
@@ -2006,12 +2069,17 @@ const LogistikModule = {
             </thead>
             <tbody>
               <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                <td style="padding:10px 8px;">
+                <td style="padding:8px 8px;">
                   <div style="font-weight:700;font-size:0.85rem;color:#f8fafc;">MF A20 RATIO</div>
                   <span class="ma-feed-badge" style="font-size:0.65rem;padding:2px 6px;border-radius:4px;background:rgba(16,185,129,0.15);color:#10b981;">Jatah Anggota</span>
                 </td>
-                <td style="padding:10px 8px;text-align:right;font-size:0.82rem;color:#94a3b8;font-weight:600;">Rp 4.200</td>
-                <td style="padding:10px 8px;text-align:center;">
+                <td style="padding:8px 8px;text-align:right;">
+                  <div style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border-radius:6px;padding:2px 6px;border:1px solid rgba(255,255,255,0.1);">
+                    <span style="font-size:0.75rem;color:#94a3b8;margin-right:2px;">Rp</span>
+                    <input type="number" class="ma-input" id="tx_price_mf_a20_ratio" value="4200" style="width:68px;padding:2px 4px;font-size:0.82rem;text-align:right;font-weight:700;background:transparent;border:none;color:#10b981;" oninput="LogistikModule.calcMultiTxPreview()" title="Harga/KG (Bisa diedit)">
+                  </div>
+                </td>
+                <td style="padding:8px 8px;text-align:center;">
                   <div class="ma-stepper" style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border-radius:8px;padding:2px;">
                     <button type="button" class="ma-stepper-btn" onclick="LogistikModule.stepperChange('tx_qty_mf_a20_ratio', -1)" style="width:28px;height:28px;border:none;background:transparent;color:#fff;font-weight:bold;cursor:pointer;">−</button>
                     <input type="number" step="0.1" class="ma-stepper-input" id="tx_qty_mf_a20_ratio" value="" placeholder="0" oninput="LogistikModule.calcMultiTxPreview()" style="width:44px;text-align:center;background:transparent;border:none;color:#fff;font-weight:bold;">
@@ -2020,11 +2088,16 @@ const LogistikModule = {
                 </td>
               </tr>
               <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                <td style="padding:10px 8px;">
+                <td style="padding:8px 8px;">
                   <div style="font-weight:700;font-size:0.85rem;color:#f8fafc;">MF A18 AGGT SUB</div>
                 </td>
-                <td style="padding:10px 8px;text-align:right;font-size:0.82rem;color:#94a3b8;font-weight:600;">Rp 3.900</td>
-                <td style="padding:10px 8px;text-align:center;">
+                <td style="padding:8px 8px;text-align:right;">
+                  <div style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border-radius:6px;padding:2px 6px;border:1px solid rgba(255,255,255,0.1);">
+                    <span style="font-size:0.75rem;color:#94a3b8;margin-right:2px;">Rp</span>
+                    <input type="number" class="ma-input" id="tx_price_mf_a18_sub" value="3900" style="width:68px;padding:2px 4px;font-size:0.82rem;text-align:right;font-weight:700;background:transparent;border:none;color:#10b981;" oninput="LogistikModule.calcMultiTxPreview()" title="Harga/KG (Bisa diedit)">
+                  </div>
+                </td>
+                <td style="padding:8px 8px;text-align:center;">
                   <div class="ma-stepper" style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border-radius:8px;padding:2px;">
                     <button type="button" class="ma-stepper-btn" onclick="LogistikModule.stepperChange('tx_qty_mf_a18_sub', -1)" style="width:28px;height:28px;border:none;background:transparent;color:#fff;font-weight:bold;cursor:pointer;">−</button>
                     <input type="number" step="0.1" class="ma-stepper-input" id="tx_qty_mf_a18_sub" value="" placeholder="0" oninput="LogistikModule.calcMultiTxPreview()" style="width:44px;text-align:center;background:transparent;border:none;color:#fff;font-weight:bold;">
@@ -2033,11 +2106,16 @@ const LogistikModule = {
                 </td>
               </tr>
               <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                <td style="padding:10px 8px;">
+                <td style="padding:8px 8px;">
                   <div style="font-weight:700;font-size:0.85rem;color:#f8fafc;">MAGNESIUM</div>
                 </td>
-                <td style="padding:10px 8px;text-align:right;font-size:0.82rem;color:#94a3b8;font-weight:600;">Rp 30.000</td>
-                <td style="padding:10px 8px;text-align:center;">
+                <td style="padding:8px 8px;text-align:right;">
+                  <div style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border-radius:6px;padding:2px 6px;border:1px solid rgba(255,255,255,0.1);">
+                    <span style="font-size:0.75rem;color:#94a3b8;margin-right:2px;">Rp</span>
+                    <input type="number" class="ma-input" id="tx_price_magnesium" value="30000" style="width:68px;padding:2px 4px;font-size:0.82rem;text-align:right;font-weight:700;background:transparent;border:none;color:#10b981;" oninput="LogistikModule.calcMultiTxPreview()" title="Harga/KG (Bisa diedit)">
+                  </div>
+                </td>
+                <td style="padding:8px 8px;text-align:center;">
                   <div class="ma-stepper" style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border-radius:8px;padding:2px;">
                     <button type="button" class="ma-stepper-btn" onclick="LogistikModule.stepperChange('tx_qty_magnesium', -1)" style="width:28px;height:28px;border:none;background:transparent;color:#fff;font-weight:bold;cursor:pointer;">−</button>
                     <input type="number" step="0.1" class="ma-stepper-input" id="tx_qty_magnesium" value="" placeholder="0" oninput="LogistikModule.calcMultiTxPreview()" style="width:44px;text-align:center;background:transparent;border:none;color:#fff;font-weight:bold;">
@@ -2046,11 +2124,16 @@ const LogistikModule = {
                 </td>
               </tr>
               <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                <td style="padding:10px 8px;">
+                <td style="padding:8px 8px;">
                   <div style="font-weight:700;font-size:0.85rem;color:#f8fafc;">DCP</div>
                 </td>
-                <td style="padding:10px 8px;text-align:right;font-size:0.82rem;color:#94a3b8;font-weight:600;">Rp 25.000</td>
-                <td style="padding:10px 8px;text-align:center;">
+                <td style="padding:8px 8px;text-align:right;">
+                  <div style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border-radius:6px;padding:2px 6px;border:1px solid rgba(255,255,255,0.1);">
+                    <span style="font-size:0.75rem;color:#94a3b8;margin-right:2px;">Rp</span>
+                    <input type="number" class="ma-input" id="tx_price_dcp" value="25000" style="width:68px;padding:2px 4px;font-size:0.82rem;text-align:right;font-weight:700;background:transparent;border:none;color:#10b981;" oninput="LogistikModule.calcMultiTxPreview()" title="Harga/KG (Bisa diedit)">
+                  </div>
+                </td>
+                <td style="padding:8px 8px;text-align:center;">
                   <div class="ma-stepper" style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border-radius:8px;padding:2px;">
                     <button type="button" class="ma-stepper-btn" onclick="LogistikModule.stepperChange('tx_qty_dcp', -1)" style="width:28px;height:28px;border:none;background:transparent;color:#fff;font-weight:bold;cursor:pointer;">−</button>
                     <input type="number" step="0.1" class="ma-stepper-input" id="tx_qty_dcp" value="" placeholder="0" oninput="LogistikModule.calcMultiTxPreview()" style="width:44px;text-align:center;background:transparent;border:none;color:#fff;font-weight:bold;">
@@ -2059,12 +2142,17 @@ const LogistikModule = {
                 </td>
               </tr>
               <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-                <td style="padding:10px 8px;">
+                <td style="padding:8px 8px;">
                   <div style="font-weight:700;font-size:0.85rem;color:#f8fafc;">MF A20 NON RATIO</div>
                   <span class="ma-feed-badge amber" style="font-size:0.65rem;padding:2px 6px;border-radius:4px;background:rgba(245,158,11,0.15);color:#f59e0b;">Non-Anggota</span>
                 </td>
-                <td style="padding:10px 8px;text-align:right;font-size:0.82rem;color:#94a3b8;font-weight:600;">Rp 4.500</td>
-                <td style="padding:10px 8px;text-align:center;">
+                <td style="padding:8px 8px;text-align:right;">
+                  <div style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border-radius:6px;padding:2px 6px;border:1px solid rgba(255,255,255,0.1);">
+                    <span style="font-size:0.75rem;color:#94a3b8;margin-right:2px;">Rp</span>
+                    <input type="number" class="ma-input" id="tx_price_mf_a20_non" value="4500" style="width:68px;padding:2px 4px;font-size:0.82rem;text-align:right;font-weight:700;background:transparent;border:none;color:#f59e0b;" oninput="LogistikModule.calcMultiTxPreview()" title="Harga/KG (Bisa diedit)">
+                  </div>
+                </td>
+                <td style="padding:8px 8px;text-align:center;">
                   <div class="ma-stepper" style="display:inline-flex;align-items:center;background:rgba(255,255,255,0.06);border-radius:8px;padding:2px;">
                     <button type="button" class="ma-stepper-btn" onclick="LogistikModule.stepperChange('tx_qty_mf_a20_non', -1)" style="width:28px;height:28px;border:none;background:transparent;color:#fff;font-weight:bold;cursor:pointer;">−</button>
                     <input type="number" step="0.1" class="ma-stepper-input" id="tx_qty_mf_a20_non" value="" placeholder="0" oninput="LogistikModule.calcMultiTxPreview()" style="width:44px;text-align:center;background:transparent;border:none;color:#fff;font-weight:bold;">
@@ -2293,6 +2381,9 @@ const LogistikModule = {
             <span class="badge bg-success px-2 py-1" id="sec2PreviewRp">JUMLAH TOTAL RP: Rp 0</span>
           </div>
           <button type="submit" class="ma-btn-primary"><i class="bi bi-save"></i> Simpan Penyesuaian Penjualan</button>
+          <div style="margin-top:8px;padding:6px 10px;background:#fef3c7;border-left:3px solid #f59e0b;border-radius:4px;font-size:0.75rem;color:#92400e;">
+            <i class="bi bi-info-circle-fill"></i> <strong>Catatan:</strong> Form ini untuk koreksi manual rekap bulan historis. Jika sudah ada transaksi kasir harian untuk pakan ini di bulan yang dipilih, nilai yang tersimpan di sini akan <strong>digantikan otomatis</strong> oleh data transaksi kasir.
+          </div>
         </form>
         <div style="overflow-x:auto;">
           <table class="table table-bordered table-hover align-middle text-center mb-0" style="font-size:0.8rem;">
@@ -2315,9 +2406,9 @@ const LogistikModule = {
               </tr>
             </thead>
             <tbody>
-              ${monthData.sec2.map(it => `
+              ${monthData.sec2.filter(it => (Number(it.total_kg) || 0) > 0 || (Number(it.total_rp) || 0) > 0).map((it, idx) => `
                 <tr>
-                  <td class="fw-bold">${it.no}</td>
+                  <td class="fw-bold">${idx + 1}</td>
                   <td class="text-start fw-bold">${it.nama}</td>
                   <td>${it.tunai_kg > 0 ? Number(it.tunai_kg).toLocaleString('id-ID') : '-'}</td>
                   <td>${it.tunai_harga > 0 ? Number(it.tunai_harga).toLocaleString('id-ID') : '-'}</td>
@@ -2456,6 +2547,19 @@ const LogistikModule = {
             <label class="ma-label">Nama Pakan Baru</label>
             <input type="text" class="ma-input" name="nama_pakan_custom" placeholder="KONSENTRAT BOOSTER">
           </div>
+          <div class="ma-field">
+            <label class="ma-label"><i class="bi bi-building me-1 text-primary"></i>Nama Supplier / Pemasok</label>
+            <select class="ma-select" name="supplier_select" id="sec3SupplierSelect" onchange="LogistikModule.onSelectSec3Supplier(this.value)">
+              <option value="PT Nestle Indonesia">PT Nestle Indonesia</option>
+              <option value="PT Cargill Indonesia">PT Cargill Indonesia</option>
+              <option value="Koperasi / Peternak Lain">Koperasi / Peternak Lain</option>
+              <option value="+ KETIK SUPPLIER BARU">+ Ketik Nama Supplier Baru...</option>
+            </select>
+          </div>
+          <div id="sec3SupplierCustomCol" style="display:none;margin-bottom:10px;" class="ma-field">
+            <label class="ma-label">Nama Supplier Baru</label>
+            <input type="text" class="ma-input" name="supplier_custom" id="sec3_supplier_custom" placeholder="Nama PT / Toko / Pemasok">
+          </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
             <div class="ma-field" style="margin:0;"><label class="ma-label">Volume (KG)</label><input type="number" step="0.1" class="ma-input" name="kg" id="sec3_kg" placeholder="0" oninput="LogistikModule.calcSec3Preview()"></div>
             <div class="ma-field" style="margin:0;"><label class="ma-label">Harga/KG (Rp)</label><input type="number" class="ma-input" name="harga" id="sec3_harga" placeholder="4000" oninput="LogistikModule.calcSec3Preview()"></div>
@@ -2468,12 +2572,13 @@ const LogistikModule = {
         </form>
         <div style="overflow-x:auto;">
           <table class="table table-bordered table-hover align-middle text-center mb-0" style="font-size:0.82rem;">
-            <thead class="table-primary fw-bold"><tr><th>NO</th><th class="text-start">NAMA PAKAN</th><th>KG</th><th>HARGA/KG</th><th>TOTAL RP</th></tr></thead>
+            <thead class="table-primary fw-bold"><tr><th>NO</th><th class="text-start">NAMA PAKAN</th><th>SUPPLIER</th><th>KG</th><th>HARGA/KG</th><th>TOTAL RP</th></tr></thead>
             <tbody>
               ${monthData.sec3.map(it => `
                 <tr>
                   <td>${it.no}</td>
                   <td class="text-start fw-bold">${it.nama}</td>
+                  <td class="fw-semibold text-muted text-start">${it.supplier || 'PT Nestle Indonesia'}</td>
                   <td class="fw-bold text-primary">${it.kg > 0 ? Number(it.kg).toLocaleString('id-ID') : '-'}</td>
                   <td>${it.harga > 0 ? Number(it.harga).toLocaleString('id-ID') : '-'}</td>
                   <td class="fw-bold text-emerald">${it.rp > 0 ? Number(it.rp).toLocaleString('id-ID') : '-'}</td>
@@ -2482,7 +2587,7 @@ const LogistikModule = {
             </tbody>
             <tfoot class="table-light fw-bold">
               <tr>
-                <td colspan="2" class="text-end">TOTAL</td>
+                <td colspan="3" class="text-end">TOTAL</td>
                 <td class="text-primary">${totSec3Kg.toLocaleString('id-ID')} KG</td>
                 <td>-</td>
                 <td class="text-emerald">Rp ${totSec3Rp.toLocaleString('id-ID')}</td>
@@ -2681,9 +2786,27 @@ const LogistikModule = {
     if (item) {
       if (document.getElementById("sec3_kg")) document.getElementById("sec3_kg").value = item.kg > 0 ? item.kg : "";
       if (document.getElementById("sec3_harga")) document.getElementById("sec3_harga").value = item.harga > 0 ? item.harga : "";
+      const supp = item.supplier || "PT Nestle Indonesia";
+      const suppSel = document.getElementById("sec3SupplierSelect");
+      if (suppSel) {
+        const hasOpt = Array.from(suppSel.options).some(o => o.value === supp);
+        if (hasOpt) {
+          suppSel.value = supp;
+          this.onSelectSec3Supplier(supp);
+        } else {
+          suppSel.value = "+ KETIK SUPPLIER BARU";
+          this.onSelectSec3Supplier("+ KETIK SUPPLIER BARU");
+          if (document.getElementById("sec3_supplier_custom")) document.getElementById("sec3_supplier_custom").value = supp;
+        }
+      }
     } else {
       if (document.getElementById("sec3_kg")) document.getElementById("sec3_kg").value = "";
       if (document.getElementById("sec3_harga")) document.getElementById("sec3_harga").value = "";
+      const suppSel = document.getElementById("sec3SupplierSelect");
+      if (suppSel) {
+        suppSel.value = "PT Nestle Indonesia";
+        this.onSelectSec3Supplier("PT Nestle Indonesia");
+      }
     }
     this.calcSec3Preview();
   },
@@ -2695,11 +2818,11 @@ const LogistikModule = {
     const susut = this.parseNum(document.getElementById("sec4_susut")?.value);
     const harga = this.parseNum(document.getElementById("sec4_harga")?.value);
 
-    // FIX Bug L10 & L16: Sync transaksi ke memory dan gunakan targetMonth aktif
-    // agar form preview tetap valid meskipun selectedMonth === "ALL".
+    // FIX BUG-F: Baca data langsung dari localStorage tanpa sync penuh 12 bulan.
+    // syncMatrixFromTransactions sudah dipanggil di onSelectSec4Pakan saat pakan dipilih.
+    // Memanggil sync tiap keystroke menyebabkan lag saat data transaksi banyak.
     const allData = this.getFullData();
     const targetMonth = this.getActiveSaveMonth();
-    this.syncMatrixFromTransactions(allData, targetMonth);
     const sec4Items = this.ensureMonthData(allData, targetMonth).sec4 || [];
     const item = sec4Items.find(it => this.isSec4FeedMatch(it.nama, namaPakan) || it.nama === namaPakan) || {};
 
@@ -2853,6 +2976,11 @@ const LogistikModule = {
     item.kg = kg;
     item.harga = harga;
     item.rp = kg * harga;
+    let supplier = form.supplier_select?.value || "PT Nestle Indonesia";
+    if (supplier === "+ KETIK SUPPLIER BARU") {
+      supplier = form.supplier_custom?.value.trim() || "Supplier Lain";
+    }
+    item.supplier = supplier;
 
     // FIX LOG-B11: Sinkronkan catatan pembelian pakan ke database LocalBridgeEngine DANAMULYA_DB
     try {
@@ -2877,6 +3005,7 @@ const LogistikModule = {
           // FIX LOG-B55: Simpan transaction_id agar API dapat match lewat field yang tepat
           transaction_id: trxId,
           purchase_id: trxId,
+          supplier: supplier,
           tanggal: tanggalTarget, // FIX LOG-B54
           bulan: targetMonth,
           nama_pakan: namaPakan,
@@ -2991,15 +3120,15 @@ const LogistikModule = {
       { no: 4, nama: "BRANGUS SAPI", stok_awal_unit: 85, stok_awal_harga: 15000, stok_awal_rp: 1275000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 85, stok_akhir_rp: 1275000 },
       { no: 5, nama: "ALAT CELUP", stok_awal_unit: 175, stok_awal_harga: 50000, stok_awal_rp: 8750000, pembelian_unit: 0, pembelian_harga: 0, pembelian_rp: 0, penjualan_unit: 0, penjualan_harga: 0, penjualan_rp: 0, stok_akhir_unit: 175, stok_akhir_rp: 8750000 }
     ];
+    // FIX LOG-B65: Hapus duplikat "MF A20 RATIO" (no.6) dan "MF A20 NON SUB" (no.4) yang tidak cocok
+    // dengan nama pakan kasir, menyebabkan transaksi tidak terakumulasi ke Seksi II.
     const defaultSec2 = [
       { no: 1, nama: "MF. A18 AGGT SUB", tunai_kg: 0, tunai_harga: 3900, tunai_rp: 0, pot_kg: 0, pot_harga: 3900, pot_rp: 0, piu_kg: 0, piu_harga: 3900, piu_rp: 0, bunt_kg: 0, bunt_harga: 3900, bunt_rp: 0, total_kg: 0, total_rp: 0 },
       { no: 2, nama: "MAGNESIUM", tunai_kg: 0, tunai_harga: 30000, tunai_rp: 0, pot_kg: 0, pot_harga: 30000, pot_rp: 0, piu_kg: 0, piu_harga: 30000, piu_rp: 0, bunt_kg: 0, bunt_harga: 30000, bunt_rp: 0, total_kg: 0, total_rp: 0 },
       { no: 3, nama: "DCP", tunai_kg: 0, tunai_harga: 25000, tunai_rp: 0, pot_kg: 0, pot_harga: 25000, pot_rp: 0, piu_kg: 0, piu_harga: 25000, piu_rp: 0, bunt_kg: 0, bunt_harga: 25000, bunt_rp: 0, total_kg: 0, total_rp: 0 },
-      { no: 4, nama: "MF A20 NON SUB", tunai_kg: 0, tunai_harga: 4500, tunai_rp: 0, pot_kg: 0, pot_harga: 4500, pot_rp: 0, piu_kg: 0, piu_harga: 4500, piu_rp: 0, bunt_kg: 0, bunt_harga: 4500, bunt_rp: 0, total_kg: 0, total_rp: 0 },
-      { no: 5, nama: "MF A20 SUB", tunai_kg: 0, tunai_harga: 4200, tunai_rp: 0, pot_kg: 0, pot_harga: 4200, pot_rp: 0, piu_kg: 0, piu_harga: 4200, piu_rp: 0, bunt_kg: 0, bunt_harga: 4200, bunt_rp: 0, total_kg: 0, total_rp: 0 },
-      { no: 6, nama: "MF A20 RATIO", tunai_kg: 0, tunai_harga: 4200, tunai_rp: 0, pot_kg: 0, pot_harga: 4200, pot_rp: 0, piu_kg: 0, piu_harga: 4200, piu_rp: 0, bunt_kg: 0, bunt_harga: 4200, bunt_rp: 0, total_kg: 0, total_rp: 0 },
-      { no: 7, nama: "MF A20 NON RATIO", tunai_kg: 0, tunai_harga: 4500, tunai_rp: 0, pot_kg: 0, pot_harga: 4500, pot_rp: 0, piu_kg: 0, piu_harga: 4500, piu_rp: 0, bunt_kg: 0, bunt_harga: 4500, bunt_rp: 0, total_kg: 0, total_rp: 0 },
-      { no: 8, nama: "MF A20 NON ANGG", tunai_kg: 0, tunai_harga: 4500, tunai_rp: 0, pot_kg: 0, pot_harga: 4500, pot_rp: 0, piu_kg: 0, piu_harga: 4500, piu_rp: 0, bunt_kg: 0, bunt_harga: 4500, bunt_rp: 0, total_kg: 0, total_rp: 0 }
+      { no: 4, nama: "MF A20 RATIO", tunai_kg: 0, tunai_harga: 4200, tunai_rp: 0, pot_kg: 0, pot_harga: 4200, pot_rp: 0, piu_kg: 0, piu_harga: 4200, piu_rp: 0, bunt_kg: 0, bunt_harga: 4200, bunt_rp: 0, total_kg: 0, total_rp: 0 },
+      { no: 5, nama: "MF A20 NON RATIO", tunai_kg: 0, tunai_harga: 4500, tunai_rp: 0, pot_kg: 0, pot_harga: 4500, pot_rp: 0, piu_kg: 0, piu_harga: 4500, piu_rp: 0, bunt_kg: 0, bunt_harga: 4500, bunt_rp: 0, total_kg: 0, total_rp: 0 },
+      { no: 6, nama: "MF A20 NON ANGG", tunai_kg: 0, tunai_harga: 4500, tunai_rp: 0, pot_kg: 0, pot_harga: 4500, pot_rp: 0, piu_kg: 0, piu_harga: 4500, piu_rp: 0, bunt_kg: 0, bunt_harga: 4500, bunt_rp: 0, total_kg: 0, total_rp: 0 }
     ];
     const defaultSec4 = [
       { no: 1, nama: "MIX FEED A18", stok_awal: 0, pembelian: 0, siap_jual: 0, penjualan: 0, susut: 0, stok_akhir: 0, harga: 3900, jumlah_rp: 0 },
@@ -3501,15 +3630,84 @@ const LogistikModule = {
         // FIX Bug L7: Guard sebelumnya >= 50 menyebabkan data peternak < 50 orang
         // selalu ter-reset ke default. Ganti ke > 0 agar data apapun yang tersimpan dipakai.
         if (Array.isArray(parsedStored) && parsedStored.length > 0) {
-          return parsedStored;
+          // Bersihkan data contoh dummy 'peternak mandiri malang' jika pernah tersimpan
+          return parsedStored.filter(p => !((p.nama || '').toLowerCase().includes("peternak mandiri malang")));
         }
       } catch (e) {
         console.error("Failed to parse master peternak", e);
       }
     }
-    const defaultMaster = (typeof getInitialMasterPeternakList === 'function') ? getInitialMasterPeternakList() : [];
+    const defaultMaster = (typeof getInitialMasterPeternakList === 'function') 
+      ? getInitialMasterPeternakList().filter(p => !((p.nama || '').toLowerCase().includes("peternak mandiri malang")))
+      : [];
     localStorage.setItem("DANAMULYA_MASTER_PETERNAK_V4", JSON.stringify(defaultMaster));
     return defaultMaster;
+  },
+
+  getUniqueWilayahList: function() {
+    const master = this.getMasterPeternak();
+    const set = new Set();
+    master.forEach(m => {
+      if (m.alamat && m.alamat.trim() && m.alamat.trim() !== "-") {
+        set.add(m.alamat.trim().toUpperCase());
+      }
+    });
+    return Array.from(set).sort();
+  },
+
+  populatePeternakDropdown: function(kat, wilayah) {
+    const selectEl = document.getElementById("tx_peternak_select");
+    if (!selectEl) return;
+    const master = this.getMasterPeternak();
+    let filtered = master.filter(m => m.kategori === kat);
+    if (wilayah && wilayah !== "SEMUA") {
+      filtered = filtered.filter(m => (m.alamat || '').trim().toUpperCase() === wilayah.toUpperCase());
+    }
+    if (kat === 'RASIO') {
+      filtered.sort((a, b) => (parseInt(a.nomor_anggota || 0, 10) - parseInt(b.nomor_anggota || 0, 10)));
+    }
+    
+    let html = '<option value="">-- Pilih ' + (kat === 'RASIO' ? 'Peternak Anggota' : 'Pembeli Non-Anggota') + ' (' + filtered.length + ') --</option>';
+    filtered.forEach(p => {
+      const prefix = kat === 'RASIO' ? `[No. ${p.nomor_anggota || p.kode}] ` : `[NON-ANGGOTA] `;
+      const suffix = p.alamat ? ` (${p.alamat})` : '';
+      html += `<option value="${p.nama}">${prefix}${p.nama}${suffix}</option>`;
+    });
+    html += '<option value="+ TAMBAH NAMA PETERNAK BARU">+ Tambah Nama ' + (kat === 'RASIO' ? 'Peternak' : 'Pembeli') + ' Baru...</option>';
+    selectEl.innerHTML = html;
+  },
+
+  onWilayahFilterChange: function(wilayah) {
+    const kat = document.getElementById("tx_kategori_pembeli")?.value || "RASIO";
+    this.populatePeternakDropdown(kat, wilayah);
+    const selectEl = document.getElementById("tx_peternak_select");
+    if (selectEl) selectEl.value = "";
+    this.onPeternakSelectChange("");
+  },
+
+  onNomorPeternakInput: function(numStr) {
+    const raw = String(numStr || "").trim().replace(/[^0-9]/g, "");
+    if (!raw) return;
+    const master = this.getMasterPeternak();
+    const item = master.find(m => m.kategori === "RASIO" && (String(m.nomor_anggota || "").trim() === raw || String(m.kode || "").trim() === "R-" + raw));
+    if (item) {
+      // Jika peternak ditemukan dan saat ini filter wilayah sedang menyembunyikannya, kembalikan ke SEMUA
+      const wilayahEl = document.getElementById("tx_filter_wilayah");
+      if (wilayahEl && wilayahEl.value !== "SEMUA" && (item.alamat || '').toUpperCase() !== wilayahEl.value.toUpperCase()) {
+        wilayahEl.value = "SEMUA";
+        this.populatePeternakDropdown("RASIO", "SEMUA");
+      }
+      const selectEl = document.getElementById("tx_peternak_select");
+      if (selectEl) {
+        selectEl.value = item.nama;
+        this.onPeternakSelectChange(item.nama);
+      }
+    }
+  },
+
+  onSelectSec3Supplier: function(val) {
+    const colCustom = document.getElementById("sec3SupplierCustomCol");
+    if (colCustom) colCustom.style.display = (val === "+ KETIK SUPPLIER BARU") ? "block" : "none";
   },
 
   saveMasterPeternak: function(list) {
@@ -3548,19 +3746,17 @@ const LogistikModule = {
       }
     }
 
+    const wilayahEl = document.getElementById("tx_filter_wilayah");
+    if (wilayahEl) wilayahEl.value = "SEMUA";
+    const nomorEl = document.getElementById("tx_input_nomor");
+    if (nomorEl) {
+      nomorEl.value = "";
+      nomorEl.disabled = (kat === "NON_RASIO");
+      nomorEl.placeholder = (kat === "NON_RASIO") ? "Non-Anggota" : "Contoh: 22";
+    }
+    this.populatePeternakDropdown(kat, "SEMUA");
     const selectEl = document.getElementById("tx_peternak_select");
-    if (!selectEl) return;
-    const master = this.getMasterPeternak();
-    const filtered = master.filter(m => m.kategori === kat);
-    
-    let html = '<option value="">-- Pilih Nama ' + (kat === 'RASIO' ? 'Peternak Anggota' : 'Pembeli Non-Anggota') + ' --</option>';
-    filtered.forEach(p => {
-      html += `<option value="${p.nama}">${p.nama}</option>`;
-    });
-    html += '<option value="+ TAMBAH NAMA PETERNAK BARU">+ Tambah Nama ' + (kat === 'RASIO' ? 'Peternak' : 'Pembeli') + ' Baru...</option>';
-    
-    selectEl.innerHTML = html;
-    selectEl.value = "";
+    if (selectEl) selectEl.value = "";
     
     const elKodeDisplay = document.getElementById("tx_kode_display");
     const elKodeBadge = document.getElementById("tx_kode_badge");
@@ -3629,6 +3825,8 @@ const LogistikModule = {
         if (elKodeInput) elKodeInput.value = item.kode;
         if (elKategoriInput) elKategoriInput.value = item.kategori;
         if (elNoAnggotaInput) elNoAnggotaInput.value = item.nomor_anggota;
+        const elInputNo = document.getElementById("tx_input_nomor");
+        if (elInputNo && item.nomor_anggota && item.nomor_anggota !== "0") elInputNo.value = item.nomor_anggota;
         this.onKategoriPembeliChange(item.kategori);
       }
     } else {
@@ -3639,6 +3837,8 @@ const LogistikModule = {
       if (elStatusLabel) elStatusLabel.innerText = currentKat === "NON_RASIO" ? "NON-ANGGOTA (NON-RASIO)" : "ANGGOTA (RASIO)";
       if (elKodeInput) elKodeInput.value = currentKat === "NON_RASIO" ? "NR-0" : "";
       if (elNoAnggotaInput) elNoAnggotaInput.value = "0";
+      const elInputNo = document.getElementById("tx_input_nomor");
+      if (elInputNo) elInputNo.value = "";
     }
   },
 
@@ -3754,11 +3954,11 @@ const LogistikModule = {
 
   calcMultiTxPreview: function() {
     const feedItems = [
-      { id: "mf_a20_ratio", price: 4200 },
-      { id: "mf_a18_sub", price: 3900 },
-      { id: "magnesium", price: 30000 },
-      { id: "dcp", price: 25000 },
-      { id: "mf_a20_non", price: 4500 }
+      { id: "mf_a20_ratio", defaultPrice: 4200 },
+      { id: "mf_a18_sub", defaultPrice: 3900 },
+      { id: "magnesium", defaultPrice: 30000 },
+      { id: "dcp", defaultPrice: 25000 },
+      { id: "mf_a20_non", defaultPrice: 4500 }
     ];
 
     let totalKg = 0;
@@ -3767,8 +3967,10 @@ const LogistikModule = {
     feedItems.forEach(item => {
       // FIX LOG-B64: Gunakan parseNum aman koma/titik desimal
       const qty = this.parseNum(document.getElementById(`tx_qty_${item.id}`)?.value);
+      const priceInput = this.parseNum(document.getElementById(`tx_price_${item.id}`)?.value);
+      const price = priceInput > 0 ? priceInput : item.defaultPrice;
       totalKg += qty;
-      totalRp += (qty * item.price);
+      totalRp += (qty * price);
     });
 
     const elKg = document.getElementById("tx_total_kg_preview");
@@ -3986,19 +4188,21 @@ const LogistikModule = {
     }
 
     const feedConfigs = [
-      { id: "mf_a20_ratio", name: "MF A20 RATIO", price: 4200 },
-      { id: "mf_a18_sub", name: "MF. A18 AGGT SUB", price: 3900 },
-      { id: "magnesium", name: "MAGNESIUM", price: 30000 },
-      { id: "dcp", name: "DCP", price: 25000 },
-      { id: "mf_a20_non", name: "MF A20 NON RATIO", price: 4500 }
+      { id: "mf_a20_ratio", name: "MF A20 RATIO", defaultPrice: 4200 },
+      { id: "mf_a18_sub", name: "MF. A18 AGGT SUB", defaultPrice: 3900 },
+      { id: "magnesium", name: "MAGNESIUM", defaultPrice: 30000 },
+      { id: "dcp", name: "DCP", defaultPrice: 25000 },
+      { id: "mf_a20_non", name: "MF A20 NON RATIO", defaultPrice: 4500 }
     ];
 
     const selectedFeeds = [];
     feedConfigs.forEach(fc => {
       // FIX LOG-B64: Gunakan parseNum aman koma/titik desimal
       const qty = this.parseNum(document.getElementById(`tx_qty_${fc.id}`)?.value);
+      const priceInput = this.parseNum(document.getElementById(`tx_price_${fc.id}`)?.value);
+      const price = priceInput > 0 ? priceInput : fc.defaultPrice;
       if (qty > 0) {
-        selectedFeeds.push({ name: fc.name, qty: qty, price: fc.price, total_rp: qty * fc.price });
+        selectedFeeds.push({ name: fc.name, qty: qty, price: price, total_rp: qty * price });
       }
     });
 
@@ -4406,6 +4610,7 @@ const LogistikModule = {
     let tTKg = 0, tTRp = 0, tPKg = 0, tPRp = 0, tIKg = 0, tIRp = 0, tBKg = 0, tBRp = 0, tTotKg = 0, tTotRp = 0;
 
     let rowsHtml = "";
+    let rowNum = 0;
     sec2.forEach(it => {
       const tKg = Number(it.tunai_kg) || 0;
       const tH = tKg > 0 ? (Number(it.tunai_harga) || 0) : 0;
@@ -4422,15 +4627,20 @@ const LogistikModule = {
       const totKg = Number(it.total_kg) || (tKg + pKg + iKg + bKg);
       const totRp = Number(it.total_rp) || (tRp + pRp + iRp + bRp);
 
+      // Akumulasi total dulu (termasuk baris nol) agar angka grand total tidak berubah
       tTKg += tKg; tTRp += tRp;
       tPKg += pKg; tPRp += pRp;
       tIKg += iKg; tIRp += iRp;
       tBKg += bKg; tBRp += bRp;
       tTotKg += totKg; tTotRp += totRp;
 
+      // FIX: Sembunyikan baris yang total_kg = 0 DAN total_rp = 0 (tidak ada penjualan)
+      if (totKg === 0 && totRp === 0) return;
+      rowNum++;
+
       rowsHtml += `
         <tr>
-          <td>${it.no}</td>
+          <td>${rowNum}</td>
           <td>${it.nama || ''}</td>
           <td>${this.fmtNumExcel(tKg)}</td>
           <td>${this.fmtRpExcel(tH)}</td>
@@ -4525,6 +4735,7 @@ const LogistikModule = {
         <tr>
           <td>${it.no}</td>
           <td>${it.nama || ''}</td>
+          <td>${it.supplier || 'PT Nestle Indonesia'}</td>
           <td>${this.fmtNumExcel(kg)}</td>
           <td>${this.fmtRpExcel(hg)}</td>
           <td>${this.fmtRpExcel(rp)}</td>
@@ -4536,11 +4747,12 @@ const LogistikModule = {
       <table>
         <thead>
           <tr>
-            <th colspan="5" style="font-weight:bold; font-size:14pt;">III. PEMBELIAN MAKANAN TERNAK — PERIODE ${this.selectedMonth} ${this.selectedYear}</th>
+            <th colspan="6" style="font-weight:bold; font-size:14pt;">III. PEMBELIAN MAKANAN TERNAK — PERIODE ${this.selectedMonth} ${this.selectedYear}</th>
           </tr>
           <tr>
             <th>NO</th>
             <th>NAMA PAKAN</th>
+            <th>SUPPLIER</th>
             <th>VOLUME (KG)</th>
             <th>HARGA BELI (RP)</th>
             <th>TOTAL (RP)</th>
@@ -4776,7 +4988,7 @@ const LogistikModule = {
     const monthData = this.getPreparedMonthData();
     if (!monthData) return;
     const htmlStr = this.buildHtmlSec3(monthData);
-    const colWidths = [6, 30, 16, 16, 20];
+    const colWidths = [6, 30, 24, 16, 16, 20];
     const ws = this.buildSheetFromHtml(htmlStr, colWidths, "1E40AF", "1E3A8A", "DBEAFE");
 
     const wb = XLSX.utils.book_new();
@@ -4823,7 +5035,7 @@ const LogistikModule = {
     // --- SHEET 3: SEKSI III ---
     const ws3 = this.buildSheetFromHtml(
       this.buildHtmlSec3(monthData),
-      [6, 30, 16, 16, 20],
+      [6, 30, 24, 16, 16, 20],
       "1E40AF", "1E3A8A", "DBEAFE"
     );
     XLSX.utils.book_append_sheet(wb, ws3, "III. Pembelian Pakan");

@@ -3892,14 +3892,6 @@ const DANAMULYA_MASTER_PETERNAK_DEFAULT = [
     "kategori": "NON_RASIO"
   },
   {
-    "id": "P-NR-98",
-    "kode": "NR-0",
-    "nomor_anggota": "0",
-    "nama": "Peternak Mandiri Malang",
-    "alamat": "MALANG",
-    "kategori": "NON_RASIO"
-  },
-  {
     "id": "P-NR-99",
     "kode": "NR-0",
     "nomor_anggota": "0",
