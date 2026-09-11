@@ -1826,6 +1826,10 @@ const LogistikModule = {
     const peternakLabel = session ? session.namaLengkap : 'Petugas Logistik';
     const roleLabel = session ? session.role.toUpperCase() : 'LOGISTIK';
 
+    const initialDateStr = this.getLocalDateStr();
+    const initialDay = parseInt(initialDateStr.split("-")[2], 10) || 1;
+    const initialPeriode = (initialDay <= 10) ? "P1" : (initialDay <= 20 ? "P2" : "P3");
+
     return `
 <div class="ma-page" id="maPage">
 
@@ -2178,9 +2182,9 @@ const LogistikModule = {
           <div class="ma-field">
             <select class="ma-select" name="jadwal_penagihan" id="tx_jadwal_penagihan"
               onchange="LogistikModule.onJadwalSelectChange(this.value)" required>
-              <option id="opt_p1" value="P1">Potongan Rutin P1 (Tgl 1-10 | Tagih Tgl 5)</option>
-              <option id="opt_p2" value="P2">Potongan Rutin P2 (Tgl 11-20 | Tagih Tgl 15)</option>
-              <option id="opt_p3" value="P3">Potongan Rutin P3 (Tgl 21-Akhir | Tagih Tgl 25)</option>
+              <option id="opt_p1" value="P1" ${initialPeriode === 'P1' ? 'selected' : ''}>Potongan Rutin P1 (Tgl 1-10 | Tagih Tgl 15)</option>
+              <option id="opt_p2" value="P2" ${initialPeriode === 'P2' ? 'selected' : ''}>Potongan Rutin P2 (Tgl 11-20 | Tagih Tgl 25)</option>
+              <option id="opt_p3" value="P3" ${initialPeriode === 'P3' ? 'selected' : ''}>Potongan Rutin P3 (Tgl 21-Akhir | Tagih Tgl 5)</option>
               <option id="opt_tunai" value="TUNAI">TUNAI (Uang Rupiah)</option>
               <option id="opt_prog_bunting" value="PROGRAM_BUNTING">Program Bunting (Inseminasi Buatan)</option>
               <option id="opt_piutang" value="PIUTANG">PIUTANG (Tunggakan Susu Lewat P3)</option>
@@ -2280,9 +2284,9 @@ const LogistikModule = {
           const kodeDisplay = tx.kode_r_nr || (tx.kategori_pembeli === 'RASIO' ? 'R-' + tx.nomor_anggota : 'NR-0');
           const initial = (tx.nama_peternak || 'P').trim().charAt(0).toUpperCase();
           const isNonRasio = tx.kategori_pembeli === 'NON_RASIO';
-          const isBunting = tx.is_program_bunting || tx.metode_pembayaran === 'PROGRAM_BUNTING';
-          const isPiutang = tx.metode_pembayaran === 'PIUTANG';
-          const isTunai = tx.metode_pembayaran === 'TUNAI';
+          const isBunting = tx.is_program_bunting || tx.metode_pembayaran === 'PROGRAM_BUNTING' || tx.jadwal_penagihan === 'PROGRAM_BUNTING';
+          const isPiutang = tx.is_piutang || tx.metode_pembayaran === 'PIUTANG' || tx.jadwal_penagihan === 'PIUTANG';
+          const isTunai = tx.metode_pembayaran === 'TUNAI' || tx.jadwal_penagihan === 'TUNAI';
           let badgeClass = 'p1';
           let badgeText = tx.jadwal_penagihan || 'P1';
           if (isPiutang)      { badgeClass = 'piutang'; badgeText = 'PIUTANG'; }
@@ -4147,9 +4151,11 @@ const LogistikModule = {
     const wkt = document.getElementById("tx_waktu")?.value || new Date().toTimeString().slice(0, 5);
     const timestampStr = `${tgl}T${wkt}`;
 
-    let jadwalVal = document.getElementById("tx_jadwal_penagihan")?.value || "P1";
+    const txDay = parseInt(tgl.split('-')[2], 10) || 1;
+    const defaultPeriode = (txDay <= 10) ? "P1" : (txDay <= 20 ? "P2" : "P3");
+    let jadwalVal = document.getElementById("tx_jadwal_penagihan")?.value || defaultPeriode;
     let metode = "POTONGAN_RUTIN";
-    let jadwalPenagihan = "P1";
+    let jadwalPenagihan = defaultPeriode;
     let isPiutang = (jadwalVal === "PIUTANG");
     let isBunting = (jadwalVal === "PROGRAM_BUNTING");
 
