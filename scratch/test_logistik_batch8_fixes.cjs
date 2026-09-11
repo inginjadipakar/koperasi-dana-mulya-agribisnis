@@ -162,12 +162,12 @@ console.log('\n[LOG-B55] handleSaveSec3: record has transaction_id');
   assert(record.transaction_id === record.purchase_id, 'IDs match');
 }
 
-// LOG-B49: SheetJS raw option
-console.log('\n[LOG-B49] buildSheetFromHtml: raw:false option');
+// LOG-B49: SheetJS raw:true option to prevent 4.200 turning into 4.2 decimal
+console.log('\n[LOG-B49] buildSheetFromHtml: raw:true option');
 {
   const fs = require('fs');
   const src = fs.readFileSync('js/logistik.js', 'utf8');
-  assert(src.includes('raw: false'), 'raw: false present');
+  assert(src.includes('raw: true'), 'raw: true present');
   assert(src.includes("defval: ''"), 'defval option present');
 }
 

@@ -4476,6 +4476,18 @@ const LogistikModule = {
             border: borderHeader
           };
         } else if (isTotalRow) {
+          // Parse angka pada total row jika ada
+          if (!/^\d{4}-\d{2}-\d{2}$/.test(valStr) && !/^\d{2}:\d{2}$/.test(valStr) && !/^[A-Za-z]/.test(valStr) && valStr !== "✓" && valStr !== "-") {
+            if (/^\d{1,3}(\.\d{3})+$/.test(valStr)) {
+              cell.t = "n";
+              cell.v = parseInt(valStr.replace(/\./g, ""), 10);
+              cell.z = "#,##0";
+            } else if (/^\d+$/.test(valStr)) {
+              cell.t = "n";
+              cell.v = parseInt(valStr, 10);
+              cell.z = "#,##0";
+            }
+          }
           cell.s = {
             fill: { fgColor: { rgb: tBg } },
             font: { name: "Calibri", sz: 11, bold: true, color: { rgb: "0F172A" } },
@@ -4484,12 +4496,32 @@ const LogistikModule = {
           };
         } else {
           // Data Row
+          let isNumCell = false;
+          if (!/^\d{4}-\d{2}-\d{2}$/.test(valStr) && !/^\d{2}:\d{2}$/.test(valStr) && !/^[A-Za-z]/.test(valStr) && valStr !== "✓" && valStr !== "-") {
+            if (/^\d{1,3}(\.\d{3})+$/.test(valStr)) {
+              cell.t = "n";
+              cell.v = parseInt(valStr.replace(/\./g, ""), 10);
+              cell.z = "#,##0";
+              isNumCell = true;
+            } else if (/^\d+$/.test(valStr)) {
+              cell.t = "n";
+              cell.v = parseInt(valStr, 10);
+              cell.z = "#,##0";
+              isNumCell = true;
+            } else if (/^\d{1,3}(\.\d{3})*,\d+$/.test(valStr)) {
+              cell.t = "n";
+              cell.v = parseFloat(valStr.replace(/\./g, "").replace(",", "."));
+              cell.z = "#,##0.0";
+              isNumCell = true;
+            }
+          }
+
           const isEven = (R % 2 === 0);
           const bg = isEven ? "F8FAFC" : "FFFFFF";
           let align = "left";
           if (C === 0 || valStr === "✓" || valStr === "-" || /^\d{4}-\d{2}-\d{2}$/.test(valStr) || /^\d{2}:\d{2}$/.test(valStr) || valStr === "P1" || valStr === "P2" || valStr === "P3") {
             align = "center";
-          } else if (/^[\d\.]+$/.test(valStr) || (!isNaN(Number(valStr.replace(/\./g, ""))) && valStr !== "")) {
+          } else if (isNumCell || /^[\d\.]+$/.test(valStr) || (!isNaN(Number(valStr.replace(/\./g, ""))) && valStr !== "")) {
             align = "right";
           }
 
@@ -4509,7 +4541,7 @@ const LogistikModule = {
     div.innerHTML = htmlStr;
     const table = div.querySelector("table");
     // FIX LOG-B49: raw:true mencegah SheetJS memparsing '4.200' (Rp ribuan) menjadi 4.2 desimal
-    const ws = XLSX.utils.table_to_sheet(table, { raw: false, defval: '' });
+    const ws = XLSX.utils.table_to_sheet(table, { raw: true, defval: '' });
     if (colWidths && Array.isArray(colWidths)) {
       ws["!cols"] = colWidths.map(w => ({ wch: w }));
     }
